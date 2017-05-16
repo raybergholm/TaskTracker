@@ -1,5 +1,5 @@
 <mvc:View
-	controllerName="com.tasky.controller.TaskDetail"
+	controllerName="com.tasky.controller.StatusOverview"
 	xmlns="sap.m"
 	xmlns:core="sap.ui.core"
 	xmlns:mvc="sap.ui.core.mvc">

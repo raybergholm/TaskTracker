@@ -22,12 +22,14 @@ sap.ui.define([
 
         onUpdateFinished: function(evt) {
             if(evt.getSource()){
-                evt.getSource().setBusy(true);
+                evt.getSource().setBusy(false);
             }
         },
 
         onPressNewTask: function(evt) {
             // user wants a new task
+
+            var newTask = new Task();
         },
 
         onPressDeleteTask: function(evt) {

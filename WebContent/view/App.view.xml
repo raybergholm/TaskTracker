@@ -3,14 +3,34 @@
 	xmlns="sap.m"
 	xmlns:core="sap.ui.core"
 	xmlns:mvc="sap.ui.core.mvc">
-    <SplitApp id="ProductCatalogueDemo"
-        initialMaster="TaskList"
-        initialDetail="TaskDetail">
-        <masterPages>
-            <mvc:XMLView id="MyTaskList" viewName="com.cg.view.MyTaskList" />
-        </masterPages>
-        <detailPages>
-            <mvc:XMLView id="TaskDetail" viewName="com.cg.view.TaskDetail" />
-        </detailPages>
-    </SplitApp>
+	<Page
+		title="{i18n>GENERAL.APP.MAINTITLE}">
+		<headerContent>
+			<Button id="taskOverviewButton"
+				icon="sap-icon://task"
+				tooltip="{i18n>GENERAL.APP.TASKOVERVIEW}"
+				press="onPressTaskOverview"
+				iconFirst="true" />
+			<Button id="statusOverviewButton"
+				icon="sap-icon://bookmark"
+				press="onPressStatusOverview"
+				tooltip="{i18n>GENERAL.APP.STATUSOVERVIEW}"
+				iconFirst="true" />
+			
+			<Button id="settingsButton"
+				icon="sap-icon://action-settings"
+				press="onPressSettings"
+				tooltip="{i18n>GENERAL.APP.SETTINGS}"
+				iconFirst="true" />
+		</headerContent>
+	    <App id="TaskyApp"
+	        initialPage="TaskOverview">
+	        <pages>
+	            <mvc:XMLView id="TaskOverview"
+					viewName="com.tasky.view.TaskOverview" />
+	            <mvc:XMLView id="StatusOverview"
+					viewName="com.tasky.view.StatusOverview" />
+	        </pages>
+	    </App>
+	</Page>
 </core:View>

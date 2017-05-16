@@ -24,12 +24,12 @@
 			updateFinished="onUpdateFinished">
 			<items>
 				<ObjectListItem type="Active">
+					<firstStatus>
+						<ObjectStatus text="{status}" />
+					</firstStatus>
 					<attributes>
-						<ObjectAttribute title="{i18n>TASKS.FULLNAME}" text="{FirstName} {Surname}" />
-						<ObjectAttribute title="{i18n>TASKS.FIRSTNAME}" text="{FirstName}" />
-						<ObjectAttribute title="{i18n>TASKS.SURNAME}" text="{Surname}" />
-		          		<ObjectAttribute title="{i18n>TASKS.COUNTRY}" text="{Country}" />
-		          		<ObjectAttribute title="{i18n>TASKS.PERSONALNOTE}" text="{PersonalNote}" />
+						<ObjectAttribute title="{i18n>TASK.TITLE}" text="{title}" />
+						<ObjectAttribute title="{i18n>TASK.DESCRIPTION}" text="{description}" />
 		        	</attributes>
 				</ObjectListItem>
 			</items>
@@ -39,12 +39,12 @@
 			<Bar>
                 <contentMiddle>
     				<Button id="newTaskButton"
-                        icon="sap://create-form"
+                        icon="sap-icon://create-form"
                         text="{i18n>TASKLIST.NEWTASK}"
-                        type="Accept"
+                        type="Emphasized"
                         press="onPressNewTask" />
                     <Button id="deleteTaskButton"
-                        icon="sap://delete"
+                        icon="sap-icon://delete"
                         text="{i18n>TASKLIST.DELETETASK}"
                         type="Reject"
                         press="onPressDeleteTask" />

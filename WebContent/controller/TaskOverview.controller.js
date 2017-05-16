@@ -3,7 +3,7 @@ sap.ui.define([
 ], function(BaseController){
     "use strict";
 
-    return BaseController.extend("com.tasky.controller.Overview", {
+    return BaseController.extend("com.tasky.controller.TaskOverview", {
         // Extend this controller as required
     });
 });
