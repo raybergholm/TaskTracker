@@ -1,0 +1,55 @@
+<mvc:View
+	controllerName="com.tasky.controller.MyTaskList"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc">
+	<Page showHeader="false">
+		<subHeader>
+			<Bar>
+				<contentMiddle>
+					<SearchField id="taskSearchField"
+						placeholder="{i18n>TASKSEARCH.PLACEHOLDER}"
+						liveChange="onLiveChangeTaskSearch" />
+				</contentMiddle>
+			</Bar>
+		</subHeader>
+
+		<List id="taskList"
+			items="{/Tasks}"
+			mode="SingleSelectMaster"
+			includeItemInSelection="true"
+			noDataText="{i18n>POListEmpty}"
+			itemPress="onSelectTask"
+			updatedStarted="onUpdateStarted"
+			updateFinished="onUpdateFinished">
+			<items>
+				<ObjectListItem type="Active">
+					<attributes>
+						<ObjectAttribute title="{i18n>TASKS.FULLNAME}" text="{FirstName} {Surname}" />
+						<ObjectAttribute title="{i18n>TASKS.FIRSTNAME}" text="{FirstName}" />
+						<ObjectAttribute title="{i18n>TASKS.SURNAME}" text="{Surname}" />
+		          		<ObjectAttribute title="{i18n>TASKS.COUNTRY}" text="{Country}" />
+		          		<ObjectAttribute title="{i18n>TASKS.PERSONALNOTE}" text="{PersonalNote}" />
+		        	</attributes>
+				</ObjectListItem>
+			</items>
+		</List>
+
+        <footer>
+			<Bar>
+                <contentMiddle>
+    				<Button id="newTaskButton"
+                        icon="sap://create-form"
+                        text="{i18n>TASKLIST.NEWTASK}"
+                        type="Accept"
+                        press="onPressNewTask" />
+                    <Button id="deleteTaskButton"
+                        icon="sap://delete"
+                        text="{i18n>TASKLIST.DELETETASK}"
+                        type="Reject"
+                        press="onPressDeleteTask" />
+    			</contentMiddle>
+            </Bar>
+		</footer>
+	</Page>
+</mvc:View>

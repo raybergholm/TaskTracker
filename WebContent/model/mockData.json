@@ -1,0 +1,33 @@
+{
+	"Tasks": [
+		{
+			"id": "",
+			"status": "",
+			"title": "",
+			"description": "",
+			"dateCreated": "",
+			"dateLastUpdated": "",
+			"ownerId": "",
+			"comments": []
+		}
+	],
+
+	"Users": [
+		{
+			"id": "",
+			"icon": "",
+			"username": "",
+			"lastOnline": ""
+		}
+	],
+
+	"Comments": [
+		{
+			"id": "",
+			"dateCreated": "",
+			"dateLastUpdated": "",
+			"ownerId": "",
+			"text": "",
+		}
+	]
+ }

@@ -1,0 +1,37 @@
+{
+	"Languages": [
+		{"Key": "da", "Name": "Dansk"},
+		{"Key": "de", "Name": "Deutsch"},
+		{"Key": "en", "Name": "English"},
+		{"Key": "es", "Name": "Español"},
+		{"Key": "fi", "Name": "Suomi"},
+		{"Key": "fr", "Name": "Français"},
+		{"Key": "it", "Name": "Italiano"},
+		{"Key": "ja", "Name": "日本語"},
+		{"Key": "ko", "Name": "한국어"},
+		{"Key": "no", "Name": "Norsk"},
+		{"Key": "pt", "Name": "Português"},
+		{"Key": "ru", "Name": "Русский"},
+		{"Key": "sv", "Name": "Svenska"},
+		{"Key": "zh", "Name": "中文"}
+	],
+	
+	"CountryBindings": [
+		{"Code": "uk", "EnName": "United Kingdom", "LocalName": "United Kingdom"},
+		{"Code": "de", "EnName": "Germany", "LocalName": "Deutschland"},
+		{"Code": "fr", "EnName": "France", "LocalName": "France"},
+		{"Code": "es", "EnName": "Spain", "LocalName": "España"},
+		{"Code": "pt", "EnName": "Portugal", "LocalName": "Portugal"},
+		{"Code": "it", "EnName": "Italy", "LocalName": "Italia"},
+		{"Code": "nl", "EnName": "Netherlands", "LocalName": "Nederland"},
+		{"Code": "at", "EnName": "Austria", "LocalName": "Österreich"},
+		{"Code": "se", "EnName": "Sweden", "LocalName": "Sverige"},
+		{"Code": "no", "EnName": "Norway", "LocalName": "Norge"},
+		{"Code": "dk", "EnName": "Denmark", "LocalName": "Danmark"},
+		{"Code": "fi", "EnName": "Finland", "LocalName": "Suomi"},
+		
+		{"Code": "us", "EnName": "United States", "LocalName": "United States"},
+		{"Code": "ca", "EnName": "Canada", "LocalName": "Canada"},
+		{"Code": "mx", "EnName": "Mexico", "LocalName": "México"}
+	]
+ }

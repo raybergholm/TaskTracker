@@ -1,0 +1,16 @@
+<core:View
+	controllerName="com.tasky.controller.App"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc">
+    <SplitApp id="ProductCatalogueDemo"
+        initialMaster="TaskList"
+        initialDetail="TaskDetail">
+        <masterPages>
+            <mvc:XMLView id="MyTaskList" viewName="com.cg.view.MyTaskList" />
+        </masterPages>
+        <detailPages>
+            <mvc:XMLView id="TaskDetail" viewName="com.cg.view.TaskDetail" />
+        </detailPages>
+    </SplitApp>
+</core:View>
