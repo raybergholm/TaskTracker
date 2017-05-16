@@ -3,12 +3,13 @@
 // Just assert that anything going into this.dataStorage implements saveData() and fetchData() and everything will work fine.
 
 sap.ui.define([
-    "com/cg/models/LocalDataStorage"
-], function(LocalDataStorage) {
+    "sap/ui/base/Object",
+    "./LocalStorageInterface"
+], function(BaseSapObject, DataStorageInterface) {
 	"use strict";
 
-    var dataPersistenceInterface = {
-        _dataStorage: new LocalDataStorage(),
+    var dataPersistenceInterface = BaseSapObject.extend("com.tasky.interface.DataPersistenceInterface", {
+        _dataStorage: new DataStorageInterface(),
 
         saveData: function(key, data) {
             return this._dataStorage.saveData(key, data);
@@ -17,7 +18,7 @@ sap.ui.define([
         fetchData: function(key) {
             return this._dataStorage.fetchData(key);
         }
-    };
+    });
 
     return dataPersistenceInterface;
 });

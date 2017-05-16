@@ -1,13 +1,16 @@
 sap.ui.define([
-    "jQuery/sap/storage"
-], function(Storage) {
+    "sap/ui/base/Object"
+], function(BaseSapObject) {
 	"use strict";
 
-    var localStorageInterface = {
+    var localStorageInterface = BaseSapObject.extend("com.tasky.interface.LocalStorageInterface", {
+        _storage: null,
+
         init: function() {
-            if(Storage.isSupported()) {
+            if(jQuery.sap.storage.isSupported()) {
                 console.log("LocalStorageInterface init OK");
-            } else {
+                this._storage = jQuery.sap.storage();
+            }else {
                 console.error("Local Storage unavailable");
             }
         },
@@ -17,13 +20,13 @@ sap.ui.define([
                 data = JSON.stringify(data);
             }
 
-            return Storage.put(key, data);
+            return this._storage.put(key, data);
         },
 
         fetchData: function(key) {
-            return this.dataStorage.get(_localStorageKey);
+            return this._storage.get(_localStorageKey);
         }
-    };
+    });
 
     return localStorageInterface;
 });
