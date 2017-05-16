@@ -3,7 +3,7 @@ sap.ui.define([
     "sap/ui/core/UIComponent",
     "sap/ui/model/resource/ResourceModel",
     "sap/ui/model/json/JSONModel",
-    "com.tasky.interface.DataPersistenceInterface"
+    "./interface/DataPersistenceInterface"
 ], function(jQuery, UIComponent, ResourceModel, JSONModel, DataPersistenceInterface) {
 	"use strict";
 
