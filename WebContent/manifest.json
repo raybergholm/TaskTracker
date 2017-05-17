@@ -1,3 +1,51 @@
 {
-    
+    "_version": "0.1.0",
+
+    "sap.ui5": {
+        "models": {
+
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "viewPath": "com.tasky.view",
+                "controlId": "Tasky--App",
+                "controlAggregation": "pages"
+            },
+            "routes": [
+                {
+                    "pattern": "",
+                    "name": "default",
+                    "target": "TaskOverview"
+                },
+                {
+                    "pattern": "TaskOverview",
+                    "name": "TaskOverview",
+                    "target": "TaskOverview"
+                },
+                {
+                    "pattern": "StatusOverview",
+                    "name": "StatusOverview",
+                    "target": "StatusOverview"
+                },
+                {
+                    "pattern": "Settings",
+                    "name": "Settings",
+                    "target": "Settings"
+                }
+            ],
+            "targets": {
+                "TaskOverview": {
+                    "viewName": "TaskOverview"
+                },
+                "StatusOverview": {
+                    "viewName": "StatusOverview"
+                },
+                "Settings": {
+                    "viewName": "Settings"
+                }
+            }
+        }
+    }
 }

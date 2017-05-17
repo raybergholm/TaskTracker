@@ -1,22 +1,33 @@
 sap.ui.define([
-    "jquery.sap.global", // TODO. eh, is the documentation wrong? seems to be jQuery.sap
+    "jquery.sap.global",
     "sap/ui/core/UIComponent",
     "sap/ui/model/resource/ResourceModel",
     "sap/ui/model/json/JSONModel",
     "./interface/DataPersistenceInterface"
-], function(jQuery, UIComponent, ResourceModel, JSONModel, DataPersistenceInterface) {
+], function(jQuery, BaseUIComponent, ResourceModel, JSONModel, DataPersistenceInterface) {
 	"use strict";
 
-	var Component = UIComponent.extend("com.tasky.Component", {
+	var Component = BaseUIComponent.extend("com.tasky.Component", {
         _MOCK_LOCAL_MODEL_JSON: "/mockData.json",
         _LANGUAGE_MODEL_JSON: "/languages.json",
 
-		metadata : {
-            rootView: "com.tasky.view.App"
+        metadata : {
+            manifest: "json",
 		},
 
-        init: function(){
-            UIComponent.prototype.init.apply(this, arguments);
+        createContent: function() {
+            return sap.ui.view({
+    			id: "Tasky",
+    			viewName: "com.tasky.view.Root",
+    			type: sap.ui.core.mvc.ViewType.XML,
+    			viewData: {
+    				component : this
+    			}
+    		});
+        },
+
+        init: function() {
+            BaseUIComponent.prototype.init.apply(this, arguments);
 
             var i18nModel = new ResourceModel({
     			bundleName: "com.tasky.localisation.texts"
@@ -32,6 +43,14 @@ sap.ui.define([
             console.log(langModel);
             console.log(localModel);
 
+            if(this.getRouter()){
+                try{
+                    this.getRouter().initialize();
+
+                }catch(ex){
+                    console.error(ex);
+                }
+            }
             document.title = i18nModel.getProperty("GENERAL.PAGE.TITLE");
         }
 	});
