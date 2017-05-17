@@ -3,9 +3,9 @@ sap.ui.define([
 ], function(BaseController){
     "use strict";
 
-    return BaseController.extend("com.tasky.controller.StatusOverview", {
+    return BaseController.extend("com.tasky.controller.UserSettings", {
         // Extend this controller as required
 
-        
+
     });
 });

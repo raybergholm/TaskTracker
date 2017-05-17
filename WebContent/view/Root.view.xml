@@ -19,7 +19,7 @@
 			<Button id="settingsButton"
 				icon="sap-icon://action-settings"
 				press="onPressSettings"
-				tooltip="{i18n>GENERAL.APP.SETTINGS}"
+				tooltip="{i18n>GENERAL.APP.USERSETTINGS}"
 				iconFirst="true" />
 		</headerContent>
 
