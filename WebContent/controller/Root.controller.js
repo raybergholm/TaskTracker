@@ -17,7 +17,7 @@ sap.ui.define([
             MessageToast.show("Task overview button pressed");
 
             if(this._router){
-                this.getOwnerComponent().getRouter().navTo("TaskOverview");
+                this.getOwnerComponent().getRouter().navTo("Tasks");
             }else {
                 console.error("Router reference not found");
             }
@@ -27,7 +27,7 @@ sap.ui.define([
             MessageToast.show("Status overview button pressed");
 
             if(this._router){
-                this._router.navTo("StatusOverview");
+                this._router.navTo("Overview");
             }else {
                 console.error("Router reference not found");
             }
@@ -37,7 +37,7 @@ sap.ui.define([
             MessageToast.show("Settings button pressed");
 
             if(this._router){
-                this._router.navTo("Settings");
+                this._router.navTo("UserSettings");
             }else {
                 console.error("Router reference not found");
             }

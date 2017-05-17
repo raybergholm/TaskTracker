@@ -17,33 +17,33 @@
                 {
                     "pattern": "",
                     "name": "default",
-                    "target": "TaskOverview"
+                    "target": "Tasks"
                 },
                 {
-                    "pattern": "TaskOverview",
-                    "name": "TaskOverview",
-                    "target": "TaskOverview"
+                    "pattern": "Tasks",
+                    "name": "Tasks",
+                    "target": "Tasks"
                 },
                 {
-                    "pattern": "StatusOverview",
-                    "name": "StatusOverview",
-                    "target": "StatusOverview"
+                    "pattern": "Overview",
+                    "name": "Overview",
+                    "target": "Overview"
                 },
                 {
-                    "pattern": "Settings",
-                    "name": "Settings",
-                    "target": "Settings"
+                    "pattern": "UserSettings",
+                    "name": "UserSettings",
+                    "target": "UserSettings"
                 }
             ],
             "targets": {
-                "TaskOverview": {
+                "Tasks": {
                     "viewName": "TaskOverview"
                 },
-                "StatusOverview": {
+                "Overview": {
                     "viewName": "StatusOverview"
                 },
-                "Settings": {
-                    "viewName": "Settings"
+                "UserSettings": {
+                    "viewName": "UserSettings"
                 }
             }
         }
