@@ -1,48 +1,48 @@
 {
-	"Tasks": [
+    "Tasks" : [
 		{
-			"id": "0",
-			"status": "completed",
-			"icon": "sap-icon://accept",
-			"title": "Dummy task",
-			"description": "Lorem ipsum",
-			"dateCreated": "2017-05-16T12:00+02:00",
-			"dateLastUpdated": "2017-05-16T14:10+02:00",
-			"ownerId": "1",
-			"comments": ["0","2"]
-		}
+	        "id" : "0",
+	        "status" : "completed",
+	        "icon" : "sap-icon://accept",
+	        "title" : "Dummy task",
+	        "description" : "Lorem ipsum",
+	        "dateCreated" : "2017-05-16T12:00+02:00",
+	        "dateLastUpdated" : "2017-05-16T14:10+02:00",
+	        "ownerId" : "1",
+	        "comments" : ["0", "2"]
+	    }
 	],
 
-	"Users": [
+    "Users" : [
 		{
-			"id": "0",
-			"icon": "",
-			"username": "Bob Builder",
-			"lastOnline": "2017-05-16T14:10+02:00"
-		}
+	        "id" : "0",
+	        "icon" : "",
+	        "username" : "Bob Builder",
+	        "lastOnline" : "2017-05-16T14:10+02:00"
+	    }
 	],
 
-	"Comments": [
+    "Comments" : [
 		{
-			"id": "0",
-			"dateCreated": "2017-05-16T12:00+02:00",
-			"dateLastUpdated": "2017-05-16T12:00+02:00",
-			"ownerId": "0",
-			"text": "this is a comment look at meee"
-		},
-		{
-			"id": "2",
-			"dateCreated": "2017-05-16T12:03+02:00",
-			"dateLastUpdated": "2017-05-16T12:03+02:00",
-			"ownerId": "0",
-			"text": "this should not be shown"
-		},
-		{
-			"id": "2",
-			"dateCreated": "2017-05-16T14:03+02:00",
-			"dateLastUpdated": "2017-05-16T14:10+02:00",
-			"ownerId": "0",
-			"text": "this was edited"
-		}
-	]
- }
+            "id" : "0",
+            "dateCreated" : "2017-05-16T12:00+02:00",
+            "dateLastUpdated" : "2017-05-16T12:00+02:00",
+            "ownerId" : "0",
+            "text" : "this is a comment look at meee"
+        },
+        {
+            "id" : "2",
+            "dateCreated" : "2017-05-16T12:03+02:00",
+            "dateLastUpdated" : "2017-05-16T12:03+02:00",
+            "ownerId" : "0",
+            "text" : "this should not be shown"
+        },
+        {
+            "id" : "2",
+            "dateCreated" : "2017-05-16T14:03+02:00",
+            "dateLastUpdated" : "2017-05-16T14:10+02:00",
+            "ownerId" : "0",
+            "text" : "this was edited"
+        }
+    ]
+}

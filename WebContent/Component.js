@@ -9,6 +9,7 @@ sap.ui.define([
 
 	var Component = BaseUIComponent.extend("com.tasky.Component", {
         _MOCK_LOCAL_MODEL_JSON: "/mockData.json",
+        _TASK_META_MODEL_JSON: "/taskMetadata.json",
         _LANGUAGE_MODEL_JSON: "/languages.json",
 
         metadata : {
@@ -37,11 +38,14 @@ sap.ui.define([
             var langModel = new JSONModel(jQuery.sap.getModulePath("com.tasky.model") + this._LANGUAGE_MODEL_JSON);
             this.setModel(langModel, "lang");
 
+            var taskMetadataModel = new JSONModel(jQuery.sap.getModulePath("com.tasky.model") + this._TASK_META_MODEL_JSON);
+            this.setModel(taskMetadataModel, "taskMetadata");
+
+            // TODO: taskMetadataModel has the /TaskStatuses array which contains values to be translated by the i18nModel.
+            // But while in this method, nothing has been loaded, so where can we bind & translate the values?
+
             var localModel = new JSONModel(jQuery.sap.getModulePath("com.tasky.model") + this._MOCK_LOCAL_MODEL_JSON);
             this.setModel(localModel);
-
-            console.log(langModel);
-            console.log(localModel);
 
             if(this.getRouter()){
                 try{

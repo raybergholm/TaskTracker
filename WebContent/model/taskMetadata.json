@@ -1,0 +1,24 @@
+{
+    "TaskStatuses" : [
+		{
+            "key" : "none",
+            "value" : "TASKSTATUS.NONE"
+        },
+        {
+            "key" : "inprogress",
+            "value" : "TASKSTATUS.INPROGRESS"
+        },
+        {
+            "key" : "intesting",
+            "value" : "TASKSTATUS.INTESTING"
+        },
+        {
+            "key" : "inreview",
+            "value" : "TASKSTATUS.INREVIEW"
+        },
+        {
+            "key" : "completed",
+            "value" : "TASKSTATUS.COMPLETED"
+        }
+    ]
+}

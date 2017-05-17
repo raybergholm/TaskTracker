@@ -5,5 +5,9 @@ sap.ui.define([
 
     return BaseController.extend("com.tasky.controller.TaskDetail", {
         // Extend this controller as required
+        //
+        onCommentPost: function(evt) {
+            console.log(evt);
+        }
     });
 });
