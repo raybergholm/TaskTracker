@@ -23,14 +23,16 @@
 				iconFirst="true" />
 		</headerContent>
 
-	    <App id="App"
-	        initialPage="TaskOverview">
-	        <pages>
-	            <mvc:XMLView id="TaskOverview"
-					viewName="com.tasky.view.TaskOverview" />
-	            <mvc:XMLView id="StatusOverview"
-					viewName="com.tasky.view.StatusOverview" />
-	        </pages>
-	    </App>
+        <SplitApp id="TaskyApp"
+            initialMaster="MyTaskList"
+            initialDetail="TaskDetail">
+            <masterPages>
+                <mvc:XMLView id="MyTaskList" viewName="com.tasky.view.MyTaskList" />
+            </masterPages>
+            <detailPages>
+                <mvc:XMLView id="TaskDetail" viewName="com.tasky.view.TaskDetail" />
+                <mvc:XMLView id="StatusOverview" viewName="com.tasky.view.StatusOverview" />
+            </detailPages>
+        </SplitApp>
 	</Page>
 </core:View>

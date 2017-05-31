@@ -2,8 +2,9 @@
 	controllerName="com.tasky.controller.MyTaskList"
 	xmlns="sap.m"
 	xmlns:core="sap.ui.core"
-	xmlns:mvc="sap.ui.core.mvc">
-	<Page showHeader="false">
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic">
+	<semantic:MasterPage>
 		<subHeader>
 			<Bar>
 				<contentMiddle>
@@ -13,6 +14,13 @@
 				</contentMiddle>
 			</Bar>
 		</subHeader>
+
+		<semantic:addAction>
+			<semantic:AddAction press="onPressNewTask" />
+		</semantic:addAction>
+		<semantic:deleteAction>
+			<semantic:DeleteAction press="onPressDeleteTask" />
+		</semantic:deleteAction>
 
 		<List id="taskList"
 			items="{/Tasks}"
@@ -34,22 +42,5 @@
 				</ObjectListItem>
 			</items>
 		</List>
-
-        <footer>
-			<Bar>
-                <contentMiddle>
-    				<Button id="newTaskButton"
-                        icon="sap-icon://create-form"
-                        text="{i18n>TASKLIST.NEWTASK}"
-                        type="Emphasized"
-                        press="onPressNewTask" />
-                    <Button id="deleteTaskButton"
-                        icon="sap-icon://delete"
-                        text="{i18n>TASKLIST.DELETETASK}"
-                        type="Reject"
-                        press="onPressDeleteTask" />
-    			</contentMiddle>
-            </Bar>
-		</footer>
-	</Page>
+	</semantic:MasterPage>
 </mvc:View>
