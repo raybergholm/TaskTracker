@@ -6,7 +6,8 @@
 	xmlns:semantic="sap.m.semantic"
 	xmlns:layout="sap.ui.layout"
 	xmlns:form="sap.ui.layout.form">
-	<semantic:DetailPage>
+	<semantic:DetailPage
+		title="{i18n>TASKDETAIL.TITLE}">
 
 		<semantic:pagingAction>
 			<PagingButton count="{/Tasks/Count}" positionChange="onChangeTask" />
@@ -66,17 +67,5 @@
 		<FeedInput
 			icon="sap-icon://person-placeholder"
 			post="onCommentPost" />
-
-        <footer>
-			<Bar>
-                <contentRight>
-    				<Button id="saveButton"
-                        icon="sap-icon://save"
-                        text="{i18n>ACTIONS.SAVE}"
-                        type="Accept"
-                        press="onPressSave" />
-    			</contentRight>
-            </Bar>
-		</footer>
 	</semantic:DetailPage>
 </mvc:View>
