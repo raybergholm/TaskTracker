@@ -63,8 +63,13 @@
         }
     },
     "resources": {
-        "js": [{
-            "uri": "moment.min.js"
-        }]
+        "js": [
+            {
+                "uri": "plugins/moment.min.js"
+            },
+            {
+                "uri": "plugins/utils.js"
+            }
+        ]
     },
 }
