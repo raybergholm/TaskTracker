@@ -41,7 +41,7 @@
 				</Select>
 				<Label text="{i18n>TASK.OWNER}" design="Bold" />
 				<Text id="ownerDisplay"
-					text="{/SelectedTask/ownerId}" design="Bold" />
+					text="{/SelectedTask/owner/username}" design="Bold" />
 				<Label text="{i18n>TASK.DATECREATED}" design="Bold" />
 				<DateTimePicker id="dateCreatedField"
 					value="{/SelectedTask/dateCreated}"
@@ -60,7 +60,7 @@
 					noDataText="{i18n>GENERAL.APP.NOCOMMENTS}">
 					<items>
 						<FeedListItem
-							sender="{ownerId}"
+							sender="{owner/username}"
 							icon="sap-icon://person-placeholder"
 							senderPress="onPressCommentOwner"
 							iconPress="onPressCommentIcon"
