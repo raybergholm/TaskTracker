@@ -19,6 +19,16 @@
                 "uri": "model/mockData.json"
             }
         },
+        "resources": {
+            "js": [
+                {
+                    "uri": "plugins/moment.min.js"
+                },
+                {
+                    "uri": "plugins/utils.js"
+                }
+            ]
+        },
         "routing": {
             "config": {
                 "routerClass": "sap.m.routing.Router",
@@ -61,15 +71,5 @@
                 }
             }
         }
-    },
-    "resources": {
-        "js": [
-            {
-                "uri": "plugins/moment.min.js"
-            },
-            {
-                "uri": "plugins/utils.js"
-            }
-        ]
-    },
+    }
 }
