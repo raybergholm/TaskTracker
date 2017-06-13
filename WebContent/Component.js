@@ -148,7 +148,7 @@ sap.ui.define([
 
                     timestamp = new moment(tasks[i].dateLastUpdated);
                     if(timestamp && timestamp.isValid()){
-                        tasks[i].dateCreated = timestamp.toDate();
+                        tasks[i].dateLastUpdated = timestamp.toDate();
                     }
 
                     for(j = 0; j < tasks[i].comments.length; j++){
