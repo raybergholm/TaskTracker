@@ -8,6 +8,7 @@ sap.ui.define([
         // Extend this controller as required
 
         _oViewElementIds: {
+            taskForm: "taskForm",
             titleInput: "titleField",
             taskStatusDropdown: "taskStatusDropdown",
             ownerDisplay: "ownerDisplay",
@@ -20,9 +21,11 @@ sap.ui.define([
 
         bindTaskForm: function(sPath){
             var element;
-            var taskForm = this.byId("taskForm");
+            var taskForm = this.byId(this._oViewElementIds.taskForm);
             if(taskForm){
                 taskForm.bindElement(sPath);
+            }else{
+                console.error("task form couldn't be bound");
             }
 
             for(var entry in this._oViewElementIds){

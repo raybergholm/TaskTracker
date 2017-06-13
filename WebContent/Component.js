@@ -36,7 +36,6 @@ sap.ui.define([
             if(this.getRouter()){
                 try{
                     this.getRouter().initialize();
-
                 }catch(ex){
                     console.error(ex);
                 }
