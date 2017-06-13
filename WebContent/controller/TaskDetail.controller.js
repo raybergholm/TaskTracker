@@ -8,7 +8,7 @@ sap.ui.define([
         // Extend this controller as required
 
         _oViewElementIds: {
-            titleInput: "TitleField",
+            titleInput: "titleField",
             taskStatusDropdown: "taskStatusDropdown",
             ownerDisplay: "ownerDisplay",
             dateCreatedDisplay: "dateCreatedField",
@@ -25,10 +25,12 @@ sap.ui.define([
                 taskForm.bindElement(sPath);
             }
 
-            for(var entry in _oViewElementIds){
+            for(var entry in this._oViewElementIds){
                 element = this.byId(this._oViewElementIds[entry]);
                 if(element){
                     element.bindElement(sPath);
+                }else{
+                    console.error("" + this._oViewElementIds[entry] + " element not found!");
                 }
             }
         },
