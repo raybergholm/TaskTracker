@@ -22,6 +22,8 @@ sap.ui.define([
         bindTaskForm: function(sPath){
             var model = this.getView().getModel();
             model.setProperty("/SelectedTask", model.getProperty(sPath));
+
+            // TODO: This might be a bit too direct, actually. All changes entered in the input immediately gets propagated, which might be overkill
         },
 
         /**

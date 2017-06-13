@@ -110,6 +110,7 @@ sap.ui.define([
             }
         },
 
+        // The data encoded in the JSON uses IDs to flatten the various data references since it can become a massive pain to save a data struct with multiple refs of the same object scattered everywhere. So, we need to expand the refs when we finish reading the raw JSON.
         _fixDataReferences: function(){
             var i, j, timestamp, result;
             var dataModel = this.getModel();
@@ -119,6 +120,7 @@ sap.ui.define([
                 var comments = dataModel.getProperty("/Comments");
                 var todos = dataModel.getProperty("/Todos");
 
+                // making this a local function since it's not needed elsewhere. If we do, then we could just make it more abstract and put it somewhere more general
                 var matchCollection = function(collection, id){
                     for(var i = 0; i < collection.length; i++){
                         if(collection[i].id === id){
