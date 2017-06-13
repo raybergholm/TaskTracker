@@ -12,6 +12,7 @@
 		<detailPages>
 			<mvc:XMLView id="TaskDetail" viewName="com.tasky.view.TaskDetail" />
 			<mvc:XMLView id="StatusOverview" viewName="com.tasky.view.StatusOverview" />
+			<mvc:XMLView id="UserSettings" viewName="com.tasky.view.UserSettings" />
 		</detailPages>
 	</SplitApp>
 </core:View>

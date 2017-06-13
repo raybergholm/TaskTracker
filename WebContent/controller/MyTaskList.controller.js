@@ -9,8 +9,11 @@ sap.ui.define([
 
         onSelectTask: function(evt) {
             var bindingPath = evt.getSource().getSelectedItem().getBindingContextPath();
-            var selectedTask = this.getView().getModel().getProperty(bindingPath);
 
+            var detailView = this.getOwnerComponent().getView("TaskDetail");
+            if(detailView){
+                detailView.getController().bindTaskForm(bindingPath);
+            }
 
         },
 

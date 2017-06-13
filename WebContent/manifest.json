@@ -1,17 +1,31 @@
 {
     "_version": "0.1.0",
-
     "sap.ui5": {
         "models": {
-
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "localisation/texts.properties"
+            },
+            "lang": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "model/languages.json"
+            },
+            "taskMetadata": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "model/taskMetadata.json"
+            },
+            "": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "model/mockData.json"
+            }
         },
         "routing": {
             "config": {
                 "routerClass": "sap.m.routing.Router",
                 "viewType": "XML",
                 "viewPath": "com.tasky.view",
-                "controlId": "Tasky--App",
-                "controlAggregation": "pages"
+                "controlId": "Tasky--TaskyApp",
+                "controlAggregation": "detailPages"
             },
             "routes": [
                 {
@@ -37,7 +51,7 @@
             ],
             "targets": {
                 "Tasks": {
-                    "viewName": "TaskOverview"
+                    "viewName": "TaskDetail"
                 },
                 "Overview": {
                     "viewName": "StatusOverview"

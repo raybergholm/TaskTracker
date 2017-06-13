@@ -9,6 +9,11 @@
 	<semantic:DetailPage
 		title="{i18n>TASKDETAIL.TITLE}">
 
+		<semantic:customHeaderContent>
+
+			<core:Fragment fragmentName="com.tasky.fragment.DetailNavigationButtons" type="XML" />
+		</semantic:customHeaderContent>
+
 		<semantic:pagingAction>
 			<PagingButton count="{/Tasks/Count}" positionChange="onChangeTask" />
 		</semantic:pagingAction>
@@ -16,8 +21,8 @@
 			<semantic:SaveAction text="{i18n>ACTIONS.SAVE}" press="onPressSave" />
 		</semantic:saveAction>
 
-		<form:SimpleForm
-	        maxContainerCols="2"
+		<form:SimpleForm id="taskForm"
+	        maxContainerCols="1"
 	        editable="true"
 	        layout="ResponsiveGridLayout"
 	        labelSpanL="3" labelSpanM="3"
@@ -27,45 +32,67 @@
 				<core:Title />
 				<Label text="{i18n>TASK.TITLE}" design="Bold" />
 				<Input id="titleField"
-					value="{/SelectedTask/title}" />
-				<Label text="{i18n>TASK.DESCRIPTION}" design="Bold" />
-				<TextArea id="descriptionField"
-					value="{/SelectedTask/description}" />
-
-				<core:Title />
-				<Label text="{i18n>TASK.STATUS}" design="Bold" />
+					value="{title}" />
 				<Select id="taskStatusDropdown"
 					width="15rem"
 					forceSelection="false"
-					selectedKey="none"
+					selectedKey="{status}"
 					items="{taskMetadata>/TaskStatuses}"
 					change="onChangeTaskStatus">
 					<core:Item key="{taskMetadata>key}" text="{taskMetadata>value}" />
 				</Select>
 				<Label text="{i18n>TASK.OWNER}" design="Bold" />
 				<Text id="ownerDisplay"
-					text="{/SelectedTask/ownerId}" design="Bold" />
+					text="{ownerId}" design="Bold" />
+				<Label text="{i18n>TASK.DATECREATED}" design="Bold" />
+				<DateTimePicker id="dateCreatedField"
+					value="{dateCreated}"
+					editable="false" />
+				<Label text="{i18n>TASK.DATELASTUPDATED}" design="Bold" />
+				<DateTimePicker id="dateLastUpdatedField"
+					value="{dateLastUpdated}"
+					editable="false" />
+				<Label text="{i18n>TASK.DESCRIPTION}" design="Bold" />
+				<TextArea id="descriptionField"
+					value="{description}" />
+				<Label text="{i18n>TASK.COMMENTS}" design="Bold" />
+				<List id="commentsList"
+					items="{comments}"
+					showSeparators="Inner"
+					noDataText="{i18n>GENERAL.APP.NOCOMMENTS}">
+					<items>
+						<FeedListItem
+							sender="{ownerId}"
+							icon="sap-icon://person-placeholder"
+							senderPress="onPressCommentOwner"
+							iconPress="onPressCommentIcon"
+							info="{type}"
+							text="{text}" />
+					</items>
+				</List>
+				<Label text="" design="Bold" />
+				<FeedInput
+					icon="sap-icon://comment"
+					post="onCommentPost" />
+				<Label text="{i18n>TASK.TODOS}" design="Bold" />
+				<List id="todoChecklist"
+					items="{todos}"
+					showSeparators="Inner"
+					noDataText="{i18n>GENERAL.APP.NOTODOS}">
+					<items>
+						<CustomListItem>
+							<CheckBox
+								text="{text}"
+								selected="{isDone}"
+								valueState="{state}" />
+						</CustomListItem>
+					</items>
+				</List>
+				<Label text="" design="Bold" />
+				<FeedInput
+					icon="sap-icon://notes"
+					post="onTodoPost" />
 			</form:content>
 		</form:SimpleForm>
-
-
-		<Label text="{i18n>TASK.COMMENTS}" design="Bold" />
-		<List id="commentsList"
-			items="{/SelectedTask/Comments}"
-			showSeparators="Inner"
-			noDataText="{i18n>GENERAL.APP.NOCOMMENTS}">
-			<items>
-				<FeedListItem
-					sender="{ownerId}"
-					icon="sap-icon://person-placeholder"
-					senderPress="onPressCommentOwner"
-					iconPress="onPressCommentIcon"
-					info="{type}"
-					text="{text}" />
-			</items>
-		</List>
-		<FeedInput
-			icon="sap-icon://person-placeholder"
-			post="onCommentPost" />
 	</semantic:DetailPage>
 </mvc:View>

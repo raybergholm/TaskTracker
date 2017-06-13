@@ -8,8 +8,21 @@
 	        "description" : "Lorem ipsum",
 	        "dateCreated" : "2017-05-16T12:00+02:00",
 	        "dateLastUpdated" : "2017-05-16T14:10+02:00",
-	        "ownerId" : "1",
-	        "comments" : ["0", "2"]
+	        "ownerId" : "0",
+	        "comments" : ["0", "2"],
+            "todos" : ["0"]
+	    },
+        {
+	        "id" : "1",
+	        "status" : "inprogress",
+	        "icon" : "sap-icon://accept",
+	        "title" : "Dummy task 2",
+	        "description" : "Lorem ipsum",
+	        "dateCreated" : "2017-05-16T12:00+02:00",
+	        "dateLastUpdated" : "2017-05-16T14:10+02:00",
+	        "ownerId" : "0",
+	        "comments" : [],
+            "todos" : []
 	    }
 	],
 
@@ -43,6 +56,14 @@
             "dateLastUpdated" : "2017-05-16T14:10+02:00",
             "ownerId" : "0",
             "text" : "this was edited"
+        }
+    ],
+
+    "Todos" : [
+        {
+            "text" : "Click this box",
+            "isDone" : "false",
+            "valueState" : "None"
         }
     ]
 }
