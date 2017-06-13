@@ -20,23 +20,34 @@ sap.ui.define([
         },
 
         bindTaskForm: function(sPath){
-            var element;
-            var taskForm = this.byId(this._oViewElementIds.taskForm);
-            if(taskForm){
-                taskForm.bindElement(sPath);
-            }else{
-                console.error("task form couldn't be bound");
-            }
-
-            for(var entry in this._oViewElementIds){
-                element = this.byId(this._oViewElementIds[entry]);
-                if(element){
-                    element.bindElement(sPath);
-                }else{
-                    console.error("" + this._oViewElementIds[entry] + " element not found!");
-                }
-            }
+            var model = this.getView().getModel();
+            model.setProperty("/Selected/Task", model.getProperty(sPath));
         },
+
+        // FIXME: The method below would be a more elegant way of fixing data binding than having
+        //      to copy bindings around the place to /Selected paths since copying things run the risk of creating accidental duplicates and errors
+        //      propagating changes, not to mention it's just ugly. But for some reason SAPUI5's own functionality can't do it so that's pretty damn stupid.
+        // bindTaskForm: function(sPath){
+        //     var element;
+        //
+        //     this.getView().getContent()[0].bindElement(sPath); // doesn't work
+        //
+        //     var taskForm = this.byId(this._oViewElementIds.taskForm);
+        //     if(taskForm){
+        //         taskForm.bindElement(sPath); // doesn't work either
+        //     }else{
+        //         console.error("task form couldn't be bound");
+        //     }
+        //
+        //     for(var entry in this._oViewElementIds){
+        //         element = this.byId(this._oViewElementIds[entry]);
+        //         if(element){
+        //             element.bindElement(sPath); // doesn't work even when applied on itself?!
+        //         }else{
+        //             console.error("" + this._oViewElementIds[entry] + " element not found!");
+        //         }
+        //     }
+        // },
 
         onCommentPost: function(oEvent) {
             console.log(oEvent);
