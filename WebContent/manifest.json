@@ -61,5 +61,10 @@
                 }
             }
         }
-    }
+    },
+    "resources": {
+        "js": [{
+            "uri": "moment.min.js"
+        }]
+    },
 }
