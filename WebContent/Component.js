@@ -111,9 +111,55 @@ sap.ui.define([
         },
 
         _fixDataConnections: function(){
+            var entry, i, j, result;
             var dataModel = this.getModel();
             if(dataModel){
+                var tasks = dataModel.getProperty("/Tasks");
+                var users = dataModel.getProperty("/Users");
+                var comments = dataModel.getProperty("/Comments");
+                var todos = dataModel.getProperty("/Todos");
 
+                var matchCollection = function(collection, id){
+                    for(var i = 0; i < collection.length; i++){
+                        if(collection[i].id === id){
+                            return collection[i];
+                        }
+                    }
+                    return null;
+                };
+
+                for(i = 0; i < comments.length; i++){
+                    result = matchCollection(users, comments[i].owner);
+                    if(result){
+                        comments[i].owner = result;
+                    }
+                }
+
+                for(i = 0; i < tasks.length; i++){
+                    result = matchCollection(users, tasks[i].owner);
+                    if(result){
+                        tasks[i].owner = result;
+                    }
+
+                    for(j = 0; j < tasks[i].comments.length; j++){
+                        result = matchCollection(comments, tasks[i].comments[j]);
+                        if(result){
+                            tasks[i].comments[j] = result;
+                        }
+                    }
+
+                    for(j = 0; j < tasks[i].todos.length; j++){
+                        result = matchCollection(comments, tasks[i].todos[j]);
+                        if(result){
+                            tasks[i].todos[j] = result;
+                        }
+                    }
+                }
+
+                dataModel.setProperty("/Tasks", tasks);
+                dataModel.setProperty("/Users", users);
+                dataModel.setProperty("/Comments", comments);
+                dataModel.setProperty("/Todos", todos);
             }
         }
 	});

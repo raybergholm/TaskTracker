@@ -8,7 +8,7 @@
 	        "description" : "Lorem ipsum",
 	        "dateCreated" : "2017-05-16T12:00+02:00",
 	        "dateLastUpdated" : "2017-05-16T14:10+02:00",
-	        "ownerId" : "0",
+	        "owner" : "0",
 	        "comments" : ["0", "2"],
             "todos" : ["0"]
 	    },
@@ -20,7 +20,7 @@
 	        "description" : "Lorem ipsum",
 	        "dateCreated" : "2017-05-16T12:00+02:00",
 	        "dateLastUpdated" : "2017-05-16T14:10+02:00",
-	        "ownerId" : "0",
+	        "owner" : "0",
 	        "comments" : [],
             "todos" : []
 	    }
@@ -40,21 +40,21 @@
             "id" : "0",
             "dateCreated" : "2017-05-16T12:00+02:00",
             "dateLastUpdated" : "2017-05-16T12:00+02:00",
-            "ownerId" : "0",
+            "owner" : "0",
             "text" : "this is a comment look at meee"
         },
         {
             "id" : "2",
             "dateCreated" : "2017-05-16T12:03+02:00",
             "dateLastUpdated" : "2017-05-16T12:03+02:00",
-            "ownerId" : "0",
+            "owner" : "0",
             "text" : "this should not be shown"
         },
         {
             "id" : "2",
             "dateCreated" : "2017-05-16T14:03+02:00",
             "dateLastUpdated" : "2017-05-16T14:10+02:00",
-            "ownerId" : "0",
+            "owner" : "0",
             "text" : "this was edited"
         }
     ],
