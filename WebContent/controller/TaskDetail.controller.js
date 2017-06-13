@@ -7,10 +7,29 @@ sap.ui.define([
     return BaseController.extend("com.tasky.controller.TaskDetail", {
         // Extend this controller as required
 
+        _oViewElementIds: {
+            titleInput: "TitleField",
+            taskStatusDropdown: "taskStatusDropdown",
+            ownerDisplay: "ownerDisplay",
+            dateCreatedDisplay: "dateCreatedField",
+            dateLastUpdatedDisplay: "dateLastUpdatedField",
+            descriptionInput: "descriptionField",
+            commentsList: "commentsList",
+            todoChecklist: "todoChecklist"
+        },
+
         bindTaskForm: function(sPath){
+            var element;
             var taskForm = this.byId("taskForm");
             if(taskForm){
                 taskForm.bindElement(sPath);
+            }
+
+            for(var entry in _oViewElementIds){
+                element = this.byId(this._oViewElementIds[entry]);
+                if(element){
+                    element.bindElement(sPath);
+                }
             }
         },
 
