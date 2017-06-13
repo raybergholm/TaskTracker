@@ -21,12 +21,14 @@ sap.ui.define([
 
         bindTaskForm: function(sPath){
             var model = this.getView().getModel();
-            model.setProperty("/Selected/Task", model.getProperty(sPath));
+            model.setProperty("/SelectedTask", model.getProperty(sPath));
         },
 
-        // FIXME: The method below would be a more elegant way of fixing data binding than having
-        //      to copy bindings around the place to /Selected paths since copying things run the risk of creating accidental duplicates and errors
-        //      propagating changes, not to mention it's just ugly. But for some reason SAPUI5's own functionality can't do it so that's pretty damn stupid.
+        /**
+         * FIXME: The method below would be a more elegant way of fixing data binding than having
+         * to copy bindings around the place to /Selected paths since copying things run the risk of creating accidental duplicates and errors
+         * propagating changes, not to mention it's just ugly. But for some reason SAPUI5's own functionality can't do it so that's pretty damn stupid.
+         */
         // bindTaskForm: function(sPath){
         //     var element;
         //

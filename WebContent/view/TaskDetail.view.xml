@@ -10,7 +10,6 @@
 		title="{i18n>TASKDETAIL.TITLE}">
 
 		<semantic:customHeaderContent>
-
 			<core:Fragment fragmentName="com.tasky.fragment.DetailNavigationButtons" type="XML" />
 		</semantic:customHeaderContent>
 
@@ -32,31 +31,31 @@
 				<core:Title />
 				<Label text="{i18n>TASK.TITLE}" design="Bold" />
 				<Input id="titleField"
-					value="{/Selected/Task/title}" />
+					value="{/SelectedTask/title}" />
 				<Select id="taskStatusDropdown"
 					forceSelection="false"
-					selectedKey="{status}"
+					selectedKey="{/SelectedTask/status}"
 					items="{taskMetadata>/TaskStatuses}"
 					change="onChangeTaskStatus">
-					<core:Item key="{taskMetadata>key}" text="{/Selected/Task/taskMetadata>value}" />
+					<core:Item key="{taskMetadata>key}" text="{taskMetadata>value}" />
 				</Select>
 				<Label text="{i18n>TASK.OWNER}" design="Bold" />
 				<Text id="ownerDisplay"
-					text="{/Selected/Task/ownerId}" design="Bold" />
+					text="{/SelectedTask/ownerId}" design="Bold" />
 				<Label text="{i18n>TASK.DATECREATED}" design="Bold" />
 				<DateTimePicker id="dateCreatedField"
-					value="{/Selected/Task/dateCreated}"
+					value="{/SelectedTask/dateCreated}"
 					editable="false" />
 				<Label text="{i18n>TASK.DATELASTUPDATED}" design="Bold" />
 				<DateTimePicker id="dateLastUpdatedField"
-					value="{/Selected/Task/dateLastUpdated}"
+					value="{/SelectedTask/dateLastUpdated}"
 					editable="false" />
 				<Label text="{i18n>TASK.DESCRIPTION}" design="Bold" />
 				<TextArea id="descriptionField"
-					value="{/Selected/Task/description}" />
+					value="{/SelectedTask/description}" />
 				<Label text="{i18n>TASK.COMMENTS}" design="Bold" />
 				<List id="commentsList"
-					items="{/Selected/Task/comments}"
+					items="{/SelectedTask/comments}"
 					showSeparators="Inner"
 					noDataText="{i18n>GENERAL.APP.NOCOMMENTS}">
 					<items>
@@ -75,7 +74,7 @@
 					post="onCommentPost" />
 				<Label text="{i18n>TASK.TODOS}" design="Bold" />
 				<List id="todoChecklist"
-					items="{/Selected/Task/todos}"
+					items="{/SelectedTask/todos}"
 					showSeparators="Inner"
 					noDataText="{i18n>GENERAL.APP.NOTODOS}">
 					<items>
