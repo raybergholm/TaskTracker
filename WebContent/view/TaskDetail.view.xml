@@ -44,11 +44,11 @@
 					text="{/SelectedTask/owner/username}" design="Bold" />
 				<Label text="{i18n>TASK.DATECREATED}" design="Bold" />
 				<DateTimePicker id="dateCreatedField"
-					value="{/SelectedTask/dateCreated}"
+					dateValue="{/SelectedTask/dateCreated}"
 					editable="false" />
 				<Label text="{i18n>TASK.DATELASTUPDATED}" design="Bold" />
 				<DateTimePicker id="dateLastUpdatedField"
-					value="{/SelectedTask/dateLastUpdated}"
+					dateValue="{/SelectedTask/dateLastUpdated}"
 					editable="false" />
 				<Label text="{i18n>TASK.DESCRIPTION}" design="Bold" />
 				<TextArea id="descriptionField"
