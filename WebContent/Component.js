@@ -53,7 +53,7 @@ sap.ui.define([
             var dataModel = this.getModel();
             if(dataModel){
                 dataModel.attachEvent("requestCompleted", function(oEvent){
-                    this._fixDataConnections();
+                    this._fixDataReferences();
                 }.bind(this));
             }
 
@@ -110,8 +110,8 @@ sap.ui.define([
             }
         },
 
-        _fixDataConnections: function(){
-            var entry, i, j, result;
+        _fixDataReferences: function(){
+            var i, j, timestamp, result;
             var dataModel = this.getModel();
             if(dataModel){
                 var tasks = dataModel.getProperty("/Tasks");
@@ -139,6 +139,16 @@ sap.ui.define([
                     result = matchCollection(users, tasks[i].owner);
                     if(result){
                         tasks[i].owner = result;
+                    }
+
+                    timestamp = new moment(tasks[i].dateCreated);
+                    if(timestamp && timestamp.isValid()){
+                        tasks[i].dateCreated = timestamp.toDate();
+                    }
+
+                    timestamp = new moment(tasks[i].dateLastUpdated);
+                    if(timestamp && timestamp.isValid()){
+                        tasks[i].dateCreated = timestamp.toDate();
                     }
 
                     for(j = 0; j < tasks[i].comments.length; j++){
