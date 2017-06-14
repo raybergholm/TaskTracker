@@ -8,7 +8,7 @@ sap.ui.define([
 ], function(BaseSapObject, DataStorageInterface) {
 	"use strict";
 
-    var dataPersistenceInterface = BaseSapObject.extend("com.tasky.interface.DataPersistenceInterface", {
+    var objInstance = BaseSapObject.extend("com.tasky.interface.DataPersistenceInterface", {
         _dataStorage: new DataStorageInterface(),
 
         saveData: function(key, data) {
@@ -20,5 +20,5 @@ sap.ui.define([
         }
     });
 
-    return dataPersistenceInterface;
+    return objInstance;
 });

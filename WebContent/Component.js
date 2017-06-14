@@ -3,8 +3,9 @@ sap.ui.define([
     "sap/ui/core/UIComponent",
     "sap/ui/model/resource/ResourceModel",
     "sap/ui/model/json/JSONModel",
-    "./interface/DataPersistenceInterface"
-], function(jQuery, BaseUIComponent, ResourceModel, JSONModel, DataPersistenceInterface) {
+    "./interface/DataPersistenceInterface",
+    "./manager/IdManager"
+], function(jQuery, BaseUIComponent, ResourceModel, JSONModel, DataPersistenceInterface, IdManager) {
 	"use strict";
 
 	var component = BaseUIComponent.extend("com.tasky.Component", {
@@ -14,6 +15,7 @@ sap.ui.define([
 
         _oApplication: null,
         _oViews: {},
+        _idManager: null,
 
         metadata : {
             manifest: "json",
@@ -54,6 +56,9 @@ sap.ui.define([
             if(dataModel){
                 dataModel.attachEvent("requestCompleted", function(oEvent){
                     this._fixDataReferences();
+
+                    this._idManager = new IdManager();
+                    this._idManager.linkDataModel(dataModel);
                 }.bind(this));
             }
 
@@ -70,6 +75,10 @@ sap.ui.define([
         getView: function(sViewId){
             return this._oViews.hasOwnProperty(sViewId) ? this._oViews[sViewId] : null;
         },
+
+        getIdManager: function(){
+            return this._idManager;
+        }
 
         _createViewMap: function(){
             var pages, i, prop;

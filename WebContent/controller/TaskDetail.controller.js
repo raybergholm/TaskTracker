@@ -1,7 +1,8 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/m/MessageToast"
-], function(BaseController, MessageToast){
+    "sap/m/MessageToast",
+    "../model/Templater"
+], function(BaseController, MessageToast, Templater){
     "use strict";
 
     return BaseController.extend("com.tasky.controller.TaskDetail", {
@@ -64,22 +65,35 @@ sap.ui.define([
             workingCopy.dateLastUpdated = new Date();
 
             model.setProperty(model.getProperty("/SelectedTaskPath"), workingCopy);
-            
+
             this.bindTaskForm(model.getProperty("/SelectedTaskPath")); // create a new working copy after saving
 
             MessageToast.show(this.getView().getModel("i18n").getProperty("GENERAL.NOTIFICATIONS.TASKSAVED"));
         },
 
         onSelectTodoCheckBox: function(oEvent){
-
+            console.log(oEvent);
         },
 
         onPostTodo: function(oEvent){
-            console.log(oEvent);
+            var text = oEvent.getParameter("value");
+
+            var newTodo = Templater.createTodo();
+            newTodo.id = this.getOwnerComponent().getIdManager().getNextTodoId();
+            newTodo.text = text;
+
+
+            console.log(newTodo);
         },
 
         onPostComment: function(oEvent) {
-            console.log(oEvent);
+            var text = oEvent.getParameter("value");
+
+            var newComment = Templater.createComment();
+            newComment.id = this.getOwnerComponent().getIdManager().getNextCommentId();
+            newComment.text = text;
+
+            console.log(newComment);
         },
 
         onPressTaskDetail: function(oEvent){ },

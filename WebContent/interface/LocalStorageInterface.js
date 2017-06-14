@@ -3,7 +3,7 @@ sap.ui.define([
 ], function(BaseSapObject) {
 	"use strict";
 
-    var localStorageInterface = BaseSapObject.extend("com.tasky.interface.LocalStorageInterface", {
+    var objInstance = BaseSapObject.extend("com.tasky.interface.LocalStorageInterface", {
         _storage: null,
 
         init: function() {
@@ -28,5 +28,5 @@ sap.ui.define([
         }
     });
 
-    return localStorageInterface;
+    return objInstance;
 });

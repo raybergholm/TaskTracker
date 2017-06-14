@@ -1,14 +1,12 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-], function(BaseController){
+    "sap/ui/core/mvc/Controller",
+    "../model/Templater"
+], function(BaseController, Templater){
     "use strict";
 
     return BaseController.extend("com.tasky.controller.MyTaskList", {
-        // Extend this controller as required
-        //
-
-        onSelectTask: function(evt) {
-            var bindingPath = evt.getSource().getSelectedItem().getBindingContextPath();
+        onSelectTask: function(oEvent) {
+            var bindingPath = oEvent.getSource().getSelectedItem().getBindingContextPath();
 
             var detailView = this.getOwnerComponent().getView("TaskDetail");
             if(detailView){
@@ -17,22 +15,23 @@ sap.ui.define([
 
         },
 
-        onUpdateStarted: function(evt) {
-            evt.getSource() && evt.getSource().setBusy(true);
+        onUpdateStarted: function(oEvent) {
+            oEvent.getSource() && oEvent.getSource().setBusy(true);
         },
 
-        onUpdateFinished: function(evt) {
-            evt.getSource() && evt.getSource().setBusy(false);
+        onUpdateFinished: function(oEvent) {
+            oEvent.getSource() && oEvent.getSource().setBusy(false);
         },
 
-        onPressNewTask: function(evt) {
+        onPressNewTask: function(oEvent) {
             // user wants a new task
 
-            var newTask = new Task();
+            var newTask = new Templater.Task();
+            console.log(newTask);
         },
 
-        onPressDeleteTask: function(evt) {
-
+        onPressDeleteTask: function(oEvent) {
+            console.log(oEvent);
         }
     });
 });
