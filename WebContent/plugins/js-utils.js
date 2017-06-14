@@ -1,12 +1,8 @@
-var jsUtils;
-
-(function(){
-    "use strict";
-
-    jsUtils = new JsUtils();
-})();
+var jsUtils = new JsUtils();;
 
 function JsUtils(){
+    "use strict";
+
     this.Object = {
         clone: function(source){
             // NOTE: Object.assign() copies properties which could be accessed using .hasOwnProperty.
@@ -49,7 +45,7 @@ function JsUtils(){
             return destination;
         }
     };
-    
+
     this.String = {
         format: function(str, replacements){
             return str.replace(/\{\d+\}/g, function(match){
