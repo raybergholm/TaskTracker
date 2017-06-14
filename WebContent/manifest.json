@@ -26,7 +26,7 @@
                 },
                 {
                     "uri": "plugins/js-utils.js"
-                },
+                }
             ]
         },
         "routing": {
