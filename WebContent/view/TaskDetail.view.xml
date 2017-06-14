@@ -66,15 +66,20 @@
 							iconPress="onPressCommentIcon"
 							info="{type}"
 							text="{text}"
+							timestamp="{dateCreated}" />
+							<!--
+							// It seems if you follow the exact steps in the walkthrough, it doesn't work. None of these complex bindings work at all in any format in real life. 
+							// So, dood job SAP! Leaving this here in case this ever works.
 							timestamp="{
 								path: 'dateCreated',
-								formatter: '._oFormatter.userFriendlyTimestamp'
-							}" />
+								formatter: '._oFormatter.testFormatter'
+							}" /> -->
 					</items>
 				</List>
 				<Label text="" design="Bold" />
 				<FeedInput
 					icon="sap-icon://comment"
+					placeholder="{i18n>GENERAL.APP.COMMENTPLACEHOLDER}"
 					post="onPostComment" />
 				<Label text="{i18n>TASK.TODOS}" design="Bold" />
 				<List id="todoChecklist"
@@ -93,6 +98,7 @@
 				<Label text="" design="Bold" />
 				<FeedInput
 					icon="sap-icon://notes"
+					placeholder="{i18n>GENERAL.APP.TODOPLACEHOLDER}"
 					post="onPostTodo" />
 			</form:content>
 		</form:SimpleForm>
