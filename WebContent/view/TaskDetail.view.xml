@@ -31,31 +31,31 @@
 				<core:Title />
 				<Label text="{i18n>TASK.TITLE}" design="Bold" />
 				<Input id="titleField"
-					value="{/SelectedTask/title}" />
+					value="{/Temp/SelectedTask/title}" />
 				<Select id="taskStatusDropdown"
 					forceSelection="false"
-					selectedKey="{/SelectedTask/status}"
+					selectedKey="{/Temp/SelectedTask/status}"
 					items="{taskMetadata>/TaskStatuses}"
 					change="onChangeTaskStatus">
 					<core:Item key="{taskMetadata>key}" text="{taskMetadata>value}" />
 				</Select>
 				<Label text="{i18n>TASK.OWNER}" design="Bold" />
 				<Text id="ownerDisplay"
-					text="{/SelectedTask/owner/username}" design="Bold" />
+					text="{/Temp/SelectedTask/owner/username}" design="Bold" />
 				<Label text="{i18n>TASK.DATECREATED}" design="Bold" />
 				<DateTimePicker id="dateCreatedField"
-					dateValue="{/SelectedTask/dateCreated}"
+					dateValue="{/Temp/SelectedTask/dateCreated}"
 					editable="false" />
 				<Label text="{i18n>TASK.DATELASTUPDATED}" design="Bold" />
 				<DateTimePicker id="dateLastUpdatedField"
-					dateValue="{/SelectedTask/dateLastUpdated}"
+					dateValue="{/Temp/SelectedTask/dateLastUpdated}"
 					editable="false" />
 				<Label text="{i18n>TASK.DESCRIPTION}" design="Bold" />
 				<TextArea id="descriptionField"
-					value="{/SelectedTask/description}" />
+					value="{/Temp/SelectedTask/description}" />
 				<Label text="{i18n>TASK.COMMENTS}" design="Bold" />
 				<List id="commentsList"
-					items="{/SelectedTask/comments}"
+					items="{/Temp/SelectedTask/comments}"
 					showSeparators="Inner"
 					noDataText="{i18n>GENERAL.APP.NOCOMMENTS}">
 					<items>
@@ -74,7 +74,7 @@
 					post="onPostComment" />
 				<Label text="{i18n>TASK.TODOS}" design="Bold" />
 				<List id="todoChecklist"
-					items="{/SelectedTask/todos}"
+					items="{/Temp/SelectedTask/todos}"
 					showSeparators="Inner"
 					noDataText="{i18n>GENERAL.APP.NOTODOS}">
 					<items>

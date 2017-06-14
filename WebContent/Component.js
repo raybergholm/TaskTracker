@@ -55,7 +55,11 @@ sap.ui.define([
             var dataModel = this.getModel();
             if(dataModel){
                 dataModel.attachEvent("requestCompleted", function(oEvent){
-                    this._fixDataReferences();
+                    this._fixDataReferences(dataModel);
+
+                    this._initializeWorkarea(dataModel);
+
+                    this._setCurrentUser(dataModel);
 
                     this._idManager = new IdManager();
                     this._idManager.linkDataModel(dataModel);
@@ -119,10 +123,20 @@ sap.ui.define([
             }
         },
 
+        _initializeWorkarea: function(dataModel){
+            if(dataModel){
+                dataModel.setProperty("/Temp", {
+                    SelectedTask: null,
+                    SelectedTaskPath: "",
+                    CurrentUser: null
+                });
+            }
+        },
+
         // The data encoded in the JSON uses IDs to flatten the various data references since it can become a massive pain to save a data struct with multiple refs of the same object scattered everywhere. So, we need to expand the refs when we finish reading the raw JSON.
-        _fixDataReferences: function(){
+        _fixDataReferences: function(dataModel){
             var i, j, timestamp, result;
-            var dataModel = this.getModel();
+
             if(dataModel){
                 var tasks = dataModel.getProperty("/Tasks");
                 var users = dataModel.getProperty("/Users");
@@ -181,6 +195,14 @@ sap.ui.define([
                 dataModel.setProperty("/Users", users);
                 dataModel.setProperty("/Comments", comments);
                 dataModel.setProperty("/Todos", todos);
+            }
+        },
+
+        _setCurrentUser: function(dataModel){
+            if(dataModel){
+                var user = dataModel.getProperty("/Users")[0]; // TODO: as long as this is strictly a local task tracker, no need to handle multiple users
+
+                dataModel.setProperty("/Temp/CurrentUser", jsUtils.Object.clone(user));
             }
         }
 	});

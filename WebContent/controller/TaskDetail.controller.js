@@ -21,11 +21,17 @@ sap.ui.define([
         },
 
         bindTaskForm: function(sPath){ // TODO: this could do with a better name
-            var model = this.getView().getModel();
+            var dataModel = this.getView().getModel();
 
-            var workingCopy = jsUtils.Object.clone(model.getProperty(sPath));
-            model.setProperty("/SelectedTaskPath", sPath);
-            model.setProperty("/SelectedTask", workingCopy);
+            if(dataModel){
+                var workarea = dataModel.getProperty("/Temp");
+                var workingCopy = jsUtils.Object.clone(dataModel.getProperty(sPath));
+
+                workarea.SelectedTask = workingCopy;
+                workarea.SelectedTaskPath = sPath;
+
+                dataModel.setProperty("/Temp", workarea);
+            }
         },
 
         /**
@@ -56,17 +62,17 @@ sap.ui.define([
         // },
 
         onPressSave: function(oEvent){
-            var model = this.getView().getModel();
-            if(!model){
+            var dataModel = this.getView().getModel();
+            if(!dataModel){
                 return;
             }
 
-            var workingCopy = model.getProperty("/SelectedTask");
-            workingCopy.dateLastUpdated = new Date();
+            var workarea = dataModel.getProperty("/Temp");
+            workarea.SelectedTask.dateLastUpdated = new Date();
 
-            model.setProperty(model.getProperty("/SelectedTaskPath"), workingCopy);
+            dataModel.setProperty(workarea.SelectedTaskPath, workarea.SelectedTask);
 
-            this.bindTaskForm(model.getProperty("/SelectedTaskPath")); // create a new working copy after saving
+            this.bindTaskForm(workarea.SelectedTaskPath); // create a new working copy after saving
 
             MessageToast.show(this.getView().getModel("i18n").getProperty("GENERAL.NOTIFICATIONS.TASKSAVED"));
         },

@@ -1,18 +1,18 @@
 {
 	"Languages": [
-		{"Key": "da", "Name": "Dansk", "Enabled": "false"},
-		{"Key": "de", "Name": "Deutsch", "Enabled": "false"},
-		{"Key": "en", "Name": "English", "Enabled": "true"},
-		{"Key": "es", "Name": "Español", "Enabled": "false"},
-		{"Key": "fi", "Name": "Suomi", "Enabled": "true"},
-		{"Key": "fr", "Name": "Français", "Enabled": "false"},
-		{"Key": "it", "Name": "Italiano", "Enabled": "false"},
-		{"Key": "ja", "Name": "日本語", "Enabled": "false"},
-		{"Key": "ko", "Name": "한국어", "Enabled": "false"},
-		{"Key": "no", "Name": "Norsk", "Enabled": "false"},
-		{"Key": "pt", "Name": "Português", "Enabled": "false"},
-		{"Key": "ru", "Name": "Русский", "Enabled": "false"},
-		{"Key": "sv", "Name": "Svenska", "Enabled": "false"},
-		{"Key": "zh", "Name": "中文", "Enabled": "false"}
+		{"key": "da", "name": "Dansk", "enabled": "false"},
+		{"key": "de", "name": "Deutsch", "enabled": "false"},
+		{"key": "en", "name": "English", "enabled": "true"},
+		{"key": "es", "name": "Español", "enabled": "false"},
+		{"key": "fi", "name": "Suomi", "enabled": "true"},
+		{"key": "fr", "name": "Français", "enabled": "false"},
+		{"key": "it", "name": "Italiano", "enabled": "false"},
+		{"key": "ja", "name": "日本語", "enabled": "false"},
+		{"key": "ko", "name": "한국어", "enabled": "false"},
+		{"key": "no", "name": "Norsk", "enabled": "false"},
+		{"key": "pt", "name": "Português", "enabled": "false"},
+		{"key": "ru", "name": "Русский", "enabled": "false"},
+		{"key": "sv", "name": "Svenska", "enabled": "true"},
+		{"key": "zh", "name": "中文", "enabled": "false"}
 	]
  }

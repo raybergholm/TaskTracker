@@ -24,9 +24,10 @@ sap.ui.define([
         },
 
         onPressNewTask: function(oEvent) {
-            // user wants a new task
+            var newTask = Templater.createTask();
+            newTask.id = this.getOwnerComponent().getIdManager().getNextTaskId();
+            
 
-            var newTask = new Templater.Task();
             console.log(newTask);
         },
 
