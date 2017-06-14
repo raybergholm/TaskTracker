@@ -23,7 +23,10 @@
             "js": [
                 {
                     "uri": "plugins/moment.min.js"
-                }
+                },
+                {
+                    "uri": "plugins/js-utils.js"
+                },
             ]
         },
         "routing": {
