@@ -1,9 +1,7 @@
-sap.ui.define([
-    "sap/ui/base/Object"
-], function(BaseSapObject) {
+sap.ui.define([], function() {
 	"use strict";
 
-    var objInstance = BaseSapObject.extend("com.tasky.interface.LocalStorageInterface", {
+    return {
         _storage: null,
 
         init: function() {
@@ -26,7 +24,5 @@ sap.ui.define([
         fetchData: function(key) {
             return this._storage.get(_localStorageKey);
         }
-    });
-
-    return objInstance;
+    };
 });

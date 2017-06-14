@@ -15,7 +15,8 @@ sap.ui.define([
 
         _oApplication: null,
         _oViews: {},
-        _idManager: null,
+        _oIdManager: null,
+        _oDataPersistenceInterface: DataPersistenceInterface,
 
         metadata : {
             manifest: "json",
