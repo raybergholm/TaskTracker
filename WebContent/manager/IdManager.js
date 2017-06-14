@@ -33,24 +33,28 @@ sap.ui.define([
 
         _recalculateNextIds: function(){
             // just get the next number after the highest ID value. We don't need to worry about gaps in the numbering
-            var i, temp;
-            for(i = 0; i < this._dataModel.Tasks.length; i++){
-                if(this._nextIds.task < this._dataModel.Tasks[i].id){
-                    this._nextIds.task = parseInt(this._dataModel.Tasks[i].id, 10);
+            var i, haystack;
+
+            haystack = this._dataModel.getProperty("/Tasks");
+            for(i = 0; i < haystack.length; i++){
+                if(this._nextIds.task < haystack[i].id){
+                    this._nextIds.task = parseInt(haystack[i].id, 10);
                 }
             }
             this._nextIds.task++;
 
-            for(i = 0; i < this._dataModel.Comments.length; i++){
-                if(this._nextIds.comment < this._dataModel.Comments[i].id){
-                    this._nextIds.comment = parseInt(this._dataModel.Comments[i].id, 10);
+            haystack = this._dataModel.getProperty("/Comments");
+            for(i = 0; i < haystack.length; i++){
+                if(this._nextIds.comment < haystack[i].id){
+                    this._nextIds.comment = parseInt(haystack[i].id, 10);
                 }
             }
             this._nextIds.comment++;
 
-            for(i = 0; i < this._dataModel.Todos.length; i++){
-                if(this._nextIds.todo < this._dataModel.Todos[i].id){
-                    this._nextIds.todo = parseInt(this._dataModel.Todos[i].id, 10);
+            haystack = this._dataModel.getProperty("/Todos");
+            for(i = 0; i < haystack.length; i++){
+                if(this._nextIds.todo < haystack[i].id){
+                    this._nextIds.todo = parseInt(haystack[i].id, 10);
                 }
             }
             this._nextIds.todo++;
