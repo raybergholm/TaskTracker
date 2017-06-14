@@ -18,15 +18,11 @@ sap.ui.define([
         },
 
         onUpdateStarted: function(evt) {
-            if(evt.getSource()) {
-                evt.getSource().setBusy(true);
-            }
+            evt.getSource() && evt.getSource().setBusy(true);
         },
 
         onUpdateFinished: function(evt) {
-            if(evt.getSource()){
-                evt.getSource().setBusy(false);
-            }
+            evt.getSource() && evt.getSource().setBusy(false);
         },
 
         onPressNewTask: function(evt) {

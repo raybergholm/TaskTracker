@@ -13,21 +13,22 @@ function JsUtils(){
             var destination;
             if(source instanceof Array){
                 destination = Object.assign([], source);
-            }
-            else if(typeof source === "object"){
+            }else if(typeof source === "object"){
                 destination = Object.assign({}, source);
             }else{
                 console.error("Source for clone operation was not an object or array");
+                destination = null;
             }
 
             return destination;
         },
 
         deepClone: function(source){
-            var destination = {};
+            var destination = {}; // FIXME: actually the fact arrays need special handling is just a giant PitA. Maybe split it to Array.deepClone?
 
             if(typeof source !== "object"){
                 console.error("Source for deep clone operation was not an object");
+                return null;
             }
 
             for(var prop in source){

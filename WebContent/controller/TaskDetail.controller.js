@@ -19,11 +19,12 @@ sap.ui.define([
             todoChecklist: "todoChecklist"
         },
 
-        bindTaskForm: function(sPath){
+        bindTaskForm: function(sPath){ // TODO: this could do with a better name
             var model = this.getView().getModel();
-            model.setProperty("/SelectedTask", model.getProperty(sPath));
 
-            // TODO: This might be a bit too direct, actually. All changes entered in the input immediately gets propagated, which might be overkill
+            var workingCopy = jsUtils.Object.clone(model.getProperty(sPath));
+            model.setProperty("/SelectedTaskPath", sPath);
+            model.setProperty("/SelectedTask", workingCopy);
         },
 
         /**
@@ -53,7 +54,31 @@ sap.ui.define([
         //     }
         // },
 
-        onCommentPost: function(oEvent) {
+        onPressSave: function(oEvent){
+            var model = this.getView().getModel();
+            if(!model){
+                return;
+            }
+
+            var workingCopy = model.getProperty("/SelectedTask");
+            workingCopy.dateLastUpdated = new Date();
+
+            model.setProperty(model.getProperty("/SelectedTaskPath"), workingCopy);
+            
+            this.bindTaskForm(model.getProperty("/SelectedTaskPath")); // create a new working copy after saving
+
+            MessageToast.show(this.getView().getModel("i18n").getProperty("GENERAL.NOTIFICATIONS.TASKSAVED"));
+        },
+
+        onSelectTodoCheckBox: function(oEvent){
+
+        },
+
+        onPostTodo: function(oEvent){
+            console.log(oEvent);
+        },
+
+        onPostComment: function(oEvent) {
             console.log(oEvent);
         },
 

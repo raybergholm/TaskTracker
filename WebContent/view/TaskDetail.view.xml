@@ -71,7 +71,7 @@
 				<Label text="" design="Bold" />
 				<FeedInput
 					icon="sap-icon://comment"
-					post="onCommentPost" />
+					post="onPostComment" />
 				<Label text="{i18n>TASK.TODOS}" design="Bold" />
 				<List id="todoChecklist"
 					items="{/SelectedTask/todos}"
@@ -82,14 +82,15 @@
 							<CheckBox
 								text="{text}"
 								selected="{isDone}"
-								valueState="{state}" />
+								valueState="{state}"
+								select="onSelectTodoCheckBox" />
 						</CustomListItem>
 					</items>
 				</List>
 				<Label text="" design="Bold" />
 				<FeedInput
 					icon="sap-icon://notes"
-					post="onTodoPost" />
+					post="onPostTodo" />
 			</form:content>
 		</form:SimpleForm>
 	</semantic:DetailPage>
