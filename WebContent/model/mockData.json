@@ -10,7 +10,7 @@
 	        "dateLastUpdated" : "2017-05-16T14:10+02:00",
 	        "owner" : "0",
 	        "comments" : ["0", "2"],
-            "todos" : ["0"]
+            "todos" : ["0", "1"]
 	    },
         {
 	        "id" : "1",
@@ -22,7 +22,7 @@
 	        "dateLastUpdated" : "2017-05-16T14:10+02:00",
 	        "owner" : "0",
 	        "comments" : [],
-            "todos" : []
+            "todos" : ["1"]
 	    }
 	],
 
@@ -62,8 +62,15 @@
 
     "Todos" : [
         {
+            "id" : "0",
             "text" : "Click this box",
             "isDone" : "false",
+            "valueState" : "None"
+        },
+        {
+            "id" : "1",
+            "text" : "I should already be checked by default",
+            "isDone" : "true",
             "valueState" : "None"
         }
     ]

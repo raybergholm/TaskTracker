@@ -1,13 +1,12 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
-    "../model/Templater"
-], function(BaseController, MessageToast, Templater){
+    "../model/Templater",
+    "../model/Formatter"
+], function(BaseController, MessageToast, Templater, Formatter){
     "use strict";
 
     return BaseController.extend("com.tasky.controller.TaskDetail", {
-        // Extend this controller as required
-
         _oViewElementIds: {
             taskForm: "taskForm",
             titleInput: "titleField",
@@ -19,6 +18,9 @@ sap.ui.define([
             commentsList: "commentsList",
             todoChecklist: "todoChecklist"
         },
+
+        _oTemplater: Templater,
+        _oFormatter: Formatter,
 
         bindTaskForm: function(sPath){ // TODO: this could do with a better name
             var dataModel = this.getView().getModel();
@@ -84,10 +86,9 @@ sap.ui.define([
         onPostTodo: function(oEvent){
             var text = oEvent.getParameter("value");
 
-            var newTodo = Templater.createTodo();
+            var newTodo = this._oTemplater.Todo();
             newTodo.id = this.getOwnerComponent().getIdManager().getNextTodoId();
             newTodo.text = text;
-
 
             console.log(newTodo);
         },
@@ -95,9 +96,10 @@ sap.ui.define([
         onPostComment: function(oEvent) {
             var text = oEvent.getParameter("value");
 
-            var newComment = Templater.createComment();
+            var newComment = this._oTemplater.Comment();
             newComment.id = this.getOwnerComponent().getIdManager().getNextCommentId();
             newComment.text = text;
+            newComment.owner = this.getView().getModel().getProperty("Temp/CurrentUser");
 
             console.log(newComment);
         },

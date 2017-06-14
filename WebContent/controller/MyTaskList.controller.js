@@ -5,6 +5,9 @@ sap.ui.define([
     "use strict";
 
     return BaseController.extend("com.tasky.controller.MyTaskList", {
+
+        _oTemplater: Templater,
+
         onSelectTask: function(oEvent) {
             var bindingPath = oEvent.getSource().getSelectedItem().getBindingContextPath();
 
@@ -24,9 +27,10 @@ sap.ui.define([
         },
 
         onPressNewTask: function(oEvent) {
-            var newTask = Templater.createTask();
+            var newTask = this._oTemplater.Task();
             newTask.id = this.getOwnerComponent().getIdManager().getNextTaskId();
-            
+
+
 
             console.log(newTask);
         },

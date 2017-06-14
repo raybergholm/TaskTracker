@@ -1,44 +1,38 @@
-sap.ui.define([
-    "sap/ui/base/Object"
-], function(BaseSapObject) {
+sap.ui.define([], function() {
 	"use strict";
 
-    var objInstance = BaseSapObject.extend("com.tasky.model.Templater", {});
+    return {
+        Task: function(){
+            return {
+                id: null,
+                status: "none",
+                icon: "",
+                title: "",
+                description: "",
+                dateCreated: new Date(),
+                dateLastUpdated: new Date(),
+                owner: "",
+                comments: [],
+                todos: []
+            };
+        },
 
-    // NOTE: These are here because we're using Templater as a factory, so these methods should be static.
-    // There's no point in requiring an instance of Templater just to create data structs from templates
-    objInstance.createTask = function(){
-        return {
-            id: null,
-            status: "none",
-            icon: "",
-            title: "",
-            description: "",
-            dateCreated: new Date(),
-            dateLastUpdated: new Date(),
-            owner: "",
-            comments: [],
-            todos: []
-        };
-    };
+        Comment: function(){
+            return {
+                id: null,
+                dateCreated: new Date(),
+                dateLastUpdated: new Date(),
+                owner: "",
+                text: ""
+            };
+        },
 
-    objInstance.createComment = function(){
-        return {
-            id: null,
-            dateCreated: new Date(),
-            dateLastUpdated: new Date(),
-            owner: "",
-            text: ""
-        };
-    };
-
-    objInstance.createTodo = function(){
-        return {
-            text: "",
-            isDone: false,
-            valueState: "None"
-        };
-    };
-
-    return objInstance;
+        Todo: function(){
+            return {
+                text: "",
+                isDone: false,
+                valueState: "None"
+            };
+        }
+    }
 });

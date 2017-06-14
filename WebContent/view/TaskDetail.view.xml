@@ -65,7 +65,11 @@
 							senderPress="onPressCommentOwner"
 							iconPress="onPressCommentIcon"
 							info="{type}"
-							text="{text}" />
+							text="{text}"
+							timestamp="{
+								path: 'dateCreated',
+								formatter: '._oFormatter.userFriendlyTimestamp'
+							}" />
 					</items>
 				</List>
 				<Label text="" design="Bold" />
@@ -82,8 +86,7 @@
 							<CheckBox
 								text="{text}"
 								selected="{isDone}"
-								valueState="{state}"
-								select="onSelectTodoCheckBox" />
+								valueState="{state}" />
 						</CustomListItem>
 					</items>
 				</List>

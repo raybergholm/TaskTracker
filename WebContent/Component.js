@@ -158,6 +158,16 @@ sap.ui.define([
                     if(result){
                         comments[i].owner = result;
                     }
+
+                    timestamp = new moment(comments[i].dateCreated);
+                    if(timestamp && timestamp.isValid()){
+                        comments[i].dateCreated = timestamp.toDate();
+                    }
+
+                    timestamp = new moment(comments[i].dateLastUpdated);
+                    if(timestamp && timestamp.isValid()){
+                        comments[i].dateLastUpdated = timestamp.toDate();
+                    }
                 }
 
                 for(i = 0; i < tasks.length; i++){
@@ -184,7 +194,7 @@ sap.ui.define([
                     }
 
                     for(j = 0; j < tasks[i].todos.length; j++){
-                        result = matchCollection(comments, tasks[i].todos[j]);
+                        result = matchCollection(todos, tasks[i].todos[j]);
                         if(result){
                             tasks[i].todos[j] = result;
                         }
