@@ -78,7 +78,7 @@ sap.ui.define([
 
         getIdManager: function(){
             return this._idManager;
-        }
+        },
 
         _createViewMap: function(){
             var pages, i, prop;
