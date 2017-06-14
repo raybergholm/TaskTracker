@@ -57,7 +57,8 @@
 				<List id="commentsList"
 					items="{/Temp/SelectedTask/comments}"
 					showSeparators="Inner"
-					noDataText="{i18n>GENERAL.APP.NOCOMMENTS}">
+					noDataText="{i18n>GENERAL.APP.NOCOMMENTS}"
+					updateFinished="onUpdateFinishedComments">
 					<items>
 						<FeedListItem
 							sender="{owner/username}"
@@ -68,7 +69,7 @@
 							text="{text}"
 							timestamp="{dateCreated}" />
 							<!--
-							// It seems if you follow the exact steps in the walkthrough, it doesn't work. None of these complex bindings work at all in any format in real life. 
+							// It seems if you follow the exact steps in the walkthrough, it doesn't work. None of these complex bindings work at all in any format in real life.
 							// So, dood job SAP! Leaving this here in case this ever works.
 							timestamp="{
 								path: 'dateCreated',

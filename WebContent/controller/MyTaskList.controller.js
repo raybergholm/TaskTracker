@@ -1,12 +1,13 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "../model/Templater"
-], function(BaseController, Templater){
+    "../model/Templater",
+    "../model/Formatter"
+], function(BaseController, Templater, Formatter){
     "use strict";
 
     return BaseController.extend("com.tasky.controller.MyTaskList", {
-
         _oTemplater: Templater,
+        _oFormatter: Formatter,
 
         onSelectTask: function(oEvent) {
             var bindingPath = oEvent.getSource().getSelectedItem().getBindingContextPath();

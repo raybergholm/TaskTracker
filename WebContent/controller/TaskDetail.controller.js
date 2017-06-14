@@ -104,6 +104,18 @@ sap.ui.define([
             console.log(newComment);
         },
 
+        onUpdateFinishedComments: function(oEvent){
+            var timestamp;
+            var items = oEvent.getSource().getItems();
+
+            for(var i = 0; i < items.length; i++){
+                timestamp = new moment(items[i].getTimestamp());
+                if(timestamp.isValid()){
+                    items[i].setTimestamp(timestamp.fromNow());
+                }
+            }
+        },
+
         onPressTaskDetail: function(oEvent){ },
 
         onPressStatusOverview: function(oEvent){
