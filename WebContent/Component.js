@@ -3,12 +3,13 @@ sap.ui.define([
     "sap/ui/core/UIComponent",
     "sap/ui/model/resource/ResourceModel",
     "sap/ui/model/json/JSONModel",
+    "sap/m/MessageBox",
     "./interface/DataPersistenceInterface",
     "./manager/IdManager"
-], function(jQuery, BaseUIComponent, ResourceModel, JSONModel, DataPersistenceInterface, IdManager) {
-	"use strict";
+], function(jQuery, BaseUIComponent, ResourceModel, JSONModel, MessageBox, DataPersistenceInterface, IdManager) {
+    "use strict";
 
-	var component = BaseUIComponent.extend("com.tasky.Component", {
+    var component = BaseUIComponent.extend("com.tasky.Component", {
         _MOCK_LOCAL_MODEL_JSON: "/mockData.json",
         _TASK_META_MODEL_JSON: "/taskMetadata.json",
         _LANGUAGE_MODEL_JSON: "/languages.json",
@@ -18,28 +19,28 @@ sap.ui.define([
         _oIdManager: null,
         _oDataPersistenceInterface: DataPersistenceInterface,
 
-        metadata : {
+        metadata: {
             manifest: "json",
-		},
+        },
 
         createContent: function() {
             return sap.ui.view({
-    			id: "Tasky",
-    			viewName: "com.tasky.view.Root",
-    			type: sap.ui.core.mvc.ViewType.XML,
-    			viewData: {
-    				component : this
-    			}
-    		});
+                id: "Tasky",
+                viewName: "com.tasky.view.Root",
+                type: sap.ui.core.mvc.ViewType.XML,
+                viewData: {
+                    component: this
+                }
+            });
         },
 
         init: function() {
             BaseUIComponent.prototype.init.apply(this, arguments);
 
-            if(this.getRouter()){
-                try{
+            if(this.getRouter()) {
+                try {
                     this.getRouter().initialize();
-                }catch(ex){
+                } catch(ex) {
                     console.error(ex);
                 }
             }
@@ -47,15 +48,15 @@ sap.ui.define([
             this._oApplication = this.getRootControl().byId("TaskyApp");
 
             var taskMetadataModel = this.getModel("taskMetadata");
-            if(taskMetadataModel){
-                taskMetadataModel.attachEvent("requestCompleted", function(oEvent){
+            if(taskMetadataModel) {
+                taskMetadataModel.attachEvent("requestCompleted", function(oEvent) {
                     this._updateTaskMetadataLabels();
                 }.bind(this));
             }
 
             var dataModel = this.getModel();
-            if(dataModel){
-                dataModel.attachEvent("requestCompleted", function(oEvent){
+            if(dataModel) {
+                dataModel.attachEvent("requestCompleted", function(oEvent) {
                     this._fixDataReferences(dataModel);
 
                     this._initializeWorkarea(dataModel);
@@ -68,7 +69,7 @@ sap.ui.define([
             }
 
             var i18nModel = this.getModel("i18n");
-            if(i18nModel){
+            if(i18nModel) {
                 document.title = i18nModel.getProperty("GENERAL.PAGE.TITLE");
             }
 
@@ -77,22 +78,50 @@ sap.ui.define([
             console.log(this);
         },
 
-        getView: function(sViewId){
+        getView: function(sViewId) {
             return this._oViews.hasOwnProperty(sViewId) ? this._oViews[sViewId] : null;
         },
 
-        getIdManager: function(){
+        getIdManager: function() {
             return this._idManager;
         },
 
-        _createViewMap: function(){
+        load: function() {
+            if(_oDataPersistenceInterface) {
+                // TODO: load action
+            } else {
+                var i18nModel = this.getModel("i18n");
+
+                console.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NOPERSISTENCEINTERFACE"));
+
+                MessageBox.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NOPERSISTENCEINTERFACE"), {
+                    title: i18nModel.getProperty("GENERAL.NOTIFICATIONS.CRITICALERRORTITLE")
+                });
+            }
+        },
+
+        save: function() {
+            if(_oDataPersistenceInterface) {
+                // TODO: save action
+            } else {
+                var i18nModel = this.getModel("i18n");
+
+                console.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NOPERSISTENCEINTERFACE"));
+
+                MessageBox.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NOPERSISTENCEINTERFACE"), {
+                    title: i18nModel.getProperty("GENERAL.NOTIFICATIONS.CRITICALERRORTITLE")
+                });
+            }
+        },
+
+        _createViewMap: function() {
             var pages, i, prop;
 
             var viewMap = {};
             viewMap.root = this.getRootControl();
 
             pages = this._oApplication.getMasterPages();
-            for(i = 0; i < pages.length; i++){
+            for(i = 0; i < pages.length; i++) {
                 prop = pages[i].getId();
                 prop = prop.split("--");
                 prop = prop[prop.length - 1];
@@ -101,7 +130,7 @@ sap.ui.define([
             }
 
             pages = this._oApplication.getDetailPages();
-            for(i = 0; i < pages.length; i++){
+            for(i = 0; i < pages.length; i++) {
                 prop = pages[i].getId();
                 prop = prop.split("--");
                 prop = prop[prop.length - 1];
@@ -112,20 +141,20 @@ sap.ui.define([
             return viewMap;
         },
 
-        _updateTaskMetadataLabels: function(){
+        _updateTaskMetadataLabels: function() {
             var taskMetadataModel = this.getModel("taskMetadata");
             var i18nModel = this.getModel("i18n");
-            if(taskMetadataModel && i18nModel){
+            if(taskMetadataModel && i18nModel) {
                 var taskStatuses = taskMetadataModel.getProperty("/TaskStatuses");
-                for(var i = 0; i < taskStatuses.length; i++){
+                for(var i = 0; i < taskStatuses.length; i++) {
                     taskStatuses[i].value = i18nModel.getProperty(taskStatuses[i].value);
                 }
                 taskMetadataModel.setProperty("/TaskStatuses", taskStatuses);
             }
         },
 
-        _initializeWorkarea: function(dataModel){
-            if(dataModel){
+        _initializeWorkarea: function(dataModel) {
+            if(dataModel) {
                 dataModel.setProperty("/Temp", {
                     SelectedTask: null,
                     SelectedTaskPath: "",
@@ -135,68 +164,68 @@ sap.ui.define([
         },
 
         // The data encoded in the JSON uses IDs to flatten the various data references since it can become a massive pain to save a data struct with multiple refs of the same object scattered everywhere. So, we need to expand the refs when we finish reading the raw JSON.
-        _fixDataReferences: function(dataModel){
+        _fixDataReferences: function(dataModel) {
             var i, j, timestamp, result;
 
-            if(dataModel){
+            if(dataModel) {
                 var tasks = dataModel.getProperty("/Tasks");
                 var users = dataModel.getProperty("/Users");
                 var comments = dataModel.getProperty("/Comments");
                 var todos = dataModel.getProperty("/Todos");
 
                 // making this a local function since it's not needed elsewhere. If we do, then we could just make it more abstract and put it somewhere more general
-                var matchCollection = function(collection, id){
-                    for(var i = 0; i < collection.length; i++){
-                        if(collection[i].id === id){
+                var matchCollection = function(collection, id) {
+                    for(var i = 0; i < collection.length; i++) {
+                        if(collection[i].id === id) {
                             return collection[i];
                         }
                     }
                     return null;
                 };
 
-                for(i = 0; i < comments.length; i++){
+                for(i = 0; i < comments.length; i++) {
                     result = matchCollection(users, comments[i].owner);
-                    if(result){
+                    if(result) {
                         comments[i].owner = result;
                     }
 
                     timestamp = new moment(comments[i].dateCreated);
-                    if(timestamp && timestamp.isValid()){
+                    if(timestamp && timestamp.isValid()) {
                         comments[i].dateCreated = timestamp.toDate();
                     }
 
                     timestamp = new moment(comments[i].dateLastUpdated);
-                    if(timestamp && timestamp.isValid()){
+                    if(timestamp && timestamp.isValid()) {
                         comments[i].dateLastUpdated = timestamp.toDate();
                     }
                 }
 
-                for(i = 0; i < tasks.length; i++){
+                for(i = 0; i < tasks.length; i++) {
                     result = matchCollection(users, tasks[i].owner);
-                    if(result){
+                    if(result) {
                         tasks[i].owner = result;
                     }
 
                     timestamp = new moment(tasks[i].dateCreated);
-                    if(timestamp && timestamp.isValid()){
+                    if(timestamp && timestamp.isValid()) {
                         tasks[i].dateCreated = timestamp.toDate();
                     }
 
                     timestamp = new moment(tasks[i].dateLastUpdated);
-                    if(timestamp && timestamp.isValid()){
+                    if(timestamp && timestamp.isValid()) {
                         tasks[i].dateLastUpdated = timestamp.toDate();
                     }
 
-                    for(j = 0; j < tasks[i].comments.length; j++){
+                    for(j = 0; j < tasks[i].comments.length; j++) {
                         result = matchCollection(comments, tasks[i].comments[j]);
-                        if(result){
+                        if(result) {
                             tasks[i].comments[j] = result;
                         }
                     }
 
-                    for(j = 0; j < tasks[i].todos.length; j++){
+                    for(j = 0; j < tasks[i].todos.length; j++) {
                         result = matchCollection(todos, tasks[i].todos[j]);
-                        if(result){
+                        if(result) {
                             tasks[i].todos[j] = result;
                         }
                     }
@@ -209,14 +238,14 @@ sap.ui.define([
             }
         },
 
-        _setCurrentUser: function(dataModel){
-            if(dataModel){
+        _setCurrentUser: function(dataModel) {
+            if(dataModel) {
                 var user = dataModel.getProperty("/Users")[0]; // TODO: as long as this is strictly a local task tracker, no need to handle multiple users
 
                 dataModel.setProperty("/Temp/CurrentUser", jsUtils.Object.clone(user));
             }
         }
-	});
+    });
 
-	return component;
+    return component;
 });
