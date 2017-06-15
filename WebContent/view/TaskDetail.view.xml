@@ -17,7 +17,7 @@
 			<PagingButton count="{/Tasks/Count}" positionChange="onChangeTask" />
 		</semantic:pagingAction>
 		<semantic:saveAction>
-			<semantic:SaveAction text="{i18n>ACTIONS.SAVE}" press="onPressSave" />
+			<semantic:SaveAction icon="sap-icon://save" text="{i18n>ACTIONS.SAVE}" press="onPressSave" />
 		</semantic:saveAction>
 
 		<form:SimpleForm id="taskForm"
@@ -42,11 +42,11 @@
 				<Label text="{i18n>TASK.OWNER}" design="Bold" />
 				<Text id="ownerDisplay"
 					text="{/Temp/SelectedTask/owner/username}" design="Bold" />
-				<Label text="{i18n>TASK.DATECREATED}" design="Bold" />
+				<Label text="{i18n>GENERAL.DATE_CREATED}" design="Bold" />
 				<DateTimePicker id="dateCreatedField"
 					dateValue="{/Temp/SelectedTask/dateCreated}"
 					editable="false" />
-				<Label text="{i18n>TASK.DATELASTUPDATED}" design="Bold" />
+				<Label text="{i18n>GENERAL.DATE_LAST_UPDATED}" design="Bold" />
 				<DateTimePicker id="dateLastUpdatedField"
 					dateValue="{/Temp/SelectedTask/dateLastUpdated}"
 					editable="false" />
@@ -57,7 +57,7 @@
 				<List id="commentsList"
 					items="{/Temp/SelectedTask/comments}"
 					showSeparators="Inner"
-					noDataText="{i18n>GENERAL.APP.NOCOMMENTS}"
+					noDataText="{i18n>GENERAL.APP.NO_COMMENTS}"
 					updateFinished="onUpdateFinishedComments">
 					<items>
 						<FeedListItem
@@ -80,13 +80,13 @@
 				<Label text="" design="Bold" />
 				<FeedInput
 					icon="sap-icon://comment"
-					placeholder="{i18n>GENERAL.APP.COMMENTPLACEHOLDER}"
+					placeholder="{i18n>GENERAL.APP.COMMENT_PLACEHOLDER}"
 					post="onPostComment" />
 				<Label text="{i18n>TASK.TODOS}" design="Bold" />
 				<List id="todoChecklist"
 					items="{/Temp/SelectedTask/todos}"
 					showSeparators="Inner"
-					noDataText="{i18n>GENERAL.APP.NOTODOS}">
+					noDataText="{i18n>GENERAL.APP.NO_TODOS}">
 					<items>
 						<CustomListItem>
 							<CheckBox
@@ -99,7 +99,7 @@
 				<Label text="" design="Bold" />
 				<FeedInput
 					icon="sap-icon://notes"
-					placeholder="{i18n>GENERAL.APP.TODOPLACEHOLDER}"
+					placeholder="{i18n>GENERAL.APP.TODO_PLACEHOLDER}"
 					post="onPostTodo" />
 			</form:content>
 		</form:SimpleForm>

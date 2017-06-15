@@ -92,10 +92,10 @@ sap.ui.define([
             } else {
                 var i18nModel = this.getModel("i18n");
 
-                console.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NOPERSISTENCEINTERFACE"));
+                console.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
 
-                MessageBox.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NOPERSISTENCEINTERFACE"), {
-                    title: i18nModel.getProperty("GENERAL.NOTIFICATIONS.CRITICALERRORTITLE")
+                MessageBox.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
+                    title: i18nModel.getProperty("GENERAL.NOTIFICATIONS.CRITICAL_ERROR_TITLE")
                 });
             }
         },
@@ -106,10 +106,10 @@ sap.ui.define([
             } else {
                 var i18nModel = this.getModel("i18n");
 
-                console.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NOPERSISTENCEINTERFACE"));
+                console.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
 
-                MessageBox.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NOPERSISTENCEINTERFACE"), {
-                    title: i18nModel.getProperty("GENERAL.NOTIFICATIONS.CRITICALERRORTITLE")
+                MessageBox.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
+                    title: i18nModel.getProperty("GENERAL.NOTIFICATIONS.CRITICAL_ERROR_TITLE")
                 });
             }
         },

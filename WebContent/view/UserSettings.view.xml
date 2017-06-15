@@ -13,7 +13,7 @@
 		</semantic:customHeaderContent>
 
 		<semantic:saveAction>
-			<semantic:SaveAction text="{i18n>ACTIONS.SAVE}" press="onPressSave" />
+			<semantic:SaveAction icon="sap-icon://save" text="{i18n>ACTIONS.SAVE}" press="onPressSave" />
 		</semantic:saveAction>
 
 		<form:SimpleForm id="userDataForm"
@@ -24,12 +24,10 @@
 	        emptySpanL="2" emptySpanM="2"
 	        columnsL="2" columnsM="2">
 			<form:content>
-				<core:Title
-				 	text="{i18n>USER.USERINFO}" />
+				<core:Title text="{i18n>USER.INFO}" />
 				<Label text="{i18n>USER.USERNAME}" design="Bold" />
 				<Input id="usernameField"
 					value="{/Temp/CurrentUser/username}" />
-
 				<Label text="{i18n>USER.ICON}" design="Bold" />
 				<core:Icon
 					src="{/Temp/CurrentUser/icon}" />
@@ -37,8 +35,7 @@
 				<Text id="ownerDisplay"
 					text="{/Temp/CurrentUser/icon}" design="Bold" />
 
-				<core:Title
-					text="{i18n>USER.SETTINGS}" />
+				<core:Title text="{i18n>SETTINGS.SETTINGS}" />
 				<Label text="{i18n>GENERAL.LANGUAGE}" design="Bold" />
 				<Select id="languageDropdown"
 					forceSelection="false"
@@ -46,6 +43,24 @@
 					items="{lang>/Languages}">
 					<core:Item key="{lang>key}" text="{lang>name}" />
 				</Select>
+
+				<core:Title text="{i18n>SETTINGS.DATA}" />
+				<Label />
+				<Button
+					type="Reject"
+					icon="sap-icon://delete"
+					text="{i18n>SETTINGS.CLEAR_ALL}"
+					press="onPressClearAll" />
+				<Label />
+				<Button
+					icon="sap-icon://inbox"
+					text="{i18n>SETTINGS.IMPORT}"
+					press="onPressImport" />
+				<Label />
+				<Button
+					icon="sap-icon://outbox"
+					text="{i18n>SETTINGS.EXPORT}"
+					press="onPressExport" />
 			</form:content>
 		</form:SimpleForm>
     </semantic:DetailPage>

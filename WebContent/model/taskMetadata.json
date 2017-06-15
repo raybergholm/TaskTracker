@@ -6,15 +6,15 @@
         },
         {
             "key" : "inprogress",
-            "value" : "TASKSTATUS.INPROGRESS"
+            "value" : "TASKSTATUS.IN_PROGRESS"
         },
         {
             "key" : "intesting",
-            "value" : "TASKSTATUS.INTESTING"
+            "value" : "TASKSTATUS.IN_TESTING"
         },
         {
             "key" : "inreview",
-            "value" : "TASKSTATUS.INREVIEW"
+            "value" : "TASKSTATUS.IN_REVIEW"
         },
         {
             "key" : "completed",
