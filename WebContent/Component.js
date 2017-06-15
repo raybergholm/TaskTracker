@@ -255,6 +255,10 @@ sap.ui.define([
             }
         },
 
+        _firstTimeUserProcess: function(){
+            
+        },
+
         _initialDataSetup: function() {
             var dataModel = this.getModel();
             if(dataModel) {

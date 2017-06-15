@@ -100,7 +100,7 @@
 								<unified:FileUploader id="fileUploader"
 									width="100%"
 									value="{file>/Filepath}"
-									fileType="['json']"
+									fileType="json"
 									change="onChangeFile"
 									typeMissmatch="onTypeMismatch"
 									uploadComplete="onUploadComplete" />

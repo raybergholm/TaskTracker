@@ -16,7 +16,7 @@ sap.ui.define([
         },
 
         _deleteLocalData: function(){
-            console.log("delete all function called"); // TODO: actually delete stuff when the persistent layer gets added
+            this.getOwnerComponent().clearData();
 
             MessageToast.show(this.getView().getModel("i18n").getProperty("GENERAL.NOTIFICATIONS.DELETE_COMPLETE"));
         },
