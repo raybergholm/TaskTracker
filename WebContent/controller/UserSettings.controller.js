@@ -44,6 +44,18 @@ sap.ui.define([
             });
         },
 
+        onTypeMismatch: function(oEvent){
+            MessageToast.show(this.getView().getModel("i18n").getProperty("GENERAL.NOTIFICATIONS.ONLY_JSON_ALLOWED"));
+        },
+
+        onChangeFile: function(oEvent){
+            console.log(oEvent);
+        },
+
+        onUploadComplete: function(oEvent){
+            console.log(oEvent);
+        },
+
         onPressImport: function(oEvent){
             var i18nModel = this.getView().getModel("i18n");
 

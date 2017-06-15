@@ -6,19 +6,23 @@ sap.ui.define([], function() {
 
     throw new Error("ODataInterface not implemented");
 
-    // var oDataInterface = {
-    //     init: function() {
-    //
-    //     },
-    //
-    //     saveData: function(key, data) {
-    //
-    //     },
-    //
-    //     fetchData: function(key) {
-    //
-    //     }
-    // };
-    //
-    // return oDataInterface;
+	// var oDataInterface = {
+	// 	init: function() {
+	//
+	// 	},
+	//
+	// 	saveData: function(key, data) {
+	//
+	// 	},
+	//
+	// 	fetchData: function(key) {
+	//
+	// 	},
+	//
+	// 	clearData: function(key) {
+	// 		return this._storage.remove(key);
+	// 	}
+	// };
+	//
+	// return oDataInterface;
 });

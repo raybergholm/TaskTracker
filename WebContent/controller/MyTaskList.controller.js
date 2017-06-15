@@ -11,7 +11,13 @@ sap.ui.define([
 
         _createNewTask: function(){
             var newTask = this._oTemplater.Task();
+
             newTask.id = this.getOwnerComponent().getIdManager().getNextTaskId();
+            newTask.dateCreated = new Date();
+            newTask.dateLastUpdated = new Date();
+            newTask.owner = this.getView().getModel().getProperty("/Temp/CurrentUser");
+
+            return newTask;
         },
 
         onSelectTask: function(oEvent) {

@@ -97,7 +97,7 @@ sap.ui.define([
 
             this.bindTaskForm(workarea.SelectedTaskPath); // create a new working copy after saving
 
-            MessageToast.show(this.getView().getModel("i18n").getProperty("GENERAL.NOTIFICATIONS.TASKSAVED"));
+            MessageToast.show(this.getView().getModel("i18n").getProperty("GENERAL.NOTIFICATIONS.TASK_SAVED"));
         },
 
         onSelectTodoCheckBox: function(oEvent){
@@ -135,7 +135,10 @@ sap.ui.define([
             var items = oEvent.getSource().getItems();
 
             for(var i = 0; i < items.length; i++){
-                timestamp = new moment(items[i].getTimestamp());
+                // This is really ugly having to manually assign the timestamp text like this, but any attempt to bind & use the timestamp
+                // the proper way causes all the timestamps to get overwritten so we will lose data immediately on save.
+                // This is absolutely the wrong behaviour so we don't want that.
+                timestamp = new moment(this.getView().getModel().getProperty(items[i].getBindingContextPath()).dateCreated);
                 if(timestamp.isValid()){
                     items[i].setTimestamp(timestamp.fromNow());
                 }
@@ -145,8 +148,6 @@ sap.ui.define([
         onPressTaskDetail: function(oEvent){ },
 
         onPressStatusOverview: function(oEvent){
-            MessageToast.show("Status overview button pressed");
-
             var router = this.getOwnerComponent().getRouter();
             if(router){
                 router.navTo("Overview");
@@ -156,8 +157,6 @@ sap.ui.define([
         },
 
         onPressSettings: function(oEvent){
-            MessageToast.show("Settings button pressed");
-
             var router = this.getOwnerComponent().getRouter();
             if(router){
                 router.navTo("UserSettings");

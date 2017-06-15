@@ -67,13 +67,13 @@
 							iconPress="onPressCommentIcon"
 							info="{type}"
 							text="{text}"
-							timestamp="{dateCreated}" />
+							timestamp="" />
 							<!--
-							// It seems if you follow the exact steps in the walkthrough, it doesn't work. None of these complex bindings work at all in any format in real life.
-							// So, dood job SAP! Leaving this here in case this ever works.
+							// TODO: It seems if you follow the exact steps in the walkthrough, it doesn't work. None of these complex bindings work at all in any format in real life.
+							// So, good job SAP! Leaving this here in case this ever works.
 							timestamp="{
 								path: 'dateCreated',
-								formatter: '._oFormatter.testFormatter'
+								formatter: '._oFormatter.userFriendlyTimestamp'
 							}" /> -->
 					</items>
 				</List>

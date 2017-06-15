@@ -5,10 +5,14 @@
 sap.ui.define([
     "./LocalStorageInterface"
 ], function(DataStorageInterface) {
-	"use strict";
+    "use strict";
 
     return {
         _oDataStorage: DataStorageInterface,
+
+        init: function(){
+            this._oDataStorage.init();
+        },
 
         saveData: function(key, data) {
             return this._oDataStorage.saveData(key, data);
@@ -16,6 +20,10 @@ sap.ui.define([
 
         fetchData: function(key) {
             return this._oDataStorage.fetchData(key);
+        },
+
+        clearData: function(key) {
+            return this._oDataStorage.clearData(key);
         }
     };
 });

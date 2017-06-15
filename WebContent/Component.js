@@ -1,18 +1,23 @@
+// TODO: This class bloated out a fair bit. Maybe abstract out the data format and file handling some more?
+
 sap.ui.define([
     "jquery.sap.global",
     "sap/ui/core/UIComponent",
     "sap/ui/model/resource/ResourceModel",
     "sap/ui/model/json/JSONModel",
+    "sap/m/MessageToast",
     "sap/m/MessageBox",
     "./interface/DataPersistenceInterface",
     "./manager/IdManager"
-], function(jQuery, BaseUIComponent, ResourceModel, JSONModel, MessageBox, DataPersistenceInterface, IdManager) {
+], function(jQuery, BaseUIComponent, ResourceModel, JSONModel, MessageToast, MessageBox, DataPersistenceInterface, IdManager) {
     "use strict";
 
     var component = BaseUIComponent.extend("com.tasky.Component", {
         _MOCK_LOCAL_MODEL_JSON: "/mockData.json",
         _TASK_META_MODEL_JSON: "/taskMetadata.json",
         _LANGUAGE_MODEL_JSON: "/languages.json",
+
+        _STORAGE_KEY: "taskyData",
 
         _oApplication: null,
         _oViews: {},
@@ -57,14 +62,7 @@ sap.ui.define([
             var dataModel = this.getModel();
             if(dataModel) {
                 dataModel.attachEvent("requestCompleted", function(oEvent) {
-                    this._fixDataReferences(dataModel);
-
-                    this._initializeWorkarea(dataModel);
-
-                    this._setCurrentUser(dataModel);
-
-                    this._idManager = new IdManager();
-                    this._idManager.linkDataModel(dataModel);
+                    this._initialDataSetup();
                 }.bind(this));
             }
 
@@ -73,7 +71,16 @@ sap.ui.define([
                 document.title = i18nModel.getProperty("GENERAL.PAGE.TITLE");
             }
 
+            var fileModel = this.getModel("file");
+            if(fileModel) {
+                fileModel.setProperty("/Filepath", "C:/default_data.json");
+            }
+
             this._oViews = this._createViewMap();
+
+            // if(this._oDataPersistenceInterface){ // FIXME: apparently, this block crashes the app because it's suddenly trying to call this._oViews.destroy from somewhere, somehow for some reason.
+            //     this._oDataPersistenceInterface.init();
+            // }
 
             console.log(this);
         },
@@ -89,14 +96,32 @@ sap.ui.define([
         load: function() {
             var i18nModel = this.getModel("i18n");
 
-            if(_oDataPersistenceInterface) {
-                // TODO: load action
-
-                MessageToast.show(i18nModel.getProperty("GENERAL.NOTIFICATIONS.LOAD_COMPLETE"));
-            } else {
+            if(!this._oDataPersistenceInterface) {
                 console.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
 
                 MessageBox.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
+                    title: i18nModel.getProperty("GENERAL.NOTIFICATIONS.CRITICAL_ERROR_TITLE")
+                });
+
+                return;
+            }
+
+            var success = false;
+            var rawDataString = _oDataPersistenceInterface.loadData(this._STORAGE_KEY);
+            if(rawDataString) {
+                var jsonData = JSON.parse(rawDataString);
+                var dataModel = this.getModel();
+                if(dataModel) {
+                    dataModel.setData(jsonData);
+                    this._initialDataSetup();
+                    success = true;
+                }
+            }
+
+            if(success) {
+                MessageToast.show(i18nModel.getProperty("GENERAL.NOTIFICATIONS.LOAD_COMPLETE"));
+            } else {
+                MessageBox.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.LOAD_FAILED"), {
                     title: i18nModel.getProperty("GENERAL.NOTIFICATIONS.CRITICAL_ERROR_TITLE")
                 });
             }
@@ -105,17 +130,90 @@ sap.ui.define([
         save: function() {
             var i18nModel = this.getModel("i18n");
 
-            if(_oDataPersistenceInterface) {
-                // TODO: save action
-
-                MessageToast.show(i18nModel.getProperty("GENERAL.NOTIFICATIONS.SAVE_COMPLETE"));
-            } else {
+            if(!this._oDataPersistenceInterface) {
                 console.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
 
                 MessageBox.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
                     title: i18nModel.getProperty("GENERAL.NOTIFICATIONS.CRITICAL_ERROR_TITLE")
                 });
+
+                return;
             }
+
+            var exportableData = this.createExportableData();
+
+            console.log(exportableData);
+
+            var saveDataString = JSON.stringify(exportableData);
+
+            console.log(saveDataString);
+
+            var success = this._oDataPersistenceInterface.saveData(this._STORAGE_KEY, saveDataString);
+
+            if(success) {
+                MessageToast.show(i18nModel.getProperty("GENERAL.NOTIFICATIONS.SAVE_COMPLETE"));
+            } else {
+                MessageBox.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.SAVE_FAILED"), {
+                    title: i18nModel.getProperty("GENERAL.NOTIFICATIONS.CRITICAL_ERROR_TITLE")
+                });
+            }
+        },
+
+        createExportableData: function() { // clone data, format dates and flatten refs down to IDs
+            var i, j, entry;
+            var data = this.getModel().getData();
+            var exportableData = {
+                Tasks: [],
+                Users: [],
+                Comments: [],
+                Todos: []
+            };
+
+            for(i = 0; i < data.Tasks.length; i++) {
+                entry = jsUtils.Object.clone(data.Tasks[i]);
+
+                entry.dateCreated = (new moment(entry.dateCreated)).format();
+                entry.dateLastUpdated = (new moment(entry.dateLastUpdated)).format();
+                entry.owner = entry.owner.id;
+
+                entry.comments = jsUtils.Object.clone(entry.comments);
+                for(j = 0; j < entry.comments.length; j++) {
+                    entry.comments[j] = entry.comments[j].id;
+                }
+
+                entry.todos = jsUtils.Object.clone(entry.todos);
+                for(j = 0; j < entry.todos.length; j++) {
+                    entry.todos[j] = entry.todos[j].id;
+                }
+
+                exportableData.Tasks.push(entry);
+            }
+
+            for(i = 0; i < data.Users.length; i++) {
+                entry = jsUtils.Object.clone(data.Users[i]);
+
+                entry.lastOnline = (new moment(entry.lastOnline)).format();
+
+                exportableData.Users.push(entry);
+            }
+
+            for(i = 0; i < data.Comments.length; i++) {
+                entry = jsUtils.Object.clone(data.Comments[i]);
+
+                entry.dateCreated = (new moment(entry.dateCreated)).format();
+                entry.dateLastUpdated = (new moment(entry.dateLastUpdated)).format();
+                entry.owner = entry.owner.id;
+
+                exportableData.Comments.push(entry);
+            }
+
+            for(i = 0; i < data.Todos.length; i++) {
+                entry = jsUtils.Object.clone(data.Todos[i]);
+
+                exportableData.Todos.push(entry);
+            }
+
+            return exportableData;
         },
 
         _createViewMap: function() {
@@ -154,6 +252,18 @@ sap.ui.define([
                     taskStatuses[i].value = i18nModel.getProperty(taskStatuses[i].value);
                 }
                 taskMetadataModel.setProperty("/TaskStatuses", taskStatuses);
+            }
+        },
+
+        _initialDataSetup: function() {
+            var dataModel = this.getModel();
+            if(dataModel) {
+                this._fixDataReferences(dataModel);
+                this._initializeWorkarea(dataModel);
+                this._setCurrentUser(dataModel);
+
+                this._idManager = new IdManager();
+                this._idManager.linkDataModel(dataModel);
             }
         },
 

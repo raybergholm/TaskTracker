@@ -4,6 +4,7 @@
 	xmlns:core="sap.ui.core"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:semantic="sap.m.semantic"
+	xmlns:unified="sap.ui.unified"
 	xmlns:form="sap.ui.layout.form">
 
 	<semantic:DetailPage
@@ -28,13 +29,14 @@
 				<Label text="{i18n>USER.USERNAME}" design="Bold" />
 				<Input id="usernameField"
 					value="{/Temp/CurrentUser/username}" />
+				<!-- TODO: personalised icons probably don't matter while we're only using a local single-user model
 				<Label text="{i18n>USER.ICON}" design="Bold" />
 				<core:Icon
 					src="{/Temp/CurrentUser/icon}" />
 				<Label text="{i18n>USER.ICON}" design="Bold" />
 				<Text id="ownerDisplay"
 					text="{/Temp/CurrentUser/icon}" design="Bold" />
-
+				-->
 				<core:Title text="{i18n>SETTINGS.SETTINGS}" />
 				<Label text="{i18n>GENERAL.LANGUAGE}" design="Bold" />
 				<Select id="languageDropdown"
@@ -44,33 +46,92 @@
 					<core:Item key="{lang>key}" text="{lang>name}" />
 				</Select>
 
-				<core:Title text="{i18n>SETTINGS.DATA_ACTIONS}" />
-				<Label />
-				<Button
-					type="Reject"
-					icon="sap-icon://delete"
-					text="{i18n>SETTINGS.CLEAR_ALL}"
-					press="onPressClearAll" />
-				<Label />
-				<Button
-					type="Reject"
-					icon="sap-icon://synchronize"
-					text="{i18n>SETTINGS.FORCE_SYNC}"
-					press="onPressForceSync" />
+				<core:Title />
+				<Panel
+					expandable="true"
+					expanded="false"
+					headerText="{i18n>SETTINGS.DATA_ACTIONS}">
+					<content>
+						<HBox
+							alignItems="Start"
+				            justifyContent="Start">
+							<items>
+								<Button
+									width="100%"
+									type="Reject"
+									icon="sap-icon://delete"
+									text="{i18n>SETTINGS.CLEAR_ALL}"
+									press="onPressClearAll">
+									<layoutData>
+										<FlexItemData growFactor="1" />
+									</layoutData>
+								</Button>
+							</items>
+						</HBox>
 
-				<core:Title text="{i18n>SETTINGS.FILE_ACTIONS}" />
-				<Label />
-				<Button
-					icon="sap-icon://inbox"
-					text="{i18n>SETTINGS.IMPORT}"
-					press="onPressImport" />
-				<Label />
-				<Button
-					icon="sap-icon://outbox"
-					text="{i18n>SETTINGS.EXPORT}"
-					press="onPressExport" />
+						<HBox
+							alignItems="Start"
+				            justifyContent="Start">
+							<items>
+								<Button
+									width="100%"
+									icon="sap-icon://synchronize"
+									text="{i18n>SETTINGS.FORCE_SYNC}"
+									press="onPressForceSync">
+									<layoutData>
+										<FlexItemData growFactor="1" />
+									</layoutData>
+								</Button>
+							</items>
+						</HBox>
+					</content>
+				</Panel>
 
-				<core:Title text="{i18n>SETTINGS.FILE_ACTIONS}" />
+				<core:Title />
+				<Panel
+					expandable="true"
+					expanded="false"
+					headerText="{i18n>SETTINGS.FILE_ACTIONS}">
+					<content>
+						<HBox
+							alignItems="Start"
+				            justifyContent="Start">
+							<items>
+								<unified:FileUploader id="fileUploader"
+									width="100%"
+									value="{file>/Filepath}"
+									fileType="['json']"
+									change="onChangeFile"
+									typeMissmatch="onTypeMismatch"
+									uploadComplete="onUploadComplete" />
+							</items>
+						</HBox>
+						<HBox
+							alignItems="Start"
+				            justifyContent="Start">
+							<items>
+								<Button
+									width="100%"
+									icon="sap-icon://inbox"
+									text="{i18n>SETTINGS.IMPORT}"
+									press="onPressImport">
+									<layoutData>
+										<FlexItemData growFactor="1" />
+									</layoutData>
+								</Button>
+								<Button
+									width="100%"
+									icon="sap-icon://outbox"
+									text="{i18n>SETTINGS.EXPORT}"
+									press="onPressExport">
+									<layoutData>
+										<FlexItemData growFactor="1" />
+									</layoutData>
+								</Button>
+							</items>
+						</HBox>
+					</content>
+				</Panel>
 			</form:content>
 		</form:SimpleForm>
     </semantic:DetailPage>
