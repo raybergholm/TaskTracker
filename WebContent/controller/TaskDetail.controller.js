@@ -63,6 +63,27 @@ sap.ui.define([
         //     }
         // },
 
+        _createNewComment: function(text){
+            var newComment = this._oTemplater.Comment();
+
+            newComment.id = this.getOwnerComponent().getIdManager().getNextCommentId();
+            newComment.dateCreated = new Date();
+            newComment.dateLastUpdated = new Date();
+            newComment.owner = this.getView().getModel().getProperty("/Temp/CurrentUser");
+            newComment.text = text;
+
+            return newComment;
+        },
+
+        _createNewTodo: function(text){
+            var newTodo = this._oTemplater.Todo();
+
+            newTodo.id = this.getOwnerComponent().getIdManager().getNextTodoId();
+            newTodo.text = text;
+
+            return newTodo;
+        },
+
         onPressSave: function(oEvent){
             var dataModel = this.getView().getModel();
             if(!dataModel){
@@ -91,17 +112,22 @@ sap.ui.define([
             newTodo.text = text;
 
             console.log(newTodo);
+
+            var workingarea = this.getView().getModel().getProperty("/Temp");
+            workingarea.SelectedTask.todos.push(newTodo);
+            this.getView().getModel().setProperty("/Temp", workingarea);
         },
 
         onPostComment: function(oEvent) {
             var text = oEvent.getParameter("value");
 
-            var newComment = this._oTemplater.Comment();
-            newComment.id = this.getOwnerComponent().getIdManager().getNextCommentId();
-            newComment.text = text;
-            newComment.owner = this.getView().getModel().getProperty("Temp/CurrentUser");
+            var newComment = this._createNewComment(text);
 
             console.log(newComment);
+
+            var workingarea = this.getView().getModel().getProperty("/Temp");
+            workingarea.SelectedTask.comments.push(newComment);
+            this.getView().getModel().setProperty("/Temp", workingarea);
         },
 
         onUpdateFinishedComments: function(oEvent){
