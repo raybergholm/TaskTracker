@@ -2,15 +2,15 @@
 	xmlns="sap.m"
 	xmlns:core="sap.ui.core">
     <Button
-        text="{i18n>NAVIGATION.TASKDETAIL}"
+        text="{i18n>NAVIGATION.TASK_DETAIL}"
         icon="sap-icon://detail-view"
         press="onPressTaskDetail" />
     <Button
-        text="{i18n>NAVIGATION.STATUSOVERVIEW}"
+        text="{i18n>NAVIGATION.STATUS_OVERVIEW}"
         icon="sap-icon://checklist"
         press="onPressStatusOverview" />
     <Button
-        text="{i18n>NAVIGATION.USERSETTINGS}"
+        text="{i18n>NAVIGATION.USER_SETTINGS}"
         icon="sap-icon://action-settings"
         press="onPressSettings" />
 </core:FragmentDefinition>

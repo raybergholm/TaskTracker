@@ -87,11 +87,13 @@ sap.ui.define([
         },
 
         load: function() {
+            var i18nModel = this.getModel("i18n");
+
             if(_oDataPersistenceInterface) {
                 // TODO: load action
-            } else {
-                var i18nModel = this.getModel("i18n");
 
+                MessageToast.show(i18nModel.getProperty("GENERAL.NOTIFICATIONS.LOAD_COMPLETE"));
+            } else {
                 console.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
 
                 MessageBox.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
@@ -101,11 +103,13 @@ sap.ui.define([
         },
 
         save: function() {
+            var i18nModel = this.getModel("i18n");
+
             if(_oDataPersistenceInterface) {
                 // TODO: save action
-            } else {
-                var i18nModel = this.getModel("i18n");
 
+                MessageToast.show(i18nModel.getProperty("GENERAL.NOTIFICATIONS.SAVE_COMPLETE"));
+            } else {
                 console.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
 
                 MessageBox.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {

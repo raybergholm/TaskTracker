@@ -44,13 +44,21 @@
 					<core:Item key="{lang>key}" text="{lang>name}" />
 				</Select>
 
-				<core:Title text="{i18n>SETTINGS.DATA}" />
+				<core:Title text="{i18n>SETTINGS.DATA_ACTIONS}" />
 				<Label />
 				<Button
 					type="Reject"
 					icon="sap-icon://delete"
 					text="{i18n>SETTINGS.CLEAR_ALL}"
 					press="onPressClearAll" />
+				<Label />
+				<Button
+					type="Reject"
+					icon="sap-icon://synchronize"
+					text="{i18n>SETTINGS.FORCE_SYNC}"
+					press="onPressForceSync" />
+
+				<core:Title text="{i18n>SETTINGS.FILE_ACTIONS}" />
 				<Label />
 				<Button
 					icon="sap-icon://inbox"
@@ -61,6 +69,8 @@
 					icon="sap-icon://outbox"
 					text="{i18n>SETTINGS.EXPORT}"
 					press="onPressExport" />
+
+				<core:Title text="{i18n>SETTINGS.FILE_ACTIONS}" />
 			</form:content>
 		</form:SimpleForm>
     </semantic:DetailPage>

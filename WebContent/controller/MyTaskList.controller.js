@@ -9,6 +9,11 @@ sap.ui.define([
         _oTemplater: Templater,
         _oFormatter: Formatter,
 
+        _createNewTask: function(){
+            var newTask = this._oTemplater.Task();
+            newTask.id = this.getOwnerComponent().getIdManager().getNextTaskId();
+        },
+
         onSelectTask: function(oEvent) {
             var bindingPath = oEvent.getSource().getSelectedItem().getBindingContextPath();
 
@@ -28,12 +33,13 @@ sap.ui.define([
         },
 
         onPressNewTask: function(oEvent) {
-            var newTask = this._oTemplater.Task();
-            newTask.id = this.getOwnerComponent().getIdManager().getNextTaskId();
-
-
+            var newTask = this._createNewTask();
 
             console.log(newTask);
+
+            var tasks = this.getView().getModel().getProperty("/Tasks");
+            tasks.push(newTask);
+            this.getView().getModel().setProperty("/Tasks", tasks);
         },
 
         onPressDeleteTask: function(oEvent) {
