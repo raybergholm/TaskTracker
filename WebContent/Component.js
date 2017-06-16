@@ -8,8 +8,9 @@ sap.ui.define([
     "sap/m/MessageToast",
     "sap/m/MessageBox",
     "./interface/DataPersistenceInterface",
+    "./manager/DataManager",
     "./manager/IdManager"
-], function(jQuery, BaseUIComponent, ResourceModel, JSONModel, MessageToast, MessageBox, DataPersistenceInterface, IdManager) {
+], function(jQuery, BaseUIComponent, ResourceModel, JSONModel, MessageToast, MessageBox, DataPersistenceInterface, DataManager, IdManager) {
     "use strict";
 
     var component = BaseUIComponent.extend("com.tasky.Component", {
@@ -20,9 +21,15 @@ sap.ui.define([
         _STORAGE_KEY: "taskyData",
 
         _oApplication: null,
+
+        // this is the sort of thing which could be moved to _oApplication. Maybe it needs to be a custom class, tbh since we're barely using the built-in app for anything
         _oViews: {},
-        _oIdManager: null,
         _oDataPersistenceInterface: DataPersistenceInterface,
+
+        _oDataManager: DataManager,
+        getDataManager: function(){
+            return this._oDataManager;
+        },
 
         metadata: {
             manifest: "json",
@@ -77,9 +84,6 @@ sap.ui.define([
                 this._fixDataReferences(dataModel);
                 this._initializeWorkarea(dataModel);
                 this._setCurrentUser(dataModel);
-
-                this._idManager = new IdManager();
-                this._idManager.linkDataModel(dataModel);
             }
         },
 
@@ -213,6 +217,9 @@ sap.ui.define([
                     this._initialDataSetup();
                 }.bind(this));
             }
+
+            this._oDataManager = new DataManager();
+            this._oDataManager.initialize(dataModel);
 
             var i18nModel = this.getModel("i18n");
             if(i18nModel) {

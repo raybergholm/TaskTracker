@@ -3,7 +3,7 @@ sap.ui.define([
 ], function(BaseSapObject) {
 	"use strict";
 
-    var objInstance = BaseSapObject.extend("com.tasky.manager.IdManager", {
+    return BaseSapObject.extend("com.tasky.manager.IdManager", {
         _dataModel: null,
         _nextIds: {
             task: 0,
@@ -11,7 +11,7 @@ sap.ui.define([
             todo: 0
         },
 
-        linkDataModel: function(model){
+        initialize: function(model){
             this._dataModel = model;
             this._recalculateNextIds();
         },
@@ -36,31 +36,34 @@ sap.ui.define([
             var i, haystack;
 
             haystack = this._dataModel.getProperty("/Tasks");
-            for(i = 0; i < haystack.length; i++){
-                if(this._nextIds.task < haystack[i].id){
-                    this._nextIds.task = parseInt(haystack[i].id, 10);
+            if(haystack){
+                for(i = 0; i < haystack.length; i++){
+                    if(this._nextIds.task < haystack[i].id){
+                        this._nextIds.task = parseInt(haystack[i].id, 10);
+                    }
                 }
+                this._nextIds.task++;
             }
-            this._nextIds.task++;
 
             haystack = this._dataModel.getProperty("/Comments");
-            for(i = 0; i < haystack.length; i++){
-                if(this._nextIds.comment < haystack[i].id){
-                    this._nextIds.comment = parseInt(haystack[i].id, 10);
+            if(haystack){
+                for(i = 0; i < haystack.length; i++){
+                    if(this._nextIds.comment < haystack[i].id){
+                        this._nextIds.comment = parseInt(haystack[i].id, 10);
+                    }
                 }
+                this._nextIds.comment++;
             }
-            this._nextIds.comment++;
 
             haystack = this._dataModel.getProperty("/Todos");
-            for(i = 0; i < haystack.length; i++){
-                if(this._nextIds.todo < haystack[i].id){
-                    this._nextIds.todo = parseInt(haystack[i].id, 10);
+            if(haystack){
+                for(i = 0; i < haystack.length; i++){
+                    if(this._nextIds.todo < haystack[i].id){
+                        this._nextIds.todo = parseInt(haystack[i].id, 10);
+                    }
                 }
+                this._nextIds.todo++;
             }
-            this._nextIds.todo++;
         }
-
     });
-
-    return objInstance;
 });

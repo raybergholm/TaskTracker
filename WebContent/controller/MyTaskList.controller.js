@@ -13,25 +13,8 @@ sap.ui.define([
 
         _oTaskList: null,
 
-        _createTask: function(){
-            var newTask = this._oTemplater.Task();
-
-            newTask.id = this.getOwnerComponent().getIdManager().getNextTaskId();
-            newTask.title = "New Task";
-            newTask.dateCreated = new Date();
-            newTask.dateLastUpdated = new Date();
-            newTask.owner = this.getView().getModel().getProperty("/Temp/CurrentUser");
-
-            return newTask;
-        },
-
-        _deleteTask: function(bindingPath){
-            var index = bindingPath.split("/");
-            index = index[index.length - 1];
-
-            var tasks = this.getView().getModel().getProperty("/Tasks");
-            tasks.splice(index, 1);
-            this.getView().getModel().setProperty("/Tasks", tasks);
+        _deleteTaskCallback: function(bindingPath){
+            this.getOwnerComponent().getDataManager().deleteTask(bindingPath);
 
             var detailView = this.getOwnerComponent().getView("TaskDetail");
             if(detailView){
@@ -107,13 +90,9 @@ sap.ui.define([
         },
 
         onPressNewTask: function(oEvent) {
-            var newTask = this._createTask();
+            var newTask = this.getOwnerComponent().getDataManager().createTask();
 
-            console.log(newTask);
-
-            var tasks = this.getView().getModel().getProperty("/Tasks");
-            tasks.push(newTask);
-            this.getView().getModel().setProperty("/Tasks", tasks);
+            this._oTaskList.setSelectedItem(this._oTaskList.getItems()[this._oTaskList.getItems().length - 1]); // TODO: does this work? is the ref already updated at this point?
         },
 
         onPressDeleteTask: function(oEvent) {
@@ -129,7 +108,7 @@ sap.ui.define([
                 title: i18nModel.getProperty("NOTIFICATIONS.CONFIRMATION"),
                 onClose: function(sBindingPath, sAction){
                     if(sAction === MessageBox.Action.OK){
-                        this._deleteTask(sBindingPath);
+                        this._deleteTaskCallback(sBindingPath);
                     }
                 }.bind(this, bindingPath)
             });
