@@ -14,7 +14,7 @@ sap.ui.define([
             }
         },
 
-        _deleteLocalData: function(){
+        _deleteLocalDataCallback: function(){
             this.getOwnerComponent().clearData();
 
             MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.DELETE_COMPLETE"));
@@ -44,7 +44,7 @@ sap.ui.define([
                 title: i18nModel.getProperty("NOTIFICATIONS.CONFIRMATION"),
                 onClose: function(sAction){
                     if(sAction === MessageBox.Action.OK){
-                        this._deleteLocalData();
+                        this._deleteLocalDataCallback();
                     }
                 }.bind(this)
             });

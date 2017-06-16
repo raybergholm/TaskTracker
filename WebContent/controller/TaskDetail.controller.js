@@ -1,9 +1,8 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
-    "../model/Templater",
     "../model/Formatter"
-], function(BaseController, MessageToast, Templater, Formatter){
+], function(BaseController, MessageToast, Formatter){
     "use strict";
 
     return BaseController.extend("com.tasky.controller.TaskDetail", {
@@ -19,29 +18,7 @@ sap.ui.define([
             todoChecklist: "todoChecklist"
         },
 
-        _oTemplater: Templater,
         _oFormatter: Formatter,
-
-        _createNewComment: function(text){
-            var newComment = this._oTemplater.Comment();
-
-            newComment.id = this.getOwnerComponent().getIdManager().getNextCommentId();
-            newComment.dateCreated = new Date();
-            newComment.dateLastUpdated = new Date();
-            newComment.owner = this.getView().getModel().getProperty("/Temp/CurrentUser");
-            newComment.text = text;
-
-            return newComment;
-        },
-
-        _createNewTodo: function(text){
-            var newTodo = this._oTemplater.Todo();
-
-            newTodo.id = this.getOwnerComponent().getIdManager().getNextTodoId();
-            newTodo.text = text;
-
-            return newTodo;
-        },
 
         onInit: function(){
             var selfNavButton = this.byId("taskDetailNavButton");
@@ -92,16 +69,7 @@ sap.ui.define([
         // },
 
         clearForm: function(){
-            var dataModel = this.getView().getModel();
-
-            if(dataModel){
-                var workarea = dataModel.getProperty("/Temp");
-
-                workarea.SelectedTask = {};
-                workarea.SelectedTaskPath = "";
-
-                dataModel.setProperty("/Temp", workarea);
-            }
+            this.getOwnerComponent().getDataManager().clearSelectedTask();
         },
 
         onPressSave: function(oEvent){
@@ -122,32 +90,18 @@ sap.ui.define([
 
         onSelectTodoCheckBox: function(oEvent){
             console.log(oEvent);
+
+            // TODO: any way to make a pretty strikethrough/faded text when checked?
         },
 
         onPostTodo: function(oEvent){
             var text = oEvent.getParameter("value");
-
-            var newTodo = this._oTemplater.Todo();
-            newTodo.id = this.getOwnerComponent().getIdManager().getNextTodoId();
-            newTodo.text = text;
-
-            console.log(newTodo);
-
-            var workingarea = this.getView().getModel().getProperty("/Temp");
-            workingarea.SelectedTask.todos.push(newTodo);
-            this.getView().getModel().setProperty("/Temp", workingarea);
+            this.getOwnerComponent().getDataManager().addTodo(text);
         },
 
         onPostComment: function(oEvent) {
             var text = oEvent.getParameter("value");
-
-            var newComment = this._createNewComment(text);
-
-            console.log(newComment);
-
-            var workingarea = this.getView().getModel().getProperty("/Temp");
-            workingarea.SelectedTask.comments.push(newComment);
-            this.getView().getModel().setProperty("/Temp", workingarea);
+            this.getOwnerComponent().getDataManager().addComment(text);
         },
 
         onUpdateFinishedComments: function(oEvent){

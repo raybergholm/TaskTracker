@@ -8,9 +8,8 @@ sap.ui.define([
     "sap/m/MessageToast",
     "sap/m/MessageBox",
     "./interface/DataPersistenceInterface",
-    "./manager/DataManager",
-    "./manager/IdManager"
-], function(jQuery, BaseUIComponent, ResourceModel, JSONModel, MessageToast, MessageBox, DataPersistenceInterface, DataManager, IdManager) {
+    "./manager/DataManager"
+], function(jQuery, BaseUIComponent, ResourceModel, JSONModel, MessageToast, MessageBox, DataPersistenceInterface, DataManager) {
     "use strict";
 
     var component = BaseUIComponent.extend("com.tasky.Component", {
@@ -247,10 +246,8 @@ sap.ui.define([
             return this._oViews.hasOwnProperty(sViewId) ? this._oViews[sViewId] : null;
         },
 
-        getIdManager: function() {
-            return this._idManager;
-        },
 
+        // TODO: maybe all this data persistence logic should go in some sort of PersistenceManager?
         load: function() {
             var i18nModel = this.getModel("i18n");
 

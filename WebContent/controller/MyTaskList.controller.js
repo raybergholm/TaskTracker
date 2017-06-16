@@ -2,13 +2,11 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
     "sap/m/MessageBox",
-    "../model/Templater",
     "../model/Formatter"
-], function(BaseController, MessageToast, MessageBox, Templater, Formatter){
+], function(BaseController, MessageToast, MessageBox, Formatter){
     "use strict";
 
     return BaseController.extend("com.tasky.controller.MyTaskList", {
-        _oTemplater: Templater,
         _oFormatter: Formatter,
 
         _oTaskList: null,
