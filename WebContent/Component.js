@@ -192,19 +192,11 @@ sap.ui.define([
 
             if(!this._oPersistenceManager) {
                 this._handleNoPersistenceManager();
-                return;
+                return false;
             }
 
             var exportableData = this.createExportableData();
-            var success = this._oPersistenceManager.save(exportableData);
-
-            if(success) {
-                MessageToast.show(i18nModel.getProperty("NOTIFICATIONS.SAVE_COMPLETE"));
-            } else {
-                MessageBox.error(i18nModel.getProperty("NOTIFICATIONS.SAVE_FAILED"), {
-                    title: i18nModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
-                });
-            }
+            return this._oPersistenceManager.save(exportableData);
         },
 
         clearData: function(){
@@ -212,18 +204,10 @@ sap.ui.define([
 
             if(!this._oPersistenceManager) {
                 this._handleNoPersistenceManager();
-                return;
+                return false;
             }
 
-            this._oPersistenceManager.clear();
-
-            if(success) {
-                MessageToast.show(i18nModel.getProperty("NOTIFICATIONS.SAVE_COMPLETE"));
-            } else {
-                MessageBox.error(i18nModel.getProperty("NOTIFICATIONS.SAVE_FAILED"), {
-                    title: i18nModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
-                });
-            }
+            return this._oPersistenceManager.clear();
         },
 
         createExportableData: function() { // clone data, format dates and flatten refs down to IDs

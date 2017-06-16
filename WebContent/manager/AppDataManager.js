@@ -223,7 +223,7 @@ sap.ui.define([
             }
 
             this._oDataModel.setData(data);
-            //this._dataLoadPostProcessing();
+            this._dataLoadPostProcessing(); // needs to be manually triggered when the data is explicitly set
         },
 
         setMockData: function(){

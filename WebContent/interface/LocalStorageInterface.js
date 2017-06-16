@@ -16,14 +16,15 @@ sap.ui.define([], function() {
         fetchData: function(key) {
             var rawStringData = localStorage.getItem(key);
             if(rawStringData){
-                return JSON.stringify(rawStringData);
+                return JSON.parse(rawStringData);
             }else {
                 return null;
             }
         },
 
         clearData: function(key) {
-            return localStorage.removeItem(key);
+            localStorage.removeItem(key);
+            return localStorage.getItem(key) === null;
         },
 
         saveData: function(key, data) {
