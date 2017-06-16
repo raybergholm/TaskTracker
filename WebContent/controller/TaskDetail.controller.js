@@ -69,7 +69,7 @@ sap.ui.define([
         // },
 
         clearForm: function(){
-            this.getOwnerComponent().getDataManager().clearSelectedTask();
+            this.getOwnerComponent().getAppDataManager().clearSelectedTask();
         },
 
         onPressSave: function(oEvent){
@@ -96,12 +96,12 @@ sap.ui.define([
 
         onPostTodo: function(oEvent){
             var text = oEvent.getParameter("value");
-            this.getOwnerComponent().getDataManager().addTodo(text);
+            this.getOwnerComponent().getAppDataManager().addTodo(text);
         },
 
         onPostComment: function(oEvent) {
             var text = oEvent.getParameter("value");
-            this.getOwnerComponent().getDataManager().addComment(text);
+            this.getOwnerComponent().getAppDataManager().addComment(text);
         },
 
         onUpdateFinishedComments: function(oEvent){

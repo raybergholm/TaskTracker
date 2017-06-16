@@ -10,17 +10,13 @@
                 "type": "sap.ui.model.json.JSONModel",
                 "uri": "model/languages.json"
             },
-            "file": {
-                "type": "sap.ui.model.json.JSONModel",
-                "uri": ""
-            },
             "taskMetadata": {
                 "type": "sap.ui.model.json.JSONModel",
                 "uri": "model/taskMetadata.json"
             },
             "": {
                 "type": "sap.ui.model.json.JSONModel",
-                "uri": "model/mockData.json"
+                "uri": ""
             }
         },
         "resources": {

@@ -4,13 +4,26 @@ sap.ui.define([], function() {
     return {
         _storageAvailable: false,
 
-        init: function() {
+        initialize: function() {
             if(typeof Storage !== undefined) {
                 console.log("LocalStorageInterface init OK");
-                _storageAvailable = true;
+                this._storageAvailable = true;
             } else {
                 console.error("Local Storage unavailable");
             }
+        },
+
+        fetchData: function(key) {
+            var rawStringData = localStorage.getItem(key);
+            if(rawStringData){
+                return JSON.stringify(rawStringData);
+            }else {
+                return null;
+            }
+        },
+
+        clearData: function(key) {
+            return localStorage.removeItem(key);
         },
 
         saveData: function(key, data) {
@@ -29,14 +42,6 @@ sap.ui.define([], function() {
                 return false;
             }
             return true;
-        },
-
-        fetchData: function(key) {
-            return localStorage.getItem(key);
-        },
-
-        clearData: function(key) {
-            return localStorage.removeItem(key);
         }
     };
 

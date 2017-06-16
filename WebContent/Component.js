@@ -3,13 +3,11 @@
 sap.ui.define([
     "jquery.sap.global",
     "sap/ui/core/UIComponent",
-    "sap/ui/model/resource/ResourceModel",
-    "sap/ui/model/json/JSONModel",
     "sap/m/MessageToast",
     "sap/m/MessageBox",
-    "./interface/DataPersistenceInterface",
-    "./manager/DataManager"
-], function(jQuery, BaseUIComponent, ResourceModel, JSONModel, MessageToast, MessageBox, DataPersistenceInterface, DataManager) {
+    "./manager/AppDataManager",
+    "./manager/PersistenceManager"
+], function(jQuery, BaseUIComponent, MessageToast, MessageBox, AppDataManager, PersistenceManager) {
     "use strict";
 
     var component = BaseUIComponent.extend("com.tasky.Component", {
@@ -17,17 +15,26 @@ sap.ui.define([
         _TASK_META_MODEL_JSON: "/taskMetadata.json",
         _LANGUAGE_MODEL_JSON: "/languages.json",
 
-        _STORAGE_KEY: "taskyData",
-
         _oApplication: null,
+        _oCustomApplication: null,
+        getApplication: function(){
+            return this._oCustomApplication;
+        },
 
-        // this is the sort of thing which could be moved to _oApplication. Maybe it needs to be a custom class, tbh since we're barely using the built-in app for anything
+        // these are the sort of thing which could be moved to _oApplication. Maybe it needs to be a custom class, tbh since we're barely using the built-in app for anything
         _oViews: {},
-        _oDataPersistenceInterface: DataPersistenceInterface,
+        getView: function(sViewId) {
+            return this._oViews.hasOwnProperty(sViewId) ? this._oViews[sViewId] : null;
+        },
 
-        _oDataManager: DataManager,
-        getDataManager: function(){
-            return this._oDataManager;
+        _oPersistenceManager: null,
+        getPersistenceManager: function(){
+            return this._oPersistenceManager;
+        },
+
+        _oAppDataManager: null,
+        getAppDataManager: function(){
+            return this._oAppDataManager;
         },
 
         metadata: {
@@ -77,106 +84,36 @@ sap.ui.define([
 
         },
 
-        _initialDataSetup: function() {
-            var dataModel = this.getModel();
-            if(dataModel) {
-                this._fixDataReferences(dataModel);
-                this._initializeWorkarea(dataModel);
-                this._setCurrentUser(dataModel);
-            }
+        _initializeManagers: function(){
+            this._oPersistenceManager = new PersistenceManager();
+            this._oPersistenceManager.initialize();
+
+            this._oAppDataManager = new AppDataManager();
+            this._oAppDataManager.initialize({
+                main: this.getModel(),
+                taskMetaData: this.getModel("taskMetaData"),
+                languages: this.getModel("lang")
+            });
         },
 
-        _initializeWorkarea: function(dataModel) {
-            if(dataModel) {
-                dataModel.setProperty("/Temp", {
-                    SelectedTask: null,
-                    SelectedTaskPath: "",
-                    CurrentUser: null
-                });
-            }
+        _handleNoDataManager: function(){
+            var i18nModel = this.getModel("i18n");
+
+            console.error(i18nModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
+
+            MessageBox.error(i18nModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
+                title: i18nModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
+            });
         },
 
-        // The data encoded in the JSON uses IDs to flatten the various data references since it can become a massive pain to save a data struct with multiple refs of the same object scattered everywhere. So, we need to expand the refs when we finish reading the raw JSON.
-        _fixDataReferences: function(dataModel) {
-            var i, j, timestamp, result;
+        _handleNoPersistenceManager: function(){
+            var i18nModel = this.getModel("i18n");
 
-            if(dataModel) {
-                var tasks = dataModel.getProperty("/Tasks");
-                var users = dataModel.getProperty("/Users");
-                var comments = dataModel.getProperty("/Comments");
-                var todos = dataModel.getProperty("/Todos");
+            console.error(i18nModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
 
-                // making this a local function since it's not needed elsewhere. If we do, then we could just make it more abstract and put it somewhere more general
-                var matchCollection = function(collection, id) {
-                    for(var i = 0; i < collection.length; i++) {
-                        if(collection[i].id === id) {
-                            return collection[i];
-                        }
-                    }
-                    return null;
-                };
-
-                for(i = 0; i < comments.length; i++) {
-                    result = matchCollection(users, comments[i].owner);
-                    if(result) {
-                        comments[i].owner = result;
-                    }
-
-                    timestamp = new moment(comments[i].dateCreated);
-                    if(timestamp && timestamp.isValid()) {
-                        comments[i].dateCreated = timestamp.toDate();
-                    }
-
-                    timestamp = new moment(comments[i].dateLastUpdated);
-                    if(timestamp && timestamp.isValid()) {
-                        comments[i].dateLastUpdated = timestamp.toDate();
-                    }
-                }
-
-                for(i = 0; i < tasks.length; i++) {
-                    result = matchCollection(users, tasks[i].owner);
-                    if(result) {
-                        tasks[i].owner = result;
-                    }
-
-                    timestamp = new moment(tasks[i].dateCreated);
-                    if(timestamp && timestamp.isValid()) {
-                        tasks[i].dateCreated = timestamp.toDate();
-                    }
-
-                    timestamp = new moment(tasks[i].dateLastUpdated);
-                    if(timestamp && timestamp.isValid()) {
-                        tasks[i].dateLastUpdated = timestamp.toDate();
-                    }
-
-                    for(j = 0; j < tasks[i].comments.length; j++) {
-                        result = matchCollection(comments, tasks[i].comments[j]);
-                        if(result) {
-                            tasks[i].comments[j] = result;
-                        }
-                    }
-
-                    for(j = 0; j < tasks[i].todos.length; j++) {
-                        result = matchCollection(todos, tasks[i].todos[j]);
-                        if(result) {
-                            tasks[i].todos[j] = result;
-                        }
-                    }
-                }
-
-                dataModel.setProperty("/Tasks", tasks);
-                dataModel.setProperty("/Users", users);
-                dataModel.setProperty("/Comments", comments);
-                dataModel.setProperty("/Todos", todos);
-            }
-        },
-
-        _setCurrentUser: function(dataModel) {
-            if(dataModel) {
-                var user = dataModel.getProperty("/Users")[0]; // TODO: as long as this is strictly a local task tracker, no need to handle multiple users
-
-                dataModel.setProperty("/Temp/CurrentUser", jsUtils.Object.clone(user));
-            }
+            MessageBox.error(i18nModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
+                title: i18nModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
+            });
         },
 
         createContent: function() {
@@ -203,22 +140,7 @@ sap.ui.define([
 
             this._oApplication = this.getRootControl().byId("TaskyApp");
 
-            var taskMetadataModel = this.getModel("taskMetadata");
-            if(taskMetadataModel) {
-                taskMetadataModel.attachEvent("requestCompleted", function(oEvent) {
-                    this._updateTaskMetadataLabels();
-                }.bind(this));
-            }
-
-            var dataModel = this.getModel();
-            if(dataModel) {
-                dataModel.attachEvent("requestCompleted", function(oEvent) {
-                    this._initialDataSetup();
-                }.bind(this));
-            }
-
-            this._oDataManager = new DataManager();
-            this._oDataManager.initialize(dataModel);
+            // TODO: actually, pretty much everything past this point could be considered application code
 
             var i18nModel = this.getModel("i18n");
             if(i18nModel) {
@@ -228,82 +150,72 @@ sap.ui.define([
                 document.title = i18nModel.getResourceBundle().getText("GENERAL.PAGE.TITLE", [randomQuip]);
             }
 
-            var fileModel = this.getModel("file");
-            if(fileModel) {
-                fileModel.setProperty("/Filepath", "C:/default_data.json");
+            var taskMetadataModel = this.getModel("taskMetadata");
+            if(taskMetadataModel) {
+                taskMetadataModel.attachEvent("requestCompleted", function(oEvent) {
+                    this._updateTaskMetadataLabels(); // TODO: I'd really like to move this inside AppDataManager, but it really shouldn't know about translations
+                }.bind(this));
             }
+
+            // var dataModel = this.getModel();
+            // if(dataModel) {
+            //     dataModel.attachEvent("requestCompleted", function(oEvent) {
+            //         this._initialDataSetup();
+            //     }.bind(this));
+            // }
+
+            this._initializeManagers();
 
             this._oViews = this._createViewMap();
 
-            // if(this._oDataPersistenceInterface){ // FIXME: apparently, this block crashes the app because it's suddenly trying to call this._oViews.destroy from somewhere, somehow for some reason.
-            //     this._oDataPersistenceInterface.init();
-            // }
+            this.loadData();
 
-            console.log(this);
+            console.log("Component init OK");
         },
 
-        getView: function(sViewId) {
-            return this._oViews.hasOwnProperty(sViewId) ? this._oViews[sViewId] : null;
-        },
-
-
-        // TODO: maybe all this data persistence logic should go in some sort of PersistenceManager?
-        load: function() {
-            var i18nModel = this.getModel("i18n");
-
-            if(!this._oDataPersistenceInterface) {
-                console.error(i18nModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
-
-                MessageBox.error(i18nModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
-                    title: i18nModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
-                });
-
+        loadData: function(){
+            if(!this._oPersistenceManager) {
+                this._handleNoPersistenceManager();
                 return;
             }
 
-            var success = false;
-            var rawDataString = _oDataPersistenceInterface.loadData(this._STORAGE_KEY);
-            if(rawDataString) {
-                var jsonData = JSON.parse(rawDataString);
-                var dataModel = this.getModel();
-                if(dataModel) {
-                    dataModel.setData(jsonData);
-                    this._initialDataSetup();
-                    success = true;
-                }
-            }
-
-            if(success) {
-                MessageToast.show(i18nModel.getProperty("NOTIFICATIONS.LOAD_COMPLETE"));
-            } else {
-                MessageBox.error(i18nModel.getProperty("NOTIFICATIONS.LOAD_FAILED"), {
-                    title: i18nModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
-                });
+            var data = this._oPersistenceManager.load();
+            if(data){
+                this._oAppDataManager.setData(data);
+            }else {
+                this._oAppDataManager.setMockData();
             }
         },
 
-        save: function() {
+        saveData: function() {
             var i18nModel = this.getModel("i18n");
 
-            if(!this._oDataPersistenceInterface) {
-                console.error(i18nModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
-
-                MessageBox.error(i18nModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
-                    title: i18nModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
-                });
-
+            if(!this._oPersistenceManager) {
+                this._handleNoPersistenceManager();
                 return;
             }
 
             var exportableData = this.createExportableData();
+            var success = this._oPersistenceManager.save(exportableData);
 
-            console.log(exportableData);
+            if(success) {
+                MessageToast.show(i18nModel.getProperty("NOTIFICATIONS.SAVE_COMPLETE"));
+            } else {
+                MessageBox.error(i18nModel.getProperty("NOTIFICATIONS.SAVE_FAILED"), {
+                    title: i18nModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
+                });
+            }
+        },
 
-            var saveDataString = JSON.stringify(exportableData);
+        clearData: function(){
+            var i18nModel = this.getModel("i18n");
 
-            console.log(saveDataString);
+            if(!this._oPersistenceManager) {
+                this._handleNoPersistenceManager();
+                return;
+            }
 
-            var success = this._oDataPersistenceInterface.saveData(this._STORAGE_KEY, saveDataString);
+            this._oPersistenceManager.clear();
 
             if(success) {
                 MessageToast.show(i18nModel.getProperty("NOTIFICATIONS.SAVE_COMPLETE"));
@@ -315,60 +227,7 @@ sap.ui.define([
         },
 
         createExportableData: function() { // clone data, format dates and flatten refs down to IDs
-            var i, j, entry;
-            var data = this.getModel().getData();
-            var exportableData = {
-                Tasks: [],
-                Users: [],
-                Comments: [],
-                Todos: []
-            };
-
-            for(i = 0; i < data.Tasks.length; i++) {
-                entry = jsUtils.Object.clone(data.Tasks[i]);
-
-                entry.dateCreated = (new moment(entry.dateCreated)).format();
-                entry.dateLastUpdated = (new moment(entry.dateLastUpdated)).format();
-                entry.owner = entry.owner.id;
-
-                entry.comments = jsUtils.Object.clone(entry.comments);
-                for(j = 0; j < entry.comments.length; j++) {
-                    entry.comments[j] = entry.comments[j].id;
-                }
-
-                entry.todos = jsUtils.Object.clone(entry.todos);
-                for(j = 0; j < entry.todos.length; j++) {
-                    entry.todos[j] = entry.todos[j].id;
-                }
-
-                exportableData.Tasks.push(entry);
-            }
-
-            for(i = 0; i < data.Users.length; i++) {
-                entry = jsUtils.Object.clone(data.Users[i]);
-
-                entry.lastOnline = (new moment(entry.lastOnline)).format();
-
-                exportableData.Users.push(entry);
-            }
-
-            for(i = 0; i < data.Comments.length; i++) {
-                entry = jsUtils.Object.clone(data.Comments[i]);
-
-                entry.dateCreated = (new moment(entry.dateCreated)).format();
-                entry.dateLastUpdated = (new moment(entry.dateLastUpdated)).format();
-                entry.owner = entry.owner.id;
-
-                exportableData.Comments.push(entry);
-            }
-
-            for(i = 0; i < data.Todos.length; i++) {
-                entry = jsUtils.Object.clone(data.Todos[i]);
-
-                exportableData.Todos.push(entry);
-            }
-
-            return exportableData;
+            return this._oAppDataManager.createExportableData();
         }
     });
 

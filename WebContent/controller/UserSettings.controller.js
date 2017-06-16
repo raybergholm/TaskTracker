@@ -82,7 +82,7 @@ sap.ui.define([
         onPressForceSync: function(oEvent){
             // while we're working locally, that just means trigger a full save action so that the local storage is definitely saved.
 
-            this.getOwnerComponent().save();
+            this.getOwnerComponent().saveData();
         },
 
         onPressSave: function(oEvent){

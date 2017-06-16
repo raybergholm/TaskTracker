@@ -10,12 +10,8 @@ sap.ui.define([
     return {
         _oDataStorage: DataStorageInterface,
 
-        init: function(){
-            this._oDataStorage.init();
-        },
-
-        saveData: function(key, data) {
-            return this._oDataStorage.saveData(key, data);
+        initialize: function(){
+            this._oDataStorage.initialize();
         },
 
         fetchData: function(key) {
@@ -24,6 +20,10 @@ sap.ui.define([
 
         clearData: function(key) {
             return this._oDataStorage.clearData(key);
+        },
+
+        saveData: function(key, data) {
+            return this._oDataStorage.saveData(key, data);
         }
     };
 });

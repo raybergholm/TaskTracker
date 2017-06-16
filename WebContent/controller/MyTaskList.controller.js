@@ -12,7 +12,7 @@ sap.ui.define([
         _oTaskList: null,
 
         _deleteTaskCallback: function(bindingPath){
-            this.getOwnerComponent().getDataManager().deleteTask(bindingPath);
+            this.getOwnerComponent().getAppDataManager().deleteTask(bindingPath);
 
             var detailView = this.getOwnerComponent().getView("TaskDetail");
             if(detailView){
@@ -88,7 +88,7 @@ sap.ui.define([
         },
 
         onPressNewTask: function(oEvent) {
-            var newTask = this.getOwnerComponent().getDataManager().createTask();
+            var newTask = this.getOwnerComponent().getAppDataManager().createTask();
 
             this._oTaskList.setSelectedItem(this._oTaskList.getItems()[this._oTaskList.getItems().length - 1]); // TODO: does this work? is the ref already updated at this point?
         },
