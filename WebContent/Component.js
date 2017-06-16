@@ -68,7 +68,10 @@ sap.ui.define([
 
             var i18nModel = this.getModel("i18n");
             if(i18nModel) {
-                document.title = i18nModel.getProperty("GENERAL.PAGE.TITLE");
+                var rng = Math.round((Math.random() * 2) + 1);
+                var randomQuip = i18nModel.getProperty("GENERAL.PAGE.QUIP" + rng)
+
+                document.title = i18nModel.getResourceBundle().getText("GENERAL.PAGE.TITLE", [randomQuip]);
             }
 
             var fileModel = this.getModel("file");
@@ -256,7 +259,7 @@ sap.ui.define([
         },
 
         _firstTimeUserProcess: function(){
-            
+
         },
 
         _initialDataSetup: function() {
