@@ -155,9 +155,7 @@ sap.ui.define([
             var items = oEvent.getSource().getItems();
 
             for(var i = 0; i < items.length; i++){
-                // This is really ugly having to manually assign the timestamp text like this, but any attempt to bind & use the timestamp
-                // the proper way causes all the timestamps to get overwritten so we will lose data immediately on save.
-                // This is absolutely the wrong behaviour so we don't want that.
+                // Same issue and comment as the equiv found in MyTaskList.onUpdateFinishedTaskList
                 timestamp = new moment(this.getView().getModel().getProperty(items[i].getBindingContextPath()).dateCreated);
                 if(timestamp.isValid()){
                     items[i].setTimestamp(timestamp.fromNow());

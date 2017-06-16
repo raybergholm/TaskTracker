@@ -24,8 +24,7 @@
             }
         },
         "resources": {
-            "js": [
-                {
+            "js": [{
                     "uri": "plugins/moment.min.js"
                 },
                 {
@@ -41,8 +40,7 @@
                 "controlId": "Tasky--TaskyApp",
                 "controlAggregation": "detailPages"
             },
-            "routes": [
-                {
+            "routes": [{
                     "pattern": "",
                     "name": "default",
                     "target": "Tasks"
@@ -65,13 +63,16 @@
             ],
             "targets": {
                 "Tasks": {
-                    "viewName": "TaskDetail"
+                    "viewName": "TaskDetail",
+                    "transition": "flip"
                 },
                 "Overview": {
-                    "viewName": "StatusOverview"
+                    "viewName": "StatusOverview",
+                    "transition": "flip"
                 },
                 "UserSettings": {
-                    "viewName": "UserSettings"
+                    "viewName": "UserSettings",
+                    "transition": "flip"
                 }
             }
         }
