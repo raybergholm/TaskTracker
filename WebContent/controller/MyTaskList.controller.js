@@ -120,13 +120,13 @@ sap.ui.define([
             var i18nModel = this.getView().getModel("i18n");
 
             if(this._oTaskList.getSelectedItem() === null){
-                MessageToast.show(i18nModel.getProperty("GENERAL.NOTIFICATIONS.SELECT_A_TASK"));
+                MessageToast.show(i18nModel.getProperty("NOTIFICATIONS.SELECT_A_TASK"));
             }
 
             var bindingPath = this._oTaskList.getSelectedItem().getBindingContextPath();
             var taskTitle = this.getView().getModel().getProperty(bindingPath).title;
-            MessageBox.confirm(i18nModel.getResourceBundle().getText("GENERAL.NOTIFICATIONS.CONFIRM_DELETE_TASK", [taskTitle]), {
-                title: i18nModel.getProperty("GENERAL.NOTIFICATIONS.CONFIRMATION"),
+            MessageBox.confirm(i18nModel.getResourceBundle().getText("NOTIFICATIONS.CONFIRM_DELETE_TASK", [taskTitle]), {
+                title: i18nModel.getProperty("NOTIFICATIONS.CONFIRMATION"),
                 onClose: function(sBindingPath, sAction){
                     if(sAction === MessageBox.Action.OK){
                         this._deleteTask(sBindingPath);

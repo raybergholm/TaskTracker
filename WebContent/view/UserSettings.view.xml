@@ -8,7 +8,7 @@
 	xmlns:form="sap.ui.layout.form">
 
 	<semantic:DetailPage
-		title="{i18n>USER.SETTINGS}">
+		title="{i18n>SETTINGS.TITLE}">
 		<semantic:customHeaderContent>
 			<core:Fragment fragmentName="com.tasky.fragment.DetailNavigationButtons" type="XML" />
 		</semantic:customHeaderContent>

@@ -97,10 +97,10 @@ sap.ui.define([
             var i18nModel = this.getModel("i18n");
 
             if(!this._oDataPersistenceInterface) {
-                console.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
+                console.error(i18nModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
 
-                MessageBox.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
-                    title: i18nModel.getProperty("GENERAL.NOTIFICATIONS.CRITICAL_ERROR_TITLE")
+                MessageBox.error(i18nModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
+                    title: i18nModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
                 });
 
                 return;
@@ -119,10 +119,10 @@ sap.ui.define([
             }
 
             if(success) {
-                MessageToast.show(i18nModel.getProperty("GENERAL.NOTIFICATIONS.LOAD_COMPLETE"));
+                MessageToast.show(i18nModel.getProperty("NOTIFICATIONS.LOAD_COMPLETE"));
             } else {
-                MessageBox.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.LOAD_FAILED"), {
-                    title: i18nModel.getProperty("GENERAL.NOTIFICATIONS.CRITICAL_ERROR_TITLE")
+                MessageBox.error(i18nModel.getProperty("NOTIFICATIONS.LOAD_FAILED"), {
+                    title: i18nModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
                 });
             }
         },
@@ -131,10 +131,10 @@ sap.ui.define([
             var i18nModel = this.getModel("i18n");
 
             if(!this._oDataPersistenceInterface) {
-                console.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
+                console.error(i18nModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
 
-                MessageBox.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
-                    title: i18nModel.getProperty("GENERAL.NOTIFICATIONS.CRITICAL_ERROR_TITLE")
+                MessageBox.error(i18nModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
+                    title: i18nModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
                 });
 
                 return;
@@ -151,10 +151,10 @@ sap.ui.define([
             var success = this._oDataPersistenceInterface.saveData(this._STORAGE_KEY, saveDataString);
 
             if(success) {
-                MessageToast.show(i18nModel.getProperty("GENERAL.NOTIFICATIONS.SAVE_COMPLETE"));
+                MessageToast.show(i18nModel.getProperty("NOTIFICATIONS.SAVE_COMPLETE"));
             } else {
-                MessageBox.error(i18nModel.getProperty("GENERAL.NOTIFICATIONS.SAVE_FAILED"), {
-                    title: i18nModel.getProperty("GENERAL.NOTIFICATIONS.CRITICAL_ERROR_TITLE")
+                MessageBox.error(i18nModel.getProperty("NOTIFICATIONS.SAVE_FAILED"), {
+                    title: i18nModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
                 });
             }
         },

@@ -25,24 +25,24 @@ sap.ui.define([
         _deleteLocalData: function(){
             this.getOwnerComponent().clearData();
 
-            MessageToast.show(this.getView().getModel("i18n").getProperty("GENERAL.NOTIFICATIONS.DELETE_COMPLETE"));
+            MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.DELETE_COMPLETE"));
         },
 
         _importData: function(jsonData){
 
-            MessageToast.show(this.getView().getModel("i18n").getProperty("GENERAL.NOTIFICATIONS.IMPORT_COMPLETE"));
+            MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.IMPORT_COMPLETE"));
         },
 
         _exportData: function(destination){
 
-            MessageToast.show(this.getView().getModel("i18n").getProperty("GENERAL.NOTIFICATIONS.EXPORT_COMPLETE"));
+            MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.EXPORT_COMPLETE"));
         },
 
         onPressClearAll: function(oEvent){
             var i18nModel = this.getView().getModel("i18n");
 
-            MessageBox.confirm(i18nModel.getProperty("GENERAL.NOTIFICATIONS.CONFIRM_DELETE"), {
-                title: i18nModel.getProperty("GENERAL.NOTIFICATIONS.CONFIRMATION"),
+            MessageBox.confirm(i18nModel.getProperty("NOTIFICATIONS.CONFIRM_DELETE"), {
+                title: i18nModel.getProperty("NOTIFICATIONS.CONFIRMATION"),
                 onClose: function(sAction){
                     if(sAction === MessageBox.Action.OK){
                         this._deleteLocalData();
@@ -52,7 +52,7 @@ sap.ui.define([
         },
 
         onTypeMismatch: function(oEvent){
-            MessageToast.show(this.getView().getModel("i18n").getProperty("GENERAL.NOTIFICATIONS.ONLY_JSON_ALLOWED"));
+            MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.ONLY_JSON_ALLOWED"));
         },
 
         onChangeFile: function(oEvent){
@@ -66,8 +66,8 @@ sap.ui.define([
         onPressImport: function(oEvent){
             var i18nModel = this.getView().getModel("i18n");
 
-            MessageBox.confirm(i18nModel.getProperty("GENERAL.NOTIFICATIONS.CONFIRM_IMPORT"), {
-                title: i18nModel.getProperty("GENERAL.NOTIFICATIONS.CONFIRMATION"),
+            MessageBox.confirm(i18nModel.getProperty("NOTIFICATIONS.CONFIRM_IMPORT"), {
+                title: i18nModel.getProperty("NOTIFICATIONS.CONFIRMATION"),
                 onClose: function(sAction){
                     if(oEvent){
                         console.log(oEvent);
@@ -99,7 +99,7 @@ sap.ui.define([
 
             this._setCurrentUser(dataModel); // disconnect the references again
 
-            MessageToast.show(this.getView().getModel("i18n").getProperty("GENERAL.NOTIFICATIONS.SETTINGS_SAVED"));
+            MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.SETTINGS_SAVED"));
         },
 
         onPressTaskDetail: function(oEvent) {

@@ -3,7 +3,8 @@
 	xmlns="sap.m"
 	xmlns:core="sap.ui.core"
 	xmlns:mvc="sap.ui.core.mvc">
-	<Page>
+	<Page
+		title="{i18n>OVERVIEW.TITLE}">
 		<headerContent>
 			<core:Fragment fragmentName="com.tasky.fragment.DetailNavigationButtons" type="XML" />
 		</headerContent>

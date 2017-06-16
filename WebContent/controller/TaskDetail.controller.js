@@ -117,7 +117,7 @@ sap.ui.define([
 
             this.bindTaskForm(workarea.SelectedTaskPath); // create a new working copy after saving
 
-            MessageToast.show(this.getView().getModel("i18n").getProperty("GENERAL.NOTIFICATIONS.TASK_SAVED"));
+            MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.TASK_SAVED"));
         },
 
         onSelectTodoCheckBox: function(oEvent){
