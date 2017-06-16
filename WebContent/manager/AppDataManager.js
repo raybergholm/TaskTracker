@@ -187,7 +187,7 @@ sap.ui.define([
             this._expandDataReferences();
 
             var user = this._oDataModel.getProperty("/Users")[0];
-            this._setCurrentUser(user);
+            this.setCurrentUser(user);
         },
 
         _handleNoModelException: function(){
