@@ -30,15 +30,17 @@
 			noDataText="{i18n>GENERAL.APP.NO_TASKS}"
 			itemPress="onSelectTask"
 			updatedStarted="onUpdateStarted"
-			updateFinished="onUpdateFinished">
+			updateFinished="onUpdateFinishedTaskList">
 			<items>
-				<ObjectListItem type="Active">
+				<ObjectListItem
+					title="{title}"
+					type="Active">
 					<firstStatus>
 						<ObjectStatus text="{status}" />
 					</firstStatus>
 					<attributes>
-						<ObjectAttribute title="{i18n>TASK.TITLE}" text="{title}" />
 						<ObjectAttribute title="{i18n>TASK.DESCRIPTION}" text="{description}" />
+						<ObjectAttribute title="{i18n>GENERAL.DATE_LAST_UPDATED}" text="" />
 		        	</attributes>
 				</ObjectListItem>
 			</items>

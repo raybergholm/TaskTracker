@@ -22,6 +22,13 @@ sap.ui.define([
         _oTemplater: Templater,
         _oFormatter: Formatter,
 
+        onInit: function(){
+            var selfNavButton = this.byId("taskDetailNavButton");
+            if(selfNavButton){
+                selfNavButton.setType(sap.m.ButtonType.Emphasized);
+            }
+        },
+
         bindTaskForm: function(sPath){ // TODO: this could do with a better name
             var dataModel = this.getView().getModel();
 
@@ -62,6 +69,19 @@ sap.ui.define([
         //         }
         //     }
         // },
+
+        clearForm: function(){
+            var dataModel = this.getView().getModel();
+
+            if(dataModel){
+                var workarea = dataModel.getProperty("/Temp");
+
+                workarea.SelectedTask = {};
+                workarea.SelectedTaskPath = "";
+
+                dataModel.setProperty("/Temp", workarea);
+            }
+        },
 
         _createNewComment: function(text){
             var newComment = this._oTemplater.Comment();

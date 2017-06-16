@@ -15,12 +15,16 @@ sap.ui.define([
 
         onInit: function(){
             this._oTaskList = this.byId("taskList");
+            if(this._oTaskList){
+                this._oTaskList.setSelectedItem(this._oTaskList.getItems()[0]);
+            }
         },
 
         _createTask: function(){
             var newTask = this._oTemplater.Task();
 
             newTask.id = this.getOwnerComponent().getIdManager().getNextTaskId();
+            newTask.title = "New Task";
             newTask.dateCreated = new Date();
             newTask.dateLastUpdated = new Date();
             newTask.owner = this.getView().getModel().getProperty("/Temp/CurrentUser");
@@ -35,6 +39,16 @@ sap.ui.define([
             var tasks = this.getView().getModel().getProperty("/Tasks");
             tasks.splice(index, 1);
             this.getView().getModel().setProperty("/Tasks", tasks);
+
+            var detailView = this.getOwnerComponent().getView("TaskDetail");
+            if(detailView){
+                if(this.__oTaskList && _oTaskList.getSelectedItem() !== null){
+                    var newBinding = _oTaskList.getSelectedItem().getBindingContextPath();
+                    detailView.getController().bindTaskForm(newBinding);
+                }else{
+                    detailView.getController().clearForm();
+                }
+            }
         },
 
         onSelectTask: function(oEvent) {
@@ -45,14 +59,51 @@ sap.ui.define([
                 detailView.getController().bindTaskForm(bindingPath);
             }
 
+            var router = this.getOwnerComponent().getRouter();
+            if(router){
+                router.navTo("Tasks");
+            }else {
+                console.error("Router reference not found");
+            }
         },
 
         onUpdateStarted: function(oEvent) {
             oEvent.getSource() && oEvent.getSource().setBusy(true);
         },
 
-        onUpdateFinished: function(oEvent) {
+        onUpdateFinishedTaskList: function(oEvent) {
+            var timestamp, status, state;
             oEvent.getSource() && oEvent.getSource().setBusy(false);
+
+            var items = oEvent.getSource().getItems();
+
+            for(var i = 0; i < items.length; i++){
+                // This is really ugly having to manually assign things like this, but any attempt to bind & use them
+                // the proper way causes data to get overwritten so we will lose the correct values immediately on save.
+                // That would be absolutely the wrong behaviour so we don't want that.
+                timestamp = new moment(this.getView().getModel().getProperty(items[i].getBindingContextPath()).dateLastUpdated);
+                if(timestamp.isValid()){
+                    items[i].getAttributes()[1].setText(timestamp.fromNow());
+                }
+
+                status = items[i].getFirstStatus();
+
+                switch(status.getText()){
+                    case "completed":
+                        state = sap.ui.core.ValueState.Success;
+                        break;
+                    case "inprogress":
+                        state = sap.ui.core.ValueState.Warning;
+                        break;
+                    case "inprogress":
+                        state = sap.ui.core.ValueState.Error;
+                        break;
+                    default:
+                        state = sap.ui.core.ValueState.None;
+                        break;
+                }
+                status.setState(state);
+            }
         },
 
         onPressNewTask: function(oEvent) {

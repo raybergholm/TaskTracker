@@ -7,6 +7,13 @@ sap.ui.define([
 
     return BaseController.extend("com.tasky.controller.UserSettings", {
 
+        onInit: function(){
+            var selfNavButton = this.byId("settingsNavButton");
+            if(selfNavButton){
+                selfNavButton.setType(sap.m.ButtonType.Emphasized);
+            }
+        },
+
         _setCurrentUser: function(dataModel){
             if(dataModel){
                 var user = dataModel.getProperty("/Users")[0]; // TODO: as long as this is strictly a local task tracker, no need to handle multiple users
@@ -96,8 +103,6 @@ sap.ui.define([
         },
 
         onPressTaskDetail: function(oEvent) {
-            MessageToast.show("Task overview button pressed");
-
             var router = this.getOwnerComponent().getRouter();
             if(router){
                 router.navTo("Tasks");
@@ -107,8 +112,6 @@ sap.ui.define([
         },
 
         onPressStatusOverview: function(oEvent) {
-            MessageToast.show("Status overview button pressed");
-
             var router = this.getOwnerComponent().getRouter();
             if(router){
                 router.navTo("Overview");

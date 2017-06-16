@@ -1,16 +1,19 @@
 <core:FragmentDefinition
 	xmlns="sap.m"
 	xmlns:core="sap.ui.core">
-    <Button
+    <Button id="taskDetailNavButton"
         text="{i18n>NAVIGATION.TASK_DETAIL}"
+		tooltip="{i18n>NAVIGATION.TASK_DETAIL}"
         icon="sap-icon://detail-view"
         press="onPressTaskDetail" />
-    <Button
+    <Button id="overviewNavButton"
         text="{i18n>NAVIGATION.STATUS_OVERVIEW}"
+		tooltip="{i18n>NAVIGATION.STATUS_OVERVIEW}"
         icon="sap-icon://checklist"
         press="onPressStatusOverview" />
-    <Button
+    <Button id="settingsNavButton"
         text="{i18n>NAVIGATION.USER_SETTINGS}"
+		tooltip="{i18n>NAVIGATION.USER_SETTINGS}"
         icon="sap-icon://action-settings"
         press="onPressSettings" />
 </core:FragmentDefinition>

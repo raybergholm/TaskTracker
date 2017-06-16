@@ -5,11 +5,14 @@ sap.ui.define([
     "use strict";
 
     return BaseController.extend("com.tasky.controller.StatusOverview", {
-        // Extend this controller as required
+        onInit: function(){
+            var selfNavButton = this.byId("overviewNavButton");
+            if(selfNavButton){
+                selfNavButton.setType(sap.m.ButtonType.Emphasized);
+            }
+        },
 
         onPressTaskDetail: function(oEvent){
-            MessageToast.show("Task overview button pressed");
-
             var router = this.getOwnerComponent().getRouter();
             if(router){
                 router.navTo("Tasks");
@@ -21,8 +24,6 @@ sap.ui.define([
         onPressStatusOverview: function(oEvent){ },
 
         onPressSettings: function(oEvent){
-            MessageToast.show("Settings button pressed");
-
             var router = this.getOwnerComponent().getRouter();
             if(router){
                 router.navTo("UserSettings");
