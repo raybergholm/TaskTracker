@@ -41,7 +41,7 @@ sap.ui.define([
         onPressClearAll: function(oEvent){
             var i18nModel = this.getView().getModel("i18n");
 
-            MessageBox.confirm(i18nModel.getProperty("NOTIFICATIONS.CONFIRM_DELETE"), {
+            MessageBox.confirm(i18nModel.getProperty("NOTIFICATIONS.CONFIRM_DELETE_ALL"), {
                 title: i18nModel.getProperty("NOTIFICATIONS.CONFIRMATION"),
                 onClose: function(sAction){
                     if(sAction === MessageBox.Action.OK){
