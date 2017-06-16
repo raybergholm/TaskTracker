@@ -30,10 +30,10 @@ sap.ui.define([
 
             var i, j, timestamp, result;
 
-            var tasks = _oDataModel.getProperty("/Tasks");
-            var users = _oDataModel.getProperty("/Users");
-            var comments = _oDataModel.getProperty("/Comments");
-            var todos = _oDataModel.getProperty("/Todos");
+            var tasks = this._oDataModel.getProperty("/Tasks");
+            var users = this._oDataModel.getProperty("/Users");
+            var comments = this._oDataModel.getProperty("/Comments");
+            var todos = this._oDataModel.getProperty("/Todos");
 
             if(!tasks || !users || !comments || !todos){
                 throw new Error("DataManager's model is missing data!");
@@ -97,10 +97,10 @@ sap.ui.define([
                 }
             }
 
-            _oDataModel.setProperty("/Tasks", tasks);
-            _oDataModel.setProperty("/Users", users);
-            _oDataModel.setProperty("/Comments", comments);
-            _oDataModel.setProperty("/Todos", todos);
+            this._oDataModel.setProperty("/Tasks", tasks);
+            this._oDataModel.setProperty("/Users", users);
+            this._oDataModel.setProperty("/Comments", comments);
+            this._oDataModel.setProperty("/Todos", todos);
         },
 
         _flattenDataReferences: function(){
