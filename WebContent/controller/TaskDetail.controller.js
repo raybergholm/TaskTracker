@@ -22,6 +22,27 @@ sap.ui.define([
         _oTemplater: Templater,
         _oFormatter: Formatter,
 
+        _createNewComment: function(text){
+            var newComment = this._oTemplater.Comment();
+
+            newComment.id = this.getOwnerComponent().getIdManager().getNextCommentId();
+            newComment.dateCreated = new Date();
+            newComment.dateLastUpdated = new Date();
+            newComment.owner = this.getView().getModel().getProperty("/Temp/CurrentUser");
+            newComment.text = text;
+
+            return newComment;
+        },
+
+        _createNewTodo: function(text){
+            var newTodo = this._oTemplater.Todo();
+
+            newTodo.id = this.getOwnerComponent().getIdManager().getNextTodoId();
+            newTodo.text = text;
+
+            return newTodo;
+        },
+
         onInit: function(){
             var selfNavButton = this.byId("taskDetailNavButton");
             if(selfNavButton){
@@ -81,27 +102,6 @@ sap.ui.define([
 
                 dataModel.setProperty("/Temp", workarea);
             }
-        },
-
-        _createNewComment: function(text){
-            var newComment = this._oTemplater.Comment();
-
-            newComment.id = this.getOwnerComponent().getIdManager().getNextCommentId();
-            newComment.dateCreated = new Date();
-            newComment.dateLastUpdated = new Date();
-            newComment.owner = this.getView().getModel().getProperty("/Temp/CurrentUser");
-            newComment.text = text;
-
-            return newComment;
-        },
-
-        _createNewTodo: function(text){
-            var newTodo = this._oTemplater.Todo();
-
-            newTodo.id = this.getOwnerComponent().getIdManager().getNextTodoId();
-            newTodo.text = text;
-
-            return newTodo;
         },
 
         onPressSave: function(oEvent){

@@ -7,17 +7,9 @@ sap.ui.define([
 
     return BaseController.extend("com.tasky.controller.UserSettings", {
 
-        onInit: function(){
-            var selfNavButton = this.byId("settingsNavButton");
-            if(selfNavButton){
-                selfNavButton.setType(sap.m.ButtonType.Emphasized);
-            }
-        },
-
         _setCurrentUser: function(dataModel){
             if(dataModel){
                 var user = dataModel.getProperty("/Users")[0]; // TODO: as long as this is strictly a local task tracker, no need to handle multiple users
-
                 dataModel.setProperty("/Temp/CurrentUser", jsUtils.Object.clone(user));
             }
         },
@@ -36,6 +28,13 @@ sap.ui.define([
         _exportData: function(destination){
 
             MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.EXPORT_COMPLETE"));
+        },
+
+        onInit: function(){
+            var selfNavButton = this.byId("settingsNavButton");
+            if(selfNavButton){
+                selfNavButton.setType(sap.m.ButtonType.Emphasized);
+            }
         },
 
         onPressClearAll: function(oEvent){

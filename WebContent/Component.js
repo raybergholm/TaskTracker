@@ -28,6 +28,154 @@ sap.ui.define([
             manifest: "json",
         },
 
+        _createViewMap: function() {
+            var pages, i, prop;
+
+            var viewMap = {};
+            viewMap.root = this.getRootControl();
+
+            pages = this._oApplication.getMasterPages();
+            for(i = 0; i < pages.length; i++) {
+                prop = pages[i].getId();
+                prop = prop.split("--");
+                prop = prop[prop.length - 1];
+
+                viewMap[prop] = pages[i];
+            }
+
+            pages = this._oApplication.getDetailPages();
+            for(i = 0; i < pages.length; i++) {
+                prop = pages[i].getId();
+                prop = prop.split("--");
+                prop = prop[prop.length - 1];
+
+                viewMap[prop] = pages[i];
+            }
+
+            return viewMap;
+        },
+
+        _updateTaskMetadataLabels: function() {
+            var taskMetadataModel = this.getModel("taskMetadata");
+            var i18nModel = this.getModel("i18n");
+            if(taskMetadataModel && i18nModel) {
+                var taskStatuses = taskMetadataModel.getProperty("/TaskStatuses");
+                for(var i = 0; i < taskStatuses.length; i++) {
+                    taskStatuses[i].value = i18nModel.getProperty(taskStatuses[i].value);
+                }
+                taskMetadataModel.setProperty("/TaskStatuses", taskStatuses);
+            }
+        },
+
+        _firstTimeUserProcess: function(){
+
+        },
+
+        _initialDataSetup: function() {
+            var dataModel = this.getModel();
+            if(dataModel) {
+                this._fixDataReferences(dataModel);
+                this._initializeWorkarea(dataModel);
+                this._setCurrentUser(dataModel);
+
+                this._idManager = new IdManager();
+                this._idManager.linkDataModel(dataModel);
+            }
+        },
+
+        _initializeWorkarea: function(dataModel) {
+            if(dataModel) {
+                dataModel.setProperty("/Temp", {
+                    SelectedTask: null,
+                    SelectedTaskPath: "",
+                    CurrentUser: null
+                });
+            }
+        },
+
+        // The data encoded in the JSON uses IDs to flatten the various data references since it can become a massive pain to save a data struct with multiple refs of the same object scattered everywhere. So, we need to expand the refs when we finish reading the raw JSON.
+        _fixDataReferences: function(dataModel) {
+            var i, j, timestamp, result;
+
+            if(dataModel) {
+                var tasks = dataModel.getProperty("/Tasks");
+                var users = dataModel.getProperty("/Users");
+                var comments = dataModel.getProperty("/Comments");
+                var todos = dataModel.getProperty("/Todos");
+
+                // making this a local function since it's not needed elsewhere. If we do, then we could just make it more abstract and put it somewhere more general
+                var matchCollection = function(collection, id) {
+                    for(var i = 0; i < collection.length; i++) {
+                        if(collection[i].id === id) {
+                            return collection[i];
+                        }
+                    }
+                    return null;
+                };
+
+                for(i = 0; i < comments.length; i++) {
+                    result = matchCollection(users, comments[i].owner);
+                    if(result) {
+                        comments[i].owner = result;
+                    }
+
+                    timestamp = new moment(comments[i].dateCreated);
+                    if(timestamp && timestamp.isValid()) {
+                        comments[i].dateCreated = timestamp.toDate();
+                    }
+
+                    timestamp = new moment(comments[i].dateLastUpdated);
+                    if(timestamp && timestamp.isValid()) {
+                        comments[i].dateLastUpdated = timestamp.toDate();
+                    }
+                }
+
+                for(i = 0; i < tasks.length; i++) {
+                    result = matchCollection(users, tasks[i].owner);
+                    if(result) {
+                        tasks[i].owner = result;
+                    }
+
+                    timestamp = new moment(tasks[i].dateCreated);
+                    if(timestamp && timestamp.isValid()) {
+                        tasks[i].dateCreated = timestamp.toDate();
+                    }
+
+                    timestamp = new moment(tasks[i].dateLastUpdated);
+                    if(timestamp && timestamp.isValid()) {
+                        tasks[i].dateLastUpdated = timestamp.toDate();
+                    }
+
+                    for(j = 0; j < tasks[i].comments.length; j++) {
+                        result = matchCollection(comments, tasks[i].comments[j]);
+                        if(result) {
+                            tasks[i].comments[j] = result;
+                        }
+                    }
+
+                    for(j = 0; j < tasks[i].todos.length; j++) {
+                        result = matchCollection(todos, tasks[i].todos[j]);
+                        if(result) {
+                            tasks[i].todos[j] = result;
+                        }
+                    }
+                }
+
+                dataModel.setProperty("/Tasks", tasks);
+                dataModel.setProperty("/Users", users);
+                dataModel.setProperty("/Comments", comments);
+                dataModel.setProperty("/Todos", todos);
+            }
+        },
+
+        _setCurrentUser: function(dataModel) {
+            if(dataModel) {
+                var user = dataModel.getProperty("/Users")[0]; // TODO: as long as this is strictly a local task tracker, no need to handle multiple users
+
+                dataModel.setProperty("/Temp/CurrentUser", jsUtils.Object.clone(user));
+            }
+        },
+
         createContent: function() {
             return sap.ui.view({
                 id: "Tasky",
@@ -217,154 +365,6 @@ sap.ui.define([
             }
 
             return exportableData;
-        },
-
-        _createViewMap: function() {
-            var pages, i, prop;
-
-            var viewMap = {};
-            viewMap.root = this.getRootControl();
-
-            pages = this._oApplication.getMasterPages();
-            for(i = 0; i < pages.length; i++) {
-                prop = pages[i].getId();
-                prop = prop.split("--");
-                prop = prop[prop.length - 1];
-
-                viewMap[prop] = pages[i];
-            }
-
-            pages = this._oApplication.getDetailPages();
-            for(i = 0; i < pages.length; i++) {
-                prop = pages[i].getId();
-                prop = prop.split("--");
-                prop = prop[prop.length - 1];
-
-                viewMap[prop] = pages[i];
-            }
-
-            return viewMap;
-        },
-
-        _updateTaskMetadataLabels: function() {
-            var taskMetadataModel = this.getModel("taskMetadata");
-            var i18nModel = this.getModel("i18n");
-            if(taskMetadataModel && i18nModel) {
-                var taskStatuses = taskMetadataModel.getProperty("/TaskStatuses");
-                for(var i = 0; i < taskStatuses.length; i++) {
-                    taskStatuses[i].value = i18nModel.getProperty(taskStatuses[i].value);
-                }
-                taskMetadataModel.setProperty("/TaskStatuses", taskStatuses);
-            }
-        },
-
-        _firstTimeUserProcess: function(){
-
-        },
-
-        _initialDataSetup: function() {
-            var dataModel = this.getModel();
-            if(dataModel) {
-                this._fixDataReferences(dataModel);
-                this._initializeWorkarea(dataModel);
-                this._setCurrentUser(dataModel);
-
-                this._idManager = new IdManager();
-                this._idManager.linkDataModel(dataModel);
-            }
-        },
-
-        _initializeWorkarea: function(dataModel) {
-            if(dataModel) {
-                dataModel.setProperty("/Temp", {
-                    SelectedTask: null,
-                    SelectedTaskPath: "",
-                    CurrentUser: null
-                });
-            }
-        },
-
-        // The data encoded in the JSON uses IDs to flatten the various data references since it can become a massive pain to save a data struct with multiple refs of the same object scattered everywhere. So, we need to expand the refs when we finish reading the raw JSON.
-        _fixDataReferences: function(dataModel) {
-            var i, j, timestamp, result;
-
-            if(dataModel) {
-                var tasks = dataModel.getProperty("/Tasks");
-                var users = dataModel.getProperty("/Users");
-                var comments = dataModel.getProperty("/Comments");
-                var todos = dataModel.getProperty("/Todos");
-
-                // making this a local function since it's not needed elsewhere. If we do, then we could just make it more abstract and put it somewhere more general
-                var matchCollection = function(collection, id) {
-                    for(var i = 0; i < collection.length; i++) {
-                        if(collection[i].id === id) {
-                            return collection[i];
-                        }
-                    }
-                    return null;
-                };
-
-                for(i = 0; i < comments.length; i++) {
-                    result = matchCollection(users, comments[i].owner);
-                    if(result) {
-                        comments[i].owner = result;
-                    }
-
-                    timestamp = new moment(comments[i].dateCreated);
-                    if(timestamp && timestamp.isValid()) {
-                        comments[i].dateCreated = timestamp.toDate();
-                    }
-
-                    timestamp = new moment(comments[i].dateLastUpdated);
-                    if(timestamp && timestamp.isValid()) {
-                        comments[i].dateLastUpdated = timestamp.toDate();
-                    }
-                }
-
-                for(i = 0; i < tasks.length; i++) {
-                    result = matchCollection(users, tasks[i].owner);
-                    if(result) {
-                        tasks[i].owner = result;
-                    }
-
-                    timestamp = new moment(tasks[i].dateCreated);
-                    if(timestamp && timestamp.isValid()) {
-                        tasks[i].dateCreated = timestamp.toDate();
-                    }
-
-                    timestamp = new moment(tasks[i].dateLastUpdated);
-                    if(timestamp && timestamp.isValid()) {
-                        tasks[i].dateLastUpdated = timestamp.toDate();
-                    }
-
-                    for(j = 0; j < tasks[i].comments.length; j++) {
-                        result = matchCollection(comments, tasks[i].comments[j]);
-                        if(result) {
-                            tasks[i].comments[j] = result;
-                        }
-                    }
-
-                    for(j = 0; j < tasks[i].todos.length; j++) {
-                        result = matchCollection(todos, tasks[i].todos[j]);
-                        if(result) {
-                            tasks[i].todos[j] = result;
-                        }
-                    }
-                }
-
-                dataModel.setProperty("/Tasks", tasks);
-                dataModel.setProperty("/Users", users);
-                dataModel.setProperty("/Comments", comments);
-                dataModel.setProperty("/Todos", todos);
-            }
-        },
-
-        _setCurrentUser: function(dataModel) {
-            if(dataModel) {
-                var user = dataModel.getProperty("/Users")[0]; // TODO: as long as this is strictly a local task tracker, no need to handle multiple users
-
-                dataModel.setProperty("/Temp/CurrentUser", jsUtils.Object.clone(user));
-            }
         }
     });
 

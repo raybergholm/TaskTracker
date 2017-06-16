@@ -13,13 +13,6 @@ sap.ui.define([
 
         _oTaskList: null,
 
-        onInit: function(){
-            this._oTaskList = this.byId("taskList");
-            if(this._oTaskList){
-                this._oTaskList.setSelectedItem(this._oTaskList.getItems()[0]);
-            }
-        },
-
         _createTask: function(){
             var newTask = this._oTemplater.Task();
 
@@ -48,6 +41,13 @@ sap.ui.define([
                 }else{
                     detailView.getController().clearForm();
                 }
+            }
+        },
+
+        onInit: function(){
+            this._oTaskList = this.byId("taskList");
+            if(this._oTaskList){
+                this._oTaskList.setSelectedItem(this._oTaskList.getItems()[0]);
             }
         },
 
