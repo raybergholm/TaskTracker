@@ -42,7 +42,7 @@ sap.ui.define([
             // making this a local function since it's not needed elsewhere. If we do, then we could just make it more abstract and put it somewhere more general
             var matchCollection = function(collection, id) {
                 for(var i = 0; i < collection.length; i++) {
-                    if(collection[i].id === id) {
+                    if(collection[i].id == id) { // TODO: making this a loose equality check for now since IDs might be int or string, but I want to make it all ints eventually
                         return collection[i];
                     }
                 }
