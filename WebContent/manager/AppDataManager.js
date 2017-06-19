@@ -125,12 +125,14 @@ sap.ui.define([
                 entry.dateLastUpdated = (new moment(entry.dateLastUpdated)).format();
                 entry.owner = entry.owner.id;
 
-                for(j = 0; j < entry.comments.length; j++) {
-                    entry.comments[j] = entry.comments[j].id;
+                entry.comments = [];
+                for(j = 0; j < data.Tasks[i].comments.length; j++) {
+                    entry.comments[j] = data.Tasks[i].comments[j].id;
                 }
 
-                for(j = 0; j < entry.todos.length; j++) {
-                    entry.todos[j] = entry.todos[j].id;
+                entry.todos = [];
+                for(j = 0; j < data.Tasks[i].todos.length; j++) {
+                    entry.todos[j] = data.Tasks[i].todos[j].id;
                 }
 
                 exportableData.Tasks.push(entry);
@@ -291,12 +293,17 @@ sap.ui.define([
                 this._handleNoModelException();
             }
 
+            var comments = this._oDataModel.getProperty("/Comments");
+
             var newComment = this._oTemplater.Comment();
             newComment.id = this.getNextCommentId();
             newComment.dateCreated = new Date();
             newComment.dateLastUpdated = new Date();
             newComment.owner = this._oDataModel.getProperty("/Temp/CurrentUser");
             newComment.text = text;
+
+            comments.push(newComment);
+            this._oDataModel.setProperty("/Comments", comments);
 
             var workingarea = this._oDataModel.getProperty("/Temp");
             workingarea.SelectedTask.comments.push(newComment);
@@ -308,9 +315,14 @@ sap.ui.define([
                 this._handleNoModelException();
             }
 
+            var todos = this._oDataModel.getProperty("/Todos");
+
             var newTodo = this._oTemplater.Todo();
             newTodo.id = this.getNextTodoId();
             newTodo.text = text;
+
+            todos.push(newTodo);
+            this._oDataModel.setProperty("/Todos", todos);
 
             var workingarea = this._oDataModel.getProperty("/Temp");
             workingarea.SelectedTask.todos.push(newTodo);
