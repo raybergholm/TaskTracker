@@ -87,16 +87,7 @@ sap.ui.define([
 
         onPressForceSync: function(oEvent){
             // while we're working locally, that just means trigger a full save action so that the local storage is definitely saved.
-            var i18nModel = this.getView().getModel("i18n");
-            
-            var success = this.getOwnerComponent().saveData();
-            if(success) {
-                MessageToast.show(i18nModel.getProperty("NOTIFICATIONS.SAVE_COMPLETE"));
-            } else {
-                MessageBox.error(i18nModel.getProperty("NOTIFICATIONS.SAVE_FAILED"), {
-                    title: i18nModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
-                });
-            }
+            this.getOwnerComponent().saveData();
         },
 
         onPressSave: function(oEvent){

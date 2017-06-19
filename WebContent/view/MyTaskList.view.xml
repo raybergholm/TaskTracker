@@ -35,11 +35,11 @@
 				<ObjectListItem
 					title="{title}"
 					type="Active">
-					<firstStatus>
+					<secondStatus>
 						<ObjectStatus text="{status}" />
-					</firstStatus>
+					</secondStatus>
 					<attributes>
-						<ObjectAttribute title="{i18n>TASK.DESCRIPTION}" text="{description}" />
+						<ObjectAttribute title="" text="{description}" />
 						<ObjectAttribute title="{i18n>GENERAL.DATE_LAST_UPDATED}" text="" />
 		        	</attributes>
 				</ObjectListItem>

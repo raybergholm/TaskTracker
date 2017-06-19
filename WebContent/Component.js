@@ -215,7 +215,16 @@ sap.ui.define([
             }
 
             var exportableData = this.createExportableData();
-            return this._oPersistenceManager.save(exportableData);
+            var success = this._oPersistenceManager.save(exportableData);
+
+            if(success) {
+                MessageToast.show(i18nModel.getProperty("NOTIFICATIONS.SAVE_COMPLETE"));
+            } else {
+                MessageBox.error(i18nModel.getProperty("NOTIFICATIONS.SAVE_FAILED"), {
+                    title: i18nModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
+                });
+            }
+
         },
 
         clearData: function(){

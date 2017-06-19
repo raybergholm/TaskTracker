@@ -67,7 +67,7 @@ sap.ui.define([
                     items[i].getAttributes()[1].setText(timestamp.fromNow());
                 }
 
-                status = items[i].getFirstStatus();
+                status = items[i].getSecondStatus();
 
                 switch(status.getText()){
                     case "completed":

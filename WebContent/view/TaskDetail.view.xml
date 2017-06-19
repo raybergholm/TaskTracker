@@ -32,6 +32,7 @@
 				<Label text="{i18n>TASK.TITLE}" design="Bold" />
 				<Input id="titleField"
 					value="{/Temp/SelectedTask/title}" />
+				<Label />
 				<Select id="taskStatusDropdown"
 					forceSelection="false"
 					selectedKey="{/Temp/SelectedTask/status}"
@@ -39,7 +40,6 @@
 					change="onChangeTaskStatus">
 					<core:Item key="{taskMetadata>key}" text="{taskMetadata>value}" />
 				</Select>
-				<Label text="{i18n>TASK.OWNER}" design="Bold" />
 				<Text id="ownerDisplay"
 					text="{/Temp/SelectedTask/owner/username}" design="Bold" />
 				<Label text="{i18n>GENERAL.DATE_CREATED}" design="Bold" />
