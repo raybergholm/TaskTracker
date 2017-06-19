@@ -14,8 +14,12 @@
 		</semantic:customHeaderContent>
 
 		<semantic:saveAction>
-			<semantic:SaveAction icon="sap-icon://save" text="{i18n>ACTIONS.SAVE}" press="onPressSave" />
+			<semantic:SaveAction text="{i18n>ACTIONS.SAVE}" press="onPressSave" />
 		</semantic:saveAction>
+
+		<semantic:negativeAction>
+			<semantic:NegativeAction text="Create error" press="onPressDebugCreateError" />
+		</semantic:negativeAction>
 
 		<form:SimpleForm id="userDataForm"
 	        maxContainerCols="1"

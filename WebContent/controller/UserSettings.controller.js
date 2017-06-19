@@ -106,6 +106,10 @@ sap.ui.define([
             MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.SETTINGS_SAVED"));
         },
 
+        onPressDebugCreateError: function(){
+            undeclaredVar = 1;
+        },
+
         onPressTaskDetail: function(oEvent) {
             var router = this.getOwnerComponent().getRouter();
             if(router){
