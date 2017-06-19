@@ -11,10 +11,6 @@ sap.ui.define([
     "use strict";
 
     var component = BaseUIComponent.extend("com.tasky.Component", {
-        _MOCK_LOCAL_MODEL_JSON: "/mockData.json",
-        _TASK_META_MODEL_JSON: "/taskMetadata.json",
-        _LANGUAGE_MODEL_JSON: "/languages.json",
-
         _oApplication: null,
         _oCustomApplication: null,
         getApplication: function(){
