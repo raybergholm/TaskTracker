@@ -130,7 +130,7 @@ sap.ui.define([
                         break;
                     }
                 }
-            });
+            }.bind(this));
         },
 
         createContent: function() {
