@@ -52,6 +52,8 @@
 					editable="false" />
 				<Label text="{i18n>TASK.DESCRIPTION}" design="Bold" />
 				<TextArea id="descriptionField"
+					rows="6"
+					growing="true"
 					value="{/Temp/SelectedTask/description}" />
 				<Label text="{i18n>TASK.COMMENTS}" design="Bold" />
 				<List id="commentsList"

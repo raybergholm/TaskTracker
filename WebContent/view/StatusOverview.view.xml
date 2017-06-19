@@ -8,8 +8,13 @@
 		<headerContent>
 			<core:Fragment fragmentName="com.tasky.fragment.DetailNavigationButtons" type="XML" />
 		</headerContent>
-		<Text text="lorem ipsum" />
-
+		<VBox
+			height="100%"
+			alignItems="Center"
+			justifyContent="Center">
+			<core:Icon src="sap-icon://wrench" size="10rem" color="#E69A17" />
+			<Text text="In development. Though, I'm pretty sure this will still be done before the Länsimetro." />
+		</VBox>
         <footer>
 			<Bar>
                 <contentRight>

@@ -116,6 +116,23 @@ sap.ui.define([
             });
         },
 
+        _initializeKeybindings: function(){
+            this._overrideCtrlS(); // ctrl+S save functionality (I think this should work for Macs too? No Mac for me to test though)
+        },
+
+        _overrideCtrlS: function(){
+            window.addEventListener("keydown", function(oEvent) {
+                if (oEvent.ctrlKey || oEvent.metaKey) {
+                    switch (String.fromCharCode(oEvent.which).toLowerCase()) {
+                    case "s":
+                        oEvent.preventDefault();
+                        this.saveData();
+                        break;
+                    }
+                }
+            });
+        },
+
         createContent: function() {
             return sap.ui.view({
                 id: "Tasky",
@@ -165,6 +182,8 @@ sap.ui.define([
             // }
 
             this._initializeManagers();
+
+            this._initializeKeybindings();
 
             this._oViews = this._createViewMap();
 
