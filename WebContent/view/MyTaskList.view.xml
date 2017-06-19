@@ -39,8 +39,7 @@
 						<ObjectStatus text="{status}" />
 					</secondStatus>
 					<attributes>
-						<ObjectAttribute title="" text="{description}" />
-						<ObjectAttribute title="{i18n>GENERAL.DATE_LAST_UPDATED}" text="" />
+						<ObjectAttribute title="" text="" />
 		        	</attributes>
 				</ObjectListItem>
 			</items>

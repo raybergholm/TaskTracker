@@ -161,7 +161,7 @@ sap.ui.define([
 
             var i18nModel = this.getModel("i18n");
             if(i18nModel) {
-                var rng = Math.round((Math.random() * 2) + 1);
+                var rng = Math.round((Math.random() * 3) + 1);
                 var randomQuip = i18nModel.getProperty("GENERAL.PAGE.QUIP" + rng)
 
                 document.title = i18nModel.getResourceBundle().getText("GENERAL.PAGE.TITLE", [randomQuip]);

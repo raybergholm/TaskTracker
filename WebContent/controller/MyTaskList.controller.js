@@ -56,6 +56,7 @@ sap.ui.define([
             var timestamp, status, state;
             oEvent.getSource() && oEvent.getSource().setBusy(false);
 
+            var i18nModel = this.getView().getModel("i18n");
             var items = oEvent.getSource().getItems();
 
             for(var i = 0; i < items.length; i++){
@@ -64,7 +65,7 @@ sap.ui.define([
                 // That would be absolutely the wrong behaviour so we don't want that.
                 timestamp = new moment(this.getView().getModel().getProperty(items[i].getBindingContextPath()).dateLastUpdated);
                 if(timestamp.isValid()){
-                    items[i].getAttributes()[1].setText(timestamp.fromNow());
+                    items[i].getAttributes()[0].setText(i18nModel.getProperty("GENERAL.DATE_LAST_UPDATED") + " " + timestamp.fromNow());
                 }
 
                 status = items[i].getSecondStatus();
