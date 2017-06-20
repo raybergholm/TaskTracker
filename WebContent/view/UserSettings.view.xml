@@ -41,7 +41,7 @@
 				<Text id="ownerDisplay"
 					text="{/Temp/CurrentUser/icon}" design="Bold" />
 				-->
-				<core:Title text="{i18n>SETTINGS.SETTINGS}" />
+				<core:Title text="{i18n>SETTINGS.GENERAL_SETTINGS}" />
 				<Label text="{i18n>GENERAL.LANGUAGE}" design="Bold" />
 				<Select id="languageDropdown"
 					forceSelection="false"
@@ -49,7 +49,11 @@
 					items="{lang>/Languages}">
 					<core:Item key="{lang>key}" text="{lang>name}" />
 				</Select>
-
+				<Label text="{i18n>SETTINGS.VERBOSE_ERROR_MODE}" design="Bold" />
+				<Switch
+					state="true"
+					tooltip="{i18n>SETTINGS.VERBOSE_ERROR_MODE_DESCRIPTION}" />
+					
 				<core:Title />
 				<Panel
 					expandable="true"

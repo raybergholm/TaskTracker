@@ -5,9 +5,13 @@ sap.ui.define([
     "sap/ui/core/UIComponent",
     "sap/m/MessageToast",
     "sap/m/MessageBox",
+    "sap/m/Dialog",
+    "sap/m/Button",
+    "sap/m/Text",
+    "sap/m/TextArea",
     "./manager/AppDataManager",
     "./manager/PersistenceManager"
-], function(jQuery, BaseUIComponent, MessageToast, MessageBox, AppDataManager, PersistenceManager) {
+], function(jQuery, BaseUIComponent, MessageToast, MessageBox, Dialog, Button, Text, TextArea, AppDataManager, PersistenceManager) {
     "use strict";
 
     var component = BaseUIComponent.extend("com.tasky.Component", {
@@ -186,6 +190,41 @@ sap.ui.define([
             this.loadData();
 
             console.log("Component init OK");
+
+            // FIXME: This is totally something which belongs in Application.js
+            var onWindowError = function(eErrorEvent){
+                console.log("onWindowError callback called");
+
+                var errorDialog = new Dialog({
+                    title: "Error",
+                    type: "Message",
+                    state: "Error",
+                    content: [new Text({
+                        text: "Error occured!\n" + eErrorEvent.message + "\n" + eErrorEvent.filename + ":" + eErrorEvent.lineno + "," + eErrorEvent.colno
+                    }),
+                    new TextArea({
+                        width: "100%",
+                        cols: 6,
+                        value: eErrorEvent.error.stack
+                    })],
+                    beginButton: new Button({
+                        text: "OK",
+                        press: function(){
+                            errorDialog.close();
+                        }
+                    }),
+                    afterClose: function(){
+                        errorDialog.destroy();
+                    }
+                });
+
+                errorDialog.open();
+
+                for(var i = 0; i < arguments.length; i++){
+                    console.log(arguments[i]);
+                }
+            };
+            window.addEventListener("error", onWindowError);
         },
 
         loadData: function(){
