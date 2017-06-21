@@ -14,7 +14,7 @@ sap.ui.define([
 ], function(jQuery, BaseUIComponent, MessageToast, MessageBox, Dialog, Button, Text, TextArea, AppDataManager, PersistenceManager) {
     "use strict";
 
-    var component = BaseUIComponent.extend("com.tasky.Component", {
+    return BaseUIComponent.extend("com.tasky.Component", {
         _oApplication: null,
         _oCustomApplication: null,
         getApplication: function(){
@@ -277,6 +277,4 @@ sap.ui.define([
             return this._oAppDataManager.createExportableData();
         }
     });
-
-    return component;
 });

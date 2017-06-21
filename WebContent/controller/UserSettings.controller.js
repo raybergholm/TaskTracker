@@ -1,5 +1,5 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "./BaseController",
     "sap/m/MessageToast",
     "sap/m/MessageBox"
 ], function(BaseController, MessageToast, MessageBox){
@@ -91,7 +91,7 @@ sap.ui.define([
         },
 
         onPressSave: function(oEvent){
-            var dataModel = this.getView().getModel();
+            var dataModel = this.getModel();
             if(!dataModel){
                 return;
             }

@@ -1,7 +1,6 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
-    "sap/m/MessageToast"
-], function(BaseController, MessageToast){
+    "./BaseController"
+], function(BaseController){
     "use strict";
 
     return BaseController.extend("com.tasky.controller.Root", {});

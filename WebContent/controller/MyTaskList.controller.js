@@ -1,5 +1,5 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "./BaseController",
     "sap/m/MessageToast",
     "sap/m/MessageBox",
     "../model/Formatter"
@@ -63,7 +63,7 @@ sap.ui.define([
                 // This is really ugly having to manually assign things like this, but any attempt to bind & use them
                 // the proper way causes data to get overwritten so we will lose the correct values immediately on save.
                 // That would be absolutely the wrong behaviour so we don't want that.
-                timestamp = new moment(this.getView().getModel().getProperty(items[i].getBindingContextPath()).dateLastUpdated);
+                timestamp = new moment(this.getModel().getProperty(items[i].getBindingContextPath()).dateLastUpdated);
                 if(timestamp.isValid()){
                     items[i].getAttributes()[0].setText(i18nModel.getProperty("GENERAL.DATE_LAST_UPDATED") + " " + timestamp.fromNow());
                 }
@@ -102,7 +102,7 @@ sap.ui.define([
             }
 
             var bindingPath = this._oTaskList.getSelectedItem().getBindingContextPath();
-            var taskTitle = this.getView().getModel().getProperty(bindingPath).title;
+            var taskTitle = this.getModel().getProperty(bindingPath).title;
             MessageBox.confirm(i18nModel.getResourceBundle().getText("NOTIFICATIONS.CONFIRM_DELETE_TASK", [taskTitle]), {
                 title: i18nModel.getProperty("NOTIFICATIONS.CONFIRMATION"),
                 onClose: function(sBindingPath, sAction){

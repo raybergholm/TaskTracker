@@ -1,5 +1,5 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "./BaseController",
     "sap/m/MessageToast",
     "../model/Formatter"
 ], function(BaseController, MessageToast, Formatter){
@@ -28,7 +28,7 @@ sap.ui.define([
         },
 
         bindTaskForm: function(sPath){ // TODO: this could do with a better name
-            var dataModel = this.getView().getModel();
+            var dataModel = this.getModel();
 
             if(dataModel){
                 var workarea = dataModel.getProperty("/Temp");
@@ -73,7 +73,7 @@ sap.ui.define([
         },
 
         onPressSave: function(oEvent){
-            var dataModel = this.getView().getModel();
+            var dataModel = this.getModel();
             if(!dataModel){
                 return;
             }
@@ -110,7 +110,7 @@ sap.ui.define([
 
             for(var i = 0; i < items.length; i++){
                 // Same issue and comment as the equiv found in MyTaskList.onUpdateFinishedTaskList
-                timestamp = new moment(this.getView().getModel().getProperty(items[i].getBindingContextPath()).dateCreated);
+                timestamp = new moment(this.getModel().getProperty(items[i].getBindingContextPath()).dateCreated);
                 if(timestamp.isValid()){
                     items[i].setTimestamp(timestamp.fromNow());
                 }
