@@ -1,4 +1,4 @@
-// TODO: This class bloated out a fair bit. Maybe abstract out the data format and file handling some more?
+_oStandardApplication// TODO: This class bloated out a fair bit. Maybe abstract out the data format and file handling some more?
 
 sap.ui.define([
     "jquery.sap.global",
@@ -15,13 +15,14 @@ sap.ui.define([
     "use strict";
 
     return BaseUIComponent.extend("com.tasky.Component", {
-        _oApplication: null,
+        _oStandardApplication: null,
+
         _oCustomApplication: null,
         getApplication: function(){
             return this._oCustomApplication;
         },
 
-        // these are the sort of thing which could be moved to _oApplication. Maybe it needs to be a custom class, tbh since we're barely using the built-in app for anything
+        // these are the sort of thing which could be moved to _oStandardApplication. Maybe it needs to be a custom class, tbh since we're barely using the built-in app for anything
         _oViews: {},
         getView: function(sViewId) {
             return this._oViews.hasOwnProperty(sViewId) ? this._oViews[sViewId] : null;
@@ -47,7 +48,7 @@ sap.ui.define([
             var viewMap = {};
             viewMap.root = this.getRootControl();
 
-            pages = this._oApplication.getMasterPages();
+            pages = this._oStandardApplication.getMasterPages();
             for(i = 0; i < pages.length; i++) {
                 prop = pages[i].getId();
                 prop = prop.split("--");
@@ -56,7 +57,7 @@ sap.ui.define([
                 viewMap[prop] = pages[i];
             }
 
-            pages = this._oApplication.getDetailPages();
+            pages = this._oStandardApplication.getDetailPages();
             for(i = 0; i < pages.length; i++) {
                 prop = pages[i].getId();
                 prop = prop.split("--");
@@ -155,7 +156,7 @@ sap.ui.define([
                 }
             }
 
-            this._oApplication = this.getRootControl().byId("TaskyApp");
+            this._oStandardApplication = this.getRootControl().byId("TaskyApp");
 
             // TODO: actually, pretty much everything past this point could be considered application code
 
@@ -188,8 +189,6 @@ sap.ui.define([
             this._oViews = this._createViewMap();
 
             this.loadData();
-
-            console.log("Component init OK");
 
             // FIXME: This is totally something which belongs in Application.js
             var onWindowError = function(eErrorEvent){
@@ -225,6 +224,8 @@ sap.ui.define([
                 }
             };
             window.addEventListener("error", onWindowError);
+
+            console.log("Component init OK");
         },
 
         loadData: function(){
