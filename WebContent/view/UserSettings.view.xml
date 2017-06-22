@@ -25,8 +25,8 @@
 	        maxContainerCols="1"
 	        editable="true"
 	        layout="ResponsiveGridLayout"
-	        labelSpanL="3" labelSpanM="3"
-	        emptySpanL="2" emptySpanM="2"
+	        labelSpanL="4" labelSpanM="4"
+	        emptySpanL="0" emptySpanM="0"
 	        columnsL="2" columnsM="2">
 			<form:content>
 				<core:Title text="{i18n>USER.INFO}" />
@@ -53,7 +53,7 @@
 				<Switch
 					state="true"
 					tooltip="{i18n>SETTINGS.VERBOSE_ERROR_MODE_DESCRIPTION}" />
-					
+
 				<core:Title />
 				<Panel
 					expandable="true"

@@ -21,11 +21,12 @@
 		</semantic:saveAction>
 
 		<form:SimpleForm id="taskForm"
+			width="100%"
 	        maxContainerCols="1"
 	        editable="true"
 	        layout="ResponsiveGridLayout"
-	        labelSpanL="3" labelSpanM="3"
-	        emptySpanL="2" emptySpanM="2"
+	        labelSpanL="2" labelSpanM="2"
+	        emptySpanL="1" emptySpanM="1"
 	        columnsL="2" columnsM="2">
 			<form:content>
 				<core:Title />
