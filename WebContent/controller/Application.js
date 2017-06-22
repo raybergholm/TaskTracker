@@ -196,9 +196,9 @@ sap.ui.define([
 
             var success = this._oPersistenceManager.clear();
             if(success) {
-                MessageToast.show(this._oLocalisationModel.getProperty("NOTIFICATIONS.SAVE_COMPLETE"));
+                MessageToast.show(this._oLocalisationModel.getProperty("NOTIFICATIONS.DELETE_COMPLETE"));
             } else {
-                MessageBox.error(this._oLocalisationModel.getProperty("NOTIFICATIONS.SAVE_FAILED"), {
+                MessageBox.error(this._oLocalisationModel.getProperty("NOTIFICATIONS.DELETE_FAILED"), {
                     title: this._oLocalisationModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
                 });
             }
