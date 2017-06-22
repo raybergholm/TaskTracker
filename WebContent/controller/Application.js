@@ -121,18 +121,18 @@ sap.ui.define([
         },
 
         _handleNoDataManager: function(){
-            console.error(_oLocalisationModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
+            console.error(this._oLocalisationModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
 
-            MessageBox.error(_oLocalisationModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
-                title: _oLocalisationModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
+            MessageBox.error(this._oLocalisationModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
+                title: this._oLocalisationModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
             });
         },
 
         _handleNoPersistenceManager: function(){
-            console.error(_oLocalisationModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
+            console.error(this._oLocalisationModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
 
-            MessageBox.error(_oLocalisationModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
-                title: _oLocalisationModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
+            MessageBox.error(this._oLocalisationModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
+                title: this._oLocalisationModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
             });
         },
 
@@ -179,10 +179,10 @@ sap.ui.define([
 
             var success = this._oPersistenceManager.save(exportableData);
             if(success) {
-                MessageToast.show(_oLocalisationModel.getProperty("NOTIFICATIONS.SAVE_COMPLETE"));
+                MessageToast.show(this._oLocalisationModel.getProperty("NOTIFICATIONS.SAVE_COMPLETE"));
             } else {
-                MessageBox.error(_oLocalisationModel.getProperty("NOTIFICATIONS.SAVE_FAILED"), {
-                    title: _oLocalisationModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
+                MessageBox.error(this._oLocalisationModel.getProperty("NOTIFICATIONS.SAVE_FAILED"), {
+                    title: this._oLocalisationModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
                 });
             }
 
@@ -196,10 +196,10 @@ sap.ui.define([
 
             var success = this._oPersistenceManager.clear();
             if(success) {
-                MessageToast.show(_oLocalisationModel.getProperty("NOTIFICATIONS.SAVE_COMPLETE"));
+                MessageToast.show(this._oLocalisationModel.getProperty("NOTIFICATIONS.SAVE_COMPLETE"));
             } else {
-                MessageBox.error(_oLocalisationModel.getProperty("NOTIFICATIONS.SAVE_FAILED"), {
-                    title: _oLocalisationModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
+                MessageBox.error(this._oLocalisationModel.getProperty("NOTIFICATIONS.SAVE_FAILED"), {
+                    title: this._oLocalisationModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
                 });
             }
         },
