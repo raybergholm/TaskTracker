@@ -21,7 +21,6 @@
 		</semantic:saveAction>
 
 		<form:SimpleForm id="taskForm"
-			width="100%"
 	        maxContainerCols="1"
 	        editable="true"
 	        layout="ResponsiveGridLayout"
@@ -32,7 +31,8 @@
 				<core:Title />
 				<Label text="{i18n>TASK.TITLE}" design="Bold" />
 				<Input id="titleField"
-					value="{/Temp/SelectedTask/title}" />
+					value="{/Temp/SelectedTask/title}"
+					maxLength="50" />
 				<Label />
 				<Select id="taskStatusDropdown"
 					forceSelection="false"

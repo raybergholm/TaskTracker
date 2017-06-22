@@ -28,7 +28,7 @@
 			mode="SingleSelectMaster"
 			includeItemInSelection="true"
 			noDataText="{i18n>GENERAL.APP.NO_TASKS}"
-			itemPress="onSelectTask"
+			selectionChange="onChangeTask"
 			updatedStarted="onUpdateStarted"
 			updateFinished="onUpdateFinishedTaskList">
 			<items>

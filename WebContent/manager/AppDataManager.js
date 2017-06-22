@@ -288,8 +288,6 @@ sap.ui.define([
             var tasks = this._oDataModel.getProperty("/Tasks");
             tasks.push(newTask);
             this._oDataModel.setProperty("/Tasks", tasks);
-
-            return newTask;
         },
 
         deleteTask: function(bindingPath) {

@@ -12,7 +12,7 @@ sap.ui.define([
         _oTaskList: null,
 
         _deleteTaskCallback: function(bindingPath) {
-            this.getOwnerComponent().getAppDataManager().deleteTask(bindingPath);
+            this.getApplication().deleteTask(bindingPath);
 
             var detailView = this.getApplication().getView("TaskDetail");
             if(detailView) {
@@ -32,7 +32,7 @@ sap.ui.define([
             }
         },
 
-        onSelectTask: function(oEvent) {
+        onChangeTask: function(oEvent) {
             var bindingPath = oEvent.getSource().getSelectedItem().getBindingContextPath();
 
             var detailView = this.getApplication().getView("TaskDetail");
@@ -101,17 +101,20 @@ sap.ui.define([
 
             if(items.length > 0 && !oEvent.getSource().getSelectedItem()){
                 oEvent.getSource().setSelectedItem(items[0]);
-                oEvent.getSource().fireItemPress({
-                    listItem: items[0],
-                    srcControl: items[0]
+                oEvent.getSource().fireSelectionChange({
+                    listItem: items[0]
                 });
             }
         },
 
         onPressNewTask: function(oEvent) {
-            var newTask = this.getOwnerComponent().getAppDataManager().createTask();
+            this.getApplication().createTask();
 
-            this._oTaskList.setSelectedItem(this._oTaskList.getItems()[this._oTaskList.getItems().length - 1]); // TODO: does this work? is the ref already updated at this point?
+            var newTaskInList = this._oTaskList.getItems()[this._oTaskList.getItems().length - 1];
+            this._oTaskList.setSelectedItem(newTaskInList);
+            this._oTaskList.fireSelectionChange({
+                listItem: newTaskInList
+            });
         },
 
         onPressDeleteTask: function(oEvent) {

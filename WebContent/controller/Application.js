@@ -25,14 +25,7 @@ sap.ui.define([
         },
 
         _oPersistenceManager: null,
-        getPersistenceManager: function() {
-            return this._oPersistenceManager;
-        },
-
         _oAppDataManager: null,
-        getAppDataManager: function() {
-            return this._oAppDataManager;
-        },
 
         _initializeMemberObjects: function() {
             this._oPersistenceManager = new PersistenceManager();
@@ -202,6 +195,26 @@ sap.ui.define([
                     title: this._oLocalisationModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
                 });
             }
+        },
+
+        clearCurrentlySelectedTask: function(){
+            this._oAppDataManager.clearSelectedTask();
+        },
+
+        createTask: function(){
+            this._oAppDataManager.createTask();
+        },
+
+        deleteTask: function(sBindingPath){
+            this._oAppDataManager.deleteTask(sBindingPath);
+        },
+
+        addComment: function(sText){
+            this._oAppDataManager.addComment(sText);
+        },
+
+        addTodo: function(sText){
+            this._oAppDataManager.addTodo(sText);
         },
 
         createExportableData: function() { // clone data, format dates and flatten refs down to IDs
