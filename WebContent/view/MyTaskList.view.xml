@@ -41,6 +41,9 @@
 					<secondStatus>
 						<ObjectStatus text="" />
 					</secondStatus>
+					<attributes>
+						<ObjectAttribute text="{code}" />
+					</attributes>
 				</ObjectListItem>
 			</items>
 		</List>

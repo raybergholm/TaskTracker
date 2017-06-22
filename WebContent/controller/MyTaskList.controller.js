@@ -107,6 +107,11 @@ sap.ui.define([
             }
         },
 
+        onLiveChangeTaskSearch: function(oEvent){
+            var searchTerm = oEvent.getParameter("newValue");
+            console.log(searchTerm);
+        },
+
         onPressNewTask: function(oEvent) {
             this.getApplication().createTask();
 

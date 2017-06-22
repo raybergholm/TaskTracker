@@ -81,7 +81,7 @@ sap.ui.define([
         },
 
         _initializeGlobalErrorDialog: function() {
-            window.addEventListener("error", this._globalErrorCallback.bind(this));
+            this.attachGlobalErrorDialog();
         },
 
         _globalErrorCallback: function(eErrorEvent) {
@@ -226,6 +226,14 @@ sap.ui.define([
 
         addTodo: function(sText){
             this._oAppDataManager.addTodo(sText);
+        },
+
+        attachGlobalErrorDialog: function(){
+            window.addEventListener("error", this._globalErrorCallback.bind(this));
+        },
+
+        detachGlobalErrorDialog: function(){
+            window.removeEventListener("error", this._globalErrorCallback);
         }
     });
 });

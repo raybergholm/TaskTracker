@@ -33,7 +33,9 @@
 				<Input id="titleField"
 					value="{/Temp/SelectedTask/title}"
 					maxLength="100" />
-				<Label />
+				<Label text="{i18n>TASK.CODE}" design="Bold" />
+				<Input id="projectCodeField"
+					value="{/Temp/SelectedTask/code}" />
 				<Select id="taskStatusDropdown"
 					forceSelection="false"
 					selectedKey="{/Temp/SelectedTask/status}"
@@ -41,8 +43,10 @@
 					change="onChangeTaskStatus">
 					<core:Item key="{taskMetadata>key}" text="{taskMetadata>value}" />
 				</Select>
+				<!-- // TBH, we don't really need to display this while this is local-only
 				<Text id="ownerDisplay"
 					text="{/Temp/SelectedTask/owner/username}" design="Bold" />
+				-->
 				<Label text="{i18n>GENERAL.DATE_CREATED}" design="Bold" />
 				<DateTimePicker id="dateCreatedField"
 					dateValue="{/Temp/SelectedTask/dateCreated}"
