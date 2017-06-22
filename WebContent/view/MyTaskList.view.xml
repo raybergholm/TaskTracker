@@ -13,6 +13,15 @@
 						placeholder="{i18n>TASKSEARCH.PLACEHOLDER}"
 						liveChange="onLiveChangeTaskSearch" />
 				</contentMiddle>
+				<contentRight>
+					<SegmentedButton id="searchSegmentedButton"
+						selectedKey="title">
+						<items>
+							<SegmentedButtonItem key="title" icon="sap-icon://task" tooltip="{i18n>SEARCH.BY_TASK}" />
+							<SegmentedButtonItem key="code" icon="sap-icon://group-2" tooltip="{i18n>SEARCH.BY_PROJECT_CODE}" />
+						</items>
+					</SegmentedButton>
+				</contentRight>
 			</Bar>
 		</semantic:subHeader>
 

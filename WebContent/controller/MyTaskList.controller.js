@@ -1,15 +1,18 @@
 sap.ui.define([
     "./BaseController",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
     "sap/m/MessageToast",
     "sap/m/MessageBox",
     "../model/Formatter"
-], function(BaseController, MessageToast, MessageBox, Formatter) {
+], function(BaseController, Filter, FilterOperator, MessageToast, MessageBox, Formatter) {
     "use strict";
 
     return BaseController.extend("com.tasky.controller.MyTaskList", {
         _oFormatter: Formatter,
 
         _oTaskList: null,
+        _oSearchSegmentedButton: null,
 
         _deleteTaskCallback: function(bindingPath) {
             this.getApplication().deleteTask(bindingPath);
@@ -30,6 +33,8 @@ sap.ui.define([
             if(this._oTaskList) {
                 this._oTaskList.setSelectedItem(this._oTaskList.getItems()[0]);
             }
+
+            this._oSearchSegmentedButton = this.byId("searchSegmentedButton");
         },
 
         onChangeTask: function(oEvent) {
@@ -109,7 +114,17 @@ sap.ui.define([
 
         onLiveChangeTaskSearch: function(oEvent){
             var searchTerm = oEvent.getParameter("newValue");
-            console.log(searchTerm);
+            var filters = [];
+
+            var filterField = this._oSearchSegmentedButton.getSelectedKey();
+
+            // If the value in the search field is not empty, create a new filter array
+            if(searchTerm && searchTerm.length > 0) {
+                filters.push(new Filter(filterField, FilterOperator.Contains, searchTerm));
+            }
+
+            // Filter the list based on the search term. If the search term is empty, the list is reset by filtering on an empty array (which will return the entire list)
+            this._oTaskList.getBinding("items").filter(filters, filterField);
         },
 
         onPressNewTask: function(oEvent) {
