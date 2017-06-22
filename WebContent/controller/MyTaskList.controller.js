@@ -3,7 +3,7 @@ sap.ui.define([
     "sap/m/MessageToast",
     "sap/m/MessageBox",
     "../model/Formatter"
-], function(BaseController, MessageToast, MessageBox, Formatter){
+], function(BaseController, MessageToast, MessageBox, Formatter) {
     "use strict";
 
     return BaseController.extend("com.tasky.controller.MyTaskList", {
@@ -11,23 +11,23 @@ sap.ui.define([
 
         _oTaskList: null,
 
-        _deleteTaskCallback: function(bindingPath){
+        _deleteTaskCallback: function(bindingPath) {
             this.getOwnerComponent().getAppDataManager().deleteTask(bindingPath);
 
             var detailView = this.getApplication().getView("TaskDetail");
-            if(detailView){
-                if(this.__oTaskList && _oTaskList.getSelectedItem() !== null){
+            if(detailView) {
+                if(this.__oTaskList && _oTaskList.getSelectedItem() !== null) {
                     var newBinding = _oTaskList.getSelectedItem().getBindingContextPath();
                     detailView.getController().bindTaskForm(newBinding);
-                }else{
+                } else {
                     detailView.getController().clearForm();
                 }
             }
         },
 
-        onInit: function(){
+        onInit: function() {
             this._oTaskList = this.byId("taskList");
-            if(this._oTaskList){
+            if(this._oTaskList) {
                 this._oTaskList.setSelectedItem(this._oTaskList.getItems()[0]);
             }
         },
@@ -36,14 +36,14 @@ sap.ui.define([
             var bindingPath = oEvent.getSource().getSelectedItem().getBindingContextPath();
 
             var detailView = this.getApplication().getView("TaskDetail");
-            if(detailView){
+            if(detailView) {
                 detailView.getController().bindTaskForm(bindingPath);
             }
 
             var router = this.getOwnerComponent().getRouter();
-            if(router){
+            if(router) {
                 router.navTo("Tasks");
-            }else {
+            } else {
                 console.error("Router reference not found");
             }
         },
@@ -60,7 +60,7 @@ sap.ui.define([
             var taskStatuses = this.getModel("taskMetadata").getProperty("/TaskStatuses");
             var items = oEvent.getSource().getItems();
 
-            for(var i = 0; i < items.length; i++){
+            for(var i = 0; i < items.length; i++) {
                 // This is really ugly having to manually assign things like this, but any attempt to bind & use them
                 // the proper way causes data to get overwritten so we will lose the correct values immediately on save.
                 // That would be absolutely the wrong behaviour so we don't want that.
@@ -68,7 +68,7 @@ sap.ui.define([
                 data = this.getModel().getProperty(items[i].getBindingContextPath());
 
                 objectStatus = items[i].getFirstStatus();
-                switch(data.status){
+                switch(data.status) {
                     case "completed":
                         state = sap.ui.core.ValueState.Success;
                         break;
@@ -85,8 +85,8 @@ sap.ui.define([
                 }
 
                 objectStatus.setText(i18nModel.getProperty(data.status)); // fallback: show the status identifier if for some reason it couldn't find the proper label
-                for(var j = 0; j < taskStatuses.length; j++){
-                    if(data.status === taskStatuses[j].key){
+                for(var j = 0; j < taskStatuses.length; j++) {
+                    if(data.status === taskStatuses[j].key) {
                         objectStatus.setText(i18nModel.getProperty(taskStatuses[j].value));
                     }
                 }
@@ -94,7 +94,7 @@ sap.ui.define([
 
                 objectStatus = items[i].getSecondStatus();
                 timestamp = new moment(data.dateLastUpdated);
-                if(timestamp.isValid()){
+                if(timestamp.isValid()) {
                     objectStatus.setText(i18nModel.getProperty("GENERAL.DATE_LAST_UPDATED") + " " + timestamp.fromNow());
                 }
             }
@@ -109,7 +109,7 @@ sap.ui.define([
         onPressDeleteTask: function(oEvent) {
             var i18nModel = this.getView().getModel("i18n");
 
-            if(this._oTaskList.getSelectedItem() === null){
+            if(this._oTaskList.getSelectedItem() === null) {
                 MessageToast.show(i18nModel.getProperty("NOTIFICATIONS.SELECT_A_TASK"));
             }
 
@@ -117,8 +117,8 @@ sap.ui.define([
             var taskTitle = this.getModel().getProperty(bindingPath).title;
             MessageBox.confirm(i18nModel.getResourceBundle().getText("NOTIFICATIONS.CONFIRM_DELETE_TASK", [taskTitle]), {
                 title: i18nModel.getProperty("NOTIFICATIONS.CONFIRMATION"),
-                onClose: function(sBindingPath, sAction){
-                    if(sAction === MessageBox.Action.OK){
+                onClose: function(sBindingPath, sAction) {
+                    if(sAction === MessageBox.Action.OK) {
                         this._deleteTaskCallback(sBindingPath);
                     }
                 }.bind(this, bindingPath)

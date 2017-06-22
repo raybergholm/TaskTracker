@@ -2,7 +2,7 @@ sap.ui.define([
     "sap/ui/base/Object",
     "../model/Templater"
 ], function(BaseSapObject, Templater) {
-	"use strict";
+    "use strict";
 
     // This class handles changes to the local JSON model
     return BaseSapObject.extend("com.tasky.manager.AppDataManager", {
@@ -11,8 +11,8 @@ sap.ui.define([
         _oLanguageModel: null,
         _oTemplater: Templater,
 
-        _initializeWorkingArea: function(){ // stuff gets cloned here so that things can be changed without affecting the main model data.
-            if(!this._oDataModel){
+        _initializeWorkingArea: function() { // stuff gets cloned here so that things can be changed without affecting the main model data.
+            if(!this._oDataModel) {
                 this._handleNoModelException();
             }
 
@@ -23,8 +23,8 @@ sap.ui.define([
             });
         },
 
-        _expandDataReferences: function(){
-            if(!this._oDataModel){
+        _expandDataReferences: function() {
+            if(!this._oDataModel) {
                 this._handleNoModelException();
             }
 
@@ -35,7 +35,7 @@ sap.ui.define([
             var comments = this._oDataModel.getProperty("/Comments");
             var todos = this._oDataModel.getProperty("/Todos");
 
-            if(!tasks || !users || !comments || !todos){
+            if(!tasks || !users || !comments || !todos) {
                 throw new Error("DataManager's model is missing data!");
             }
 
@@ -103,8 +103,8 @@ sap.ui.define([
             this._oDataModel.setProperty("/Todos", todos);
         },
 
-        _flattenDataReferences: function(){
-            if(!this._oDataModel){
+        _flattenDataReferences: function() {
+            if(!this._oDataModel) {
                 this._handleNoModelException();
             }
 
@@ -165,11 +165,11 @@ sap.ui.define([
             return exportableData;
         },
 
-        _getNextId: function(haystack){
+        _getNextId: function(haystack) {
             var maxId = 0;
-            if(haystack){
-                for(var i = 0; i < haystack.length; i++){
-                    if(maxId < haystack[i].id){
+            if(haystack) {
+                for(var i = 0; i < haystack.length; i++) {
+                    if(maxId < haystack[i].id) {
                         maxId = parseInt(haystack[i].id, 10);
                     }
                 }
@@ -177,10 +177,10 @@ sap.ui.define([
             return ++maxId;
         },
 
-        _dataLoadPostProcessing: function(){
+        _dataLoadPostProcessing: function() {
             console.log(">>>>> _dataLoadPostProcessing() called");
 
-            if(!this._oDataModel.getData()){
+            if(!this._oDataModel.getData()) {
                 return;
             }
             this._initializeWorkingArea();
@@ -190,8 +190,8 @@ sap.ui.define([
             this.setCurrentUser(user);
         },
 
-        _updateTaskStatusLabels: function(oEvent){
-            if(this._oTaskMetadataModel && this._oLocalisationModel){
+        _updateTaskStatusLabels: function(oEvent) {
+            if(this._oTaskMetadataModel && this._oLocalisationModel) {
                 var taskStatuses = this._oTaskMetadataModel.getProperty("/TaskStatuses");
                 for(var i = 0; i < taskStatuses.length; i++) {
                     taskStatuses[i].value = this._oLocalisationModel.getProperty(taskStatuses[i].value);
@@ -200,14 +200,14 @@ sap.ui.define([
             }
         },
 
-        _handleNoModelException: function(){
+        _handleNoModelException: function() {
             throw new Error("DataManager has no model reference! Did you miss an .initialize() call?");
         },
 
-        initialize: function(models){
-            if(models){
-                for(var prop in models){
-                    switch(prop){
+        initialize: function(models) {
+            if(models) {
+                for(var prop in models) {
+                    switch(prop) {
                         case "main":
                             this._oDataModel = models[prop];
                             this._oDataModel.attachEvent("requestCompleted", function(oEvent) {
@@ -234,8 +234,8 @@ sap.ui.define([
             console.log("DataManager init OK");
         },
 
-        setData: function(data){
-            if(!this._oDataModel){
+        setData: function(data) {
+            if(!this._oDataModel) {
                 this._handleNoModelException();
             }
 
@@ -243,16 +243,16 @@ sap.ui.define([
             this._dataLoadPostProcessing(); // needs to be manually triggered when the data is explicitly set
         },
 
-        setMockData: function(){
-            if(!this._oDataModel){
+        setMockData: function() {
+            if(!this._oDataModel) {
                 this._handleNoModelException();
             }
 
             this._oDataModel.loadData(jQuery.sap.getModulePath("com.tasky.model", "/mockData.json"));
         },
 
-        setCurrentUser: function(user){
-            if(!this._oDataModel){
+        setCurrentUser: function(user) {
+            if(!this._oDataModel) {
                 this._handleNoModelException();
             }
 
@@ -261,8 +261,8 @@ sap.ui.define([
             this._oDataModel.setProperty("/Temp", workarea);
         },
 
-        clearSelectedTask: function(){
-            if(!this._oDataModel){
+        clearSelectedTask: function() {
+            if(!this._oDataModel) {
                 this._handleNoModelException();
             }
 
@@ -272,8 +272,8 @@ sap.ui.define([
             this._oDataModel.setProperty("/Temp", workarea);
         },
 
-        createTask: function(){
-            if(!this._oDataModel){
+        createTask: function() {
+            if(!this._oDataModel) {
                 this._handleNoModelException();
             }
 
@@ -292,8 +292,8 @@ sap.ui.define([
             return newTask;
         },
 
-        deleteTask: function(bindingPath){
-            if(!this._oDataModel){
+        deleteTask: function(bindingPath) {
+            if(!this._oDataModel) {
                 this._handleNoModelException();
             }
 
@@ -305,8 +305,8 @@ sap.ui.define([
             this._oDataModel.setProperty("/Tasks", tasks);
         },
 
-        addComment: function(text){
-            if(!this._oDataModel){
+        addComment: function(text) {
+            if(!this._oDataModel) {
                 this._handleNoModelException();
             }
 
@@ -327,8 +327,8 @@ sap.ui.define([
             this._oDataModel.setProperty("/Temp", workingarea);
         },
 
-        addTodo: function(text){
-            if(!this._oDataModel){
+        addTodo: function(text) {
+            if(!this._oDataModel) {
                 this._handleNoModelException();
             }
 
@@ -347,19 +347,19 @@ sap.ui.define([
 
         },
 
-        getNextTaskId: function(){
+        getNextTaskId: function() {
             return this._getNextId(this._oDataModel.getProperty("/Tasks"));
         },
 
-        getNextCommentId: function(){
+        getNextCommentId: function() {
             return this._getNextId(this._oDataModel.getProperty("/Comments"));
         },
 
-        getNextTodoId: function(){
+        getNextTodoId: function() {
             return this._getNextId(this._oDataModel.getProperty("/Todos"));
         },
 
-        createExportableData: function(){
+        createExportableData: function() {
             return this._flattenDataReferences();
         },
     });

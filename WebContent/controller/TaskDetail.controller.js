@@ -2,7 +2,7 @@ sap.ui.define([
     "./BaseController",
     "sap/m/MessageToast",
     "../model/Formatter"
-], function(BaseController, MessageToast, Formatter){
+], function(BaseController, MessageToast, Formatter) {
     "use strict";
 
     return BaseController.extend("com.tasky.controller.TaskDetail", {
@@ -20,17 +20,17 @@ sap.ui.define([
 
         _oFormatter: Formatter,
 
-        onInit: function(){
+        onInit: function() {
             var selfNavButton = this.byId("taskDetailNavButton");
-            if(selfNavButton){
+            if(selfNavButton) {
                 selfNavButton.setType(sap.m.ButtonType.Emphasized);
             }
         },
 
-        bindTaskForm: function(sPath){ // TODO: this could do with a better name
+        bindTaskForm: function(sPath) { // TODO: this could do with a better name
             var dataModel = this.getModel();
 
-            if(dataModel){
+            if(dataModel) {
                 var workarea = dataModel.getProperty("/Temp");
                 var workingCopy = jsUtils.Object.clone(dataModel.getProperty(sPath));
 
@@ -68,13 +68,13 @@ sap.ui.define([
         //     }
         // },
 
-        clearForm: function(){
+        clearForm: function() {
             this.getOwnerComponent().getAppDataManager().clearSelectedTask();
         },
 
-        onPressSave: function(oEvent){
+        onPressSave: function(oEvent) {
             var dataModel = this.getModel();
-            if(!dataModel){
+            if(!dataModel) {
                 return;
             }
 
@@ -88,13 +88,13 @@ sap.ui.define([
             MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.TASK_SAVED"));
         },
 
-        onSelectTodoCheckBox: function(oEvent){
+        onSelectTodoCheckBox: function(oEvent) {
             console.log(oEvent);
 
             // TODO: any way to make a pretty strikethrough/faded text when checked?
         },
 
-        onPostTodo: function(oEvent){
+        onPostTodo: function(oEvent) {
             var text = oEvent.getParameter("value");
             this.getOwnerComponent().getAppDataManager().addTodo(text);
         },
@@ -104,35 +104,35 @@ sap.ui.define([
             this.getOwnerComponent().getAppDataManager().addComment(text);
         },
 
-        onUpdateFinishedComments: function(oEvent){
+        onUpdateFinishedComments: function(oEvent) {
             var timestamp;
             var items = oEvent.getSource().getItems();
 
-            for(var i = 0; i < items.length; i++){
+            for(var i = 0; i < items.length; i++) {
                 // Same issue and comment as the equiv found in MyTaskList.onUpdateFinishedTaskList
                 timestamp = new moment(this.getModel().getProperty(items[i].getBindingContextPath()).dateCreated);
-                if(timestamp.isValid()){
+                if(timestamp.isValid()) {
                     items[i].setTimestamp(timestamp.fromNow());
                 }
             }
         },
 
-        onPressTaskDetail: function(oEvent){ },
+        onPressTaskDetail: function(oEvent) {},
 
-        onPressStatusOverview: function(oEvent){
+        onPressStatusOverview: function(oEvent) {
             var router = this.getOwnerComponent().getRouter();
-            if(router){
+            if(router) {
                 router.navTo("Overview");
-            }else {
+            } else {
                 console.error("Router reference not found");
             }
         },
 
-        onPressSettings: function(oEvent){
+        onPressSettings: function(oEvent) {
             var router = this.getOwnerComponent().getRouter();
-            if(router){
+            if(router) {
                 router.navTo("UserSettings");
-            }else {
+            } else {
                 console.error("Router reference not found");
             }
         }

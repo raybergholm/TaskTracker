@@ -1,8 +1,8 @@
 sap.ui.define([], function() {
-	"use strict";
+    "use strict";
 
     return {
-        Task: function(){
+        Task: function() {
             return {
                 id: null,
                 status: "none",
@@ -17,7 +17,7 @@ sap.ui.define([], function() {
             };
         },
 
-        Comment: function(){
+        Comment: function() {
             return {
                 id: null,
                 dateCreated: new Date(),
@@ -27,7 +27,7 @@ sap.ui.define([], function() {
             };
         },
 
-        Todo: function(){
+        Todo: function() {
             return {
                 text: "",
                 isDone: false,

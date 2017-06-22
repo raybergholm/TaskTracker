@@ -15,9 +15,9 @@ sap.ui.define([], function() {
 
         fetchData: function(key) {
             var rawStringData = localStorage.getItem(key);
-            if(rawStringData){
+            if(rawStringData) {
                 return JSON.parse(rawStringData);
-            }else {
+            } else {
                 return null;
             }
         },
@@ -37,9 +37,9 @@ sap.ui.define([], function() {
                 }
             }
 
-            try{
+            try {
                 localStorage.setItem(key, data);
-            }catch(ex){
+            } catch(ex) {
                 return false;
             }
             return true;

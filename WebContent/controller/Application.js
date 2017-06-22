@@ -9,13 +9,13 @@ sap.ui.define([
     "../manager/AppDataManager",
     "../manager/PersistenceManager"
 ], function(BaseSapObject, MessageToast, MessageBox, Dialog, Button, Text, TextArea, AppDataManager, PersistenceManager) {
-	"use strict";
+    "use strict";
 
     return BaseSapObject.extend("com.tasky.controller.Application", {
         _oComponent: null,
         _oLocalisationModel: null,
 
-        getModel: function(sModelId){
+        getModel: function(sModelId) {
             return this._oComponent.getModel(sModelId);
         },
 
@@ -25,16 +25,16 @@ sap.ui.define([
         },
 
         _oPersistenceManager: null,
-        getPersistenceManager: function(){
+        getPersistenceManager: function() {
             return this._oPersistenceManager;
         },
 
         _oAppDataManager: null,
-        getAppDataManager: function(){
+        getAppDataManager: function() {
             return this._oAppDataManager;
         },
 
-        _initializeMemberObjects: function(){
+        _initializeMemberObjects: function() {
             this._oPersistenceManager = new PersistenceManager();
             this._oPersistenceManager.initialize();
 
@@ -47,7 +47,7 @@ sap.ui.define([
             });
         },
 
-        _initializeViewMap: function(){
+        _initializeViewMap: function() {
             var pages, i, prop;
 
             var viewMap = {};
@@ -72,26 +72,26 @@ sap.ui.define([
             }
         },
 
-        _initializeAppKeybindings: function(){
+        _initializeAppKeybindings: function() {
             window.addEventListener("keydown", this._ctrlSOverride.bind(this));
         },
 
         _ctrlSOverride: function(oEvent) {
-            if (oEvent.ctrlKey || oEvent.metaKey) { // metaKey here for the Mac command key, but it also includes the Windows key. So Windows + S is also a key combo, hmm.
-                switch (String.fromCharCode(oEvent.which).toLowerCase()) {
-                case "s":
-                    oEvent.preventDefault();
-                    this.saveData();
-                    break;
+            if(oEvent.ctrlKey || oEvent.metaKey) { // metaKey here for the Mac command key, but it also includes the Windows key. So Windows + S is also a key combo, hmm.
+                switch(String.fromCharCode(oEvent.which).toLowerCase()) {
+                    case "s":
+                        oEvent.preventDefault();
+                        this.saveData();
+                        break;
                 }
             }
         },
 
-        _initializeGlobalErrorDialog: function(){
+        _initializeGlobalErrorDialog: function() {
             window.addEventListener("error", this._globalErrorCallback);
         },
 
-        _globalErrorCallback: function(eErrorEvent){
+        _globalErrorCallback: function(eErrorEvent) {
             var errorDialog = new Dialog({
                 title: "Error",
                 type: "Message",
@@ -108,11 +108,11 @@ sap.ui.define([
                 ],
                 beginButton: new Button({
                     text: "OK",
-                    press: function(){
+                    press: function() {
                         errorDialog.close();
                     }
                 }),
-                afterClose: function(){
+                afterClose: function() {
                     errorDialog.destroy();
                 }
             });
@@ -120,7 +120,7 @@ sap.ui.define([
             errorDialog.open();
         },
 
-        _handleNoDataManager: function(){
+        _handleNoDataManager: function() {
             console.error(this._oLocalisationModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
 
             MessageBox.error(this._oLocalisationModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
@@ -128,7 +128,7 @@ sap.ui.define([
             });
         },
 
-        _handleNoPersistenceManager: function(){
+        _handleNoPersistenceManager: function() {
             console.error(this._oLocalisationModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
 
             MessageBox.error(this._oLocalisationModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
@@ -136,11 +136,11 @@ sap.ui.define([
             });
         },
 
-        _firstTimeUserProcess: function(){
+        _firstTimeUserProcess: function() {
 
         },
 
-        initialize: function(oParentComponent){
+        initialize: function(oParentComponent) {
             console.log("Application init started");
 
             this._oComponent = oParentComponent;
@@ -155,16 +155,16 @@ sap.ui.define([
             console.log("Application init OK");
         },
 
-        loadData: function(){
+        loadData: function() {
             if(!this._oPersistenceManager) {
                 this._handleNoPersistenceManager();
                 return;
             }
 
             var data = this._oPersistenceManager.load();
-            if(data){
+            if(data) {
                 this._oAppDataManager.setData(data);
-            }else {
+            } else {
                 this._oAppDataManager.setMockData();
             }
         },
@@ -188,7 +188,7 @@ sap.ui.define([
 
         },
 
-        clearData: function(){
+        clearData: function() {
             if(!this._oPersistenceManager) {
                 this._handleNoPersistenceManager();
                 return false;

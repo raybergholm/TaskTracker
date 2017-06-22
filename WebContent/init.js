@@ -1,7 +1,7 @@
-(function(){
+(function() {
     "use strict";
 
-    function init(){
+    function init() {
         var component = sap.ui.component({
             id: "taskyComponent",
             name: "com.tasky"

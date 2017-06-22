@@ -11,7 +11,7 @@ sap.ui.define([
         _oStandardApplication: null,
 
         _oTaskyApplication: null,
-        getApplication: function(){
+        getApplication: function() {
             return this._oTaskyApplication;
         },
 

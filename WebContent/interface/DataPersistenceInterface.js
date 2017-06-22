@@ -10,7 +10,7 @@ sap.ui.define([
     return {
         _oDataStorage: DataStorageInterface,
 
-        initialize: function(){
+        initialize: function() {
             this._oDataStorage.initialize();
         },
 
