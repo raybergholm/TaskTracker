@@ -14,7 +14,7 @@ sap.ui.define([
         _deleteTaskCallback: function(bindingPath){
             this.getOwnerComponent().getAppDataManager().deleteTask(bindingPath);
 
-            var detailView = this.getOwnerComponent().getView("TaskDetail");
+            var detailView = this.getApplication().getView("TaskDetail");
             if(detailView){
                 if(this.__oTaskList && _oTaskList.getSelectedItem() !== null){
                     var newBinding = _oTaskList.getSelectedItem().getBindingContextPath();
@@ -35,7 +35,7 @@ sap.ui.define([
         onSelectTask: function(oEvent) {
             var bindingPath = oEvent.getSource().getSelectedItem().getBindingContextPath();
 
-            var detailView = this.getOwnerComponent().getView("TaskDetail");
+            var detailView = this.getApplication().getView("TaskDetail");
             if(detailView){
                 detailView.getController().bindTaskForm(bindingPath);
             }
