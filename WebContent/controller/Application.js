@@ -81,7 +81,7 @@ sap.ui.define([
         },
 
         _initializeGlobalErrorDialog: function() {
-            window.addEventListener("error", this._globalErrorCallback);
+            window.addEventListener("error", this._globalErrorCallback.bind(this));
         },
 
         _globalErrorCallback: function(eErrorEvent) {
