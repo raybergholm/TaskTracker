@@ -98,6 +98,14 @@ sap.ui.define([
                     objectStatus.setText(i18nModel.getProperty("GENERAL.DATE_LAST_UPDATED") + " " + timestamp.fromNow());
                 }
             }
+
+            if(items.length > 0 && !oEvent.getSource().getSelectedItem()){
+                oEvent.getSource().setSelectedItem(items[0]);
+                oEvent.getSource().fireItemPress({
+                    listItem: items[0],
+                    srcControl: items[0]
+                });
+            }
         },
 
         onPressNewTask: function(oEvent) {
