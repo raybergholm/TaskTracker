@@ -86,21 +86,27 @@ sap.ui.define([
 
         _globalErrorCallback: function(eErrorEvent) {
             var errorDialog = new Dialog({
-                title: "Error",
+                title: this._oLocalisationModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE"),
                 type: "Message",
                 state: "Error",
                 content: [
                     new Text({
-                        text: "Error occured!\n" + eErrorEvent.message + "\n" + eErrorEvent.filename + ":" + eErrorEvent.lineno + "," + eErrorEvent.colno
+                        text: this._oLocalisationModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_MESSAGE")
+                    }),
+                    new Text({
+                        text: eErrorEvent.message
+                    }),
+                    new Text({
+                        text: eErrorEvent.filename + ":" + eErrorEvent.lineno + "," + eErrorEvent.colno
                     }),
                     new TextArea({
                         width: "100%",
-                        cols: 6,
+                        rows: 10,
                         value: eErrorEvent.error.stack
                     })
                 ],
                 beginButton: new Button({
-                    text: "OK",
+                    text: this._oLocalisationModel.getProperty("ACTIONS.OK"),
                     press: function() {
                         errorDialog.close();
                     }
@@ -113,7 +119,11 @@ sap.ui.define([
             errorDialog.open();
         },
 
-        _handleNoDataManager: function() {
+        _createExportableData: function() { // clone data, format dates and flatten refs down to IDs
+            return this._oAppDataManager.createExportableData();
+        },
+
+        _notifyNoDataManager: function() {
             console.error(this._oLocalisationModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
 
             MessageBox.error(this._oLocalisationModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
@@ -121,7 +131,7 @@ sap.ui.define([
             });
         },
 
-        _handleNoPersistenceManager: function() {
+        _notifyNoPersistenceManager: function() {
             console.error(this._oLocalisationModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"));
 
             MessageBox.error(this._oLocalisationModel.getProperty("NOTIFICATIONS.NO_PERSISTENCE_INTERFACE"), {
@@ -143,6 +153,7 @@ sap.ui.define([
             this._initializeMemberObjects();
             this._initializeViewMap();
             this._initializeAppKeybindings();
+            this._initializeGlobalErrorDialog();
             this.loadData();
 
             console.log("Application init OK");
@@ -150,7 +161,7 @@ sap.ui.define([
 
         loadData: function() {
             if(!this._oPersistenceManager) {
-                this._handleNoPersistenceManager();
+                this._notifyNoPersistenceManager();
                 return;
             }
 
@@ -164,11 +175,11 @@ sap.ui.define([
 
         saveData: function() {
             if(!this._oPersistenceManager) {
-                this._handleNoPersistenceManager();
+                this._notifyNoPersistenceManager();
                 return false;
             }
 
-            var exportableData = this.createExportableData();
+            var exportableData = this._createExportableData();
 
             var success = this._oPersistenceManager.save(exportableData);
             if(success) {
@@ -183,7 +194,7 @@ sap.ui.define([
 
         clearData: function() {
             if(!this._oPersistenceManager) {
-                this._handleNoPersistenceManager();
+                this._notifyNoPersistenceManager();
                 return false;
             }
 
@@ -215,10 +226,6 @@ sap.ui.define([
 
         addTodo: function(sText){
             this._oAppDataManager.addTodo(sText);
-        },
-
-        createExportableData: function() { // clone data, format dates and flatten refs down to IDs
-            return this._oAppDataManager.createExportableData();
         }
     });
 });
