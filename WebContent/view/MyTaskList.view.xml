@@ -35,12 +35,12 @@
 				<ObjectListItem
 					title="{title}"
 					type="Active">
+					<firstStatus>
+						<ObjectStatus text="" />
+					</firstStatus>
 					<secondStatus>
-						<ObjectStatus text="{status}" />
+						<ObjectStatus text="" />
 					</secondStatus>
-					<attributes>
-						<ObjectAttribute title="" text="" />
-		        	</attributes>
 				</ObjectListItem>
 			</items>
 		</List>

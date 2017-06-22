@@ -53,38 +53,50 @@ sap.ui.define([
         },
 
         onUpdateFinishedTaskList: function(oEvent) {
-            var timestamp, status, state;
+            var timestamp, objectStatus, state, data;
             oEvent.getSource() && oEvent.getSource().setBusy(false);
 
-            var i18nModel = this.getView().getModel("i18n");
+            var i18nModel = this.getModel("i18n");
+            var taskStatuses = this.getModel("taskMetadata").getProperty("/TaskStatuses");
             var items = oEvent.getSource().getItems();
 
             for(var i = 0; i < items.length; i++){
                 // This is really ugly having to manually assign things like this, but any attempt to bind & use them
                 // the proper way causes data to get overwritten so we will lose the correct values immediately on save.
                 // That would be absolutely the wrong behaviour so we don't want that.
-                timestamp = new moment(this.getModel().getProperty(items[i].getBindingContextPath()).dateLastUpdated);
-                if(timestamp.isValid()){
-                    items[i].getAttributes()[0].setText(i18nModel.getProperty("GENERAL.DATE_LAST_UPDATED") + " " + timestamp.fromNow());
-                }
 
-                status = items[i].getSecondStatus();
+                data = this.getModel().getProperty(items[i].getBindingContextPath());
 
-                switch(status.getText()){
+                objectStatus = items[i].getFirstStatus();
+                switch(data.status){
                     case "completed":
                         state = sap.ui.core.ValueState.Success;
                         break;
                     case "inprogress":
+                    case "intesting":
                         state = sap.ui.core.ValueState.Warning;
                         break;
-                    case "inprogress":
+                    case "none":
                         state = sap.ui.core.ValueState.Error;
                         break;
                     default:
                         state = sap.ui.core.ValueState.None;
                         break;
                 }
-                status.setState(state);
+
+                objectStatus.setText(i18nModel.getProperty(data.status)); // fallback: show the status identifier if for some reason it couldn't find the proper label
+                for(var j = 0; j < taskStatuses.length; j++){
+                    if(data.status === taskStatuses[j].key){
+                        objectStatus.setText(i18nModel.getProperty(taskStatuses[j].value));
+                    }
+                }
+                objectStatus.setState(state);
+
+                objectStatus = items[i].getSecondStatus();
+                timestamp = new moment(data.dateLastUpdated);
+                if(timestamp.isValid()){
+                    objectStatus.setText(i18nModel.getProperty("GENERAL.DATE_LAST_UPDATED") + " " + timestamp.fromNow());
+                }
             }
         },
 
