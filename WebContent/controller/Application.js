@@ -41,7 +41,7 @@ sap.ui.define([
             this._oAppDataManager = new AppDataManager();
             this._oAppDataManager.initialize({
                 main: this.getModel(),
-                taskMetaData: this.getModel("taskMetaData"),
+                taskMetadata: this.getModel("taskMetadata"),
                 languages: this.getModel("lang"),
                 i18n: this._oLocalisationModel
             });

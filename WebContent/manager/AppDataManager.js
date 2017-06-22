@@ -190,6 +190,16 @@ sap.ui.define([
             this.setCurrentUser(user);
         },
 
+        _updateTaskStatusLabels: function(oEvent){
+            if(this._oTaskMetadataModel && this._oLocalisationModel){
+                var taskStatuses = this._oTaskMetadataModel.getProperty("/TaskStatuses");
+                for(var i = 0; i < taskStatuses.length; i++) {
+                    taskStatuses[i].value = this._oLocalisationModel.getProperty(taskStatuses[i].value);
+                }
+                this._oTaskMetadataModel.setProperty("/TaskStatuses", taskStatuses);
+            }
+        },
+
         _handleNoModelException: function(){
             throw new Error("DataManager has no model reference! Did you miss an .initialize() call?");
         },
@@ -218,15 +228,7 @@ sap.ui.define([
             }
 
             if(this._oTaskMetadataModel) {
-                this._oTaskMetadataModel.attachEvent("requestCompleted", function(oEvent) {
-                    if(this._oTaskMetadataModel && this._oLocalisationModel){
-                        var taskStatuses = this._oTaskMetadataModel.getProperty("/TaskStatuses");
-                        for(var i = 0; i < taskStatuses.length; i++) {
-                            taskStatuses[i].value = this._oLocalisationModel.getProperty(taskStatuses[i].value);
-                        }
-                        this._oTaskMetadataModel.setProperty("/TaskStatuses", taskStatuses);
-                    }
-                }.bind(this));
+                this._oTaskMetadataModel.attachEvent("requestCompleted", this._updateTaskStatusLabels.bind(this));
             }
 
             console.log("DataManager init OK");
