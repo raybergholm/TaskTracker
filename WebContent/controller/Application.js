@@ -2,24 +2,26 @@ sap.ui.define([
     "sap/ui/base/Object",
     "sap/m/MessageToast",
     "sap/m/MessageBox",
+    "sap/m/Dialog",
+    "sap/m/Button",
     "sap/m/Text",
-    "sap/m/TextArea"
-    "./manager/AppDataManager",
-    "./manager/PersistenceManager"
-], function(BaseSapObject, MessageToast, MessageBox, AppDataManager, PersistenceManager) {
+    "sap/m/TextArea",
+    "../manager/AppDataManager",
+    "../manager/PersistenceManager"
+], function(BaseSapObject, MessageToast, MessageBox, Dialog, Button, Text, TextArea, AppDataManager, PersistenceManager) {
 	"use strict";
 
     return BaseSapObject.extend("com.tasky.controller.Application", {
         _oComponent: null,
         _oLocalisationModel: null,
 
-        // these are the sort of thing which could be moved to _oApplication. Maybe it needs to be a custom class, tbh since we're barely using the built-in app for anything
-        _oViews: {},
-        getView: function(sViewId) {
-            return this._oViews.hasOwnProperty(sViewId) ? this._oViews[sViewId] : null;
+        getModel: function(sModelId){
+            return this._oComponent.getModel(sModelId);
         },
-        setViews: function(oViews) {
-            this._oViews = oViews;
+
+        _mViews: {},
+        getView: function(sViewId) {
+            return this._mViews.hasOwnProperty(sViewId) ? this._mViews[sViewId] : null;
         },
 
         _oPersistenceManager: null,
@@ -40,12 +42,38 @@ sap.ui.define([
             this._oAppDataManager.initialize({
                 main: this.getModel(),
                 taskMetaData: this.getModel("taskMetaData"),
-                languages: this.getModel("lang")
+                languages: this.getModel("lang"),
+                i18n: this._oLocalisationModel
             });
         },
 
+        _initializeViewMap: function(){
+            var pages, i, prop;
+
+            var viewMap = {};
+            this._mViews.root = this._oComponent.getRootControl();
+
+            pages = this._oComponent._oStandardApplication.getMasterPages();
+            for(i = 0; i < pages.length; i++) {
+                prop = pages[i].getId();
+                prop = prop.split("--");
+                prop = prop[prop.length - 1];
+
+                this._mViews[prop] = pages[i];
+            }
+
+            pages = this._oComponent._oStandardApplication.getDetailPages();
+            for(i = 0; i < pages.length; i++) {
+                prop = pages[i].getId();
+                prop = prop.split("--");
+                prop = prop[prop.length - 1];
+
+                this._mViews[prop] = pages[i];
+            }
+        },
+
         _initializeAppKeybindings: function(){
-            window.addEventListener("keydown", this._ctrlSOverride().bind(this));
+            window.addEventListener("keydown", this._ctrlSOverride.bind(this));
         },
 
         _ctrlSOverride: function(oEvent) {
@@ -108,12 +136,19 @@ sap.ui.define([
             });
         },
 
+        _firstTimeUserProcess: function(){
+
+        },
+
         initialize: function(oParentComponent){
+            console.log("Application init started");
+
             this._oComponent = oParentComponent;
 
             this._oLocalisationModel = this._oComponent.getModel("i18n");
 
             this._initializeMemberObjects();
+            this._initializeViewMap();
             this._initializeAppKeybindings();
             this.loadData();
 
@@ -140,11 +175,9 @@ sap.ui.define([
                 return false;
             }
 
-
-
             var exportableData = this.createExportableData();
-            var success = this._oPersistenceManager.save(exportableData);
 
+            var success = this._oPersistenceManager.save(exportableData);
             if(success) {
                 MessageToast.show(_oLocalisationModel.getProperty("NOTIFICATIONS.SAVE_COMPLETE"));
             } else {
@@ -156,14 +189,19 @@ sap.ui.define([
         },
 
         clearData: function(){
-            var i18nModel = this.getModel("i18n");
-
             if(!this._oPersistenceManager) {
                 this._handleNoPersistenceManager();
                 return false;
             }
 
-            return this._oPersistenceManager.clear();
+            var success = this._oPersistenceManager.clear();
+            if(success) {
+                MessageToast.show(_oLocalisationModel.getProperty("NOTIFICATIONS.SAVE_COMPLETE"));
+            } else {
+                MessageBox.error(_oLocalisationModel.getProperty("NOTIFICATIONS.SAVE_FAILED"), {
+                    title: _oLocalisationModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
+                });
+            }
         },
 
         createExportableData: function() { // clone data, format dates and flatten refs down to IDs

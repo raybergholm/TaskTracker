@@ -210,8 +210,23 @@ sap.ui.define([
                         case "languages":
                             this._oLanguageModel = models[prop];
                             break;
+                        case "i18n":
+                            this._oLocalisationModel = models[prop];
+                            break;
                     }
                 }
+            }
+
+            if(this._oTaskMetadataModel) {
+                this._oTaskMetadataModel.attachEvent("requestCompleted", function(oEvent) {
+                    if(this._oTaskMetadataModel && this._oLocalisationModel){
+                        var taskStatuses = this._oTaskMetadataModel.getProperty("/TaskStatuses");
+                        for(var i = 0; i < taskStatuses.length; i++) {
+                            taskStatuses[i].value = this._oLocalisationModel.getProperty(taskStatuses[i].value);
+                        }
+                        this._oTaskMetadataModel.setProperty("/TaskStatuses", taskStatuses);
+                    }
+                }.bind(this));
             }
 
             console.log("DataManager init OK");
