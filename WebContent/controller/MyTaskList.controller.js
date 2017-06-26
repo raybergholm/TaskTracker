@@ -44,7 +44,9 @@ sap.ui.define([
             if(detailView) {
                 detailView.getController().bindTaskForm(bindingPath);
             }
+        },
 
+        onPressTask: function(oEvent){
             var router = this.getOwnerComponent().getRouter();
             if(router) {
                 router.navTo("Tasks");
