@@ -210,6 +210,24 @@ sap.ui.define([
             }
         },
 
+        exportData: function(){
+            var exportableData = this._createExportableData();
+            var timestamp = new moment();
+            var filename = this._oLocalisationModel.getProperty("GENERAL.EXPORT_FILENAME") + timestamp.format("_YYYYMMDD_HHmm");
+        },
+
+        importData: function(oFile){
+            
+        },
+
+        changeLanguages: function(sLanguageCode){
+            if(!sLanguageCode){
+                sLanguageCode = "en"; // default to English if the input is invalid
+            }
+
+
+        },
+
         clearCurrentlySelectedTask: function(){
             this._oAppDataManager.clearSelectedTask();
         },
