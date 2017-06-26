@@ -85,6 +85,8 @@ sap.ui.define([
 
             this.bindTaskForm(workarea.SelectedTaskPath); // create a new working copy after saving
 
+            this.getApplication().saveData();
+
             MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.TASK_SAVED"));
         },
 

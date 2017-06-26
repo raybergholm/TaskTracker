@@ -104,6 +104,8 @@ sap.ui.define([
 
             this._setCurrentUser(dataModel); // disconnect the references again
 
+            this.getApplication().saveData();
+
             MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.SETTINGS_SAVED"));
         },
 

@@ -22,6 +22,8 @@ sap.ui.define([
                 if(this.__uiTaskList && _uiTaskList.getSelectedItem() !== null) {
                     var newBinding = _uiTaskList.getSelectedItem().getBindingContextPath();
                     detailView.getController().bindTaskForm(newBinding);
+
+                    this.getApplication().saveData();
                 } else {
                     detailView.getController().clearForm();
                 }
@@ -137,6 +139,8 @@ sap.ui.define([
             this._uiTaskList.fireSelectionChange({
                 listItem: newTaskInList
             });
+
+            this.getApplication().saveData();
         },
 
         onPressDeleteTask: function(oEvent) {
