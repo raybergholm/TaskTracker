@@ -50,7 +50,7 @@ sap.ui.define([
 
         onChangeFile: function(oEvent) {
             console.log(oEvent);
-            if(!oEvent.getParameter("files") || oEvent.getParameter("files").length === 0){
+            if(!oEvent.getParameter("files") || oEvent.getParameter("files").length === 0) {
                 return;
             }
 
@@ -107,12 +107,12 @@ sap.ui.define([
             MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.SETTINGS_SAVED"));
         },
 
-        onChangeVerboseErrorMode: function(){
+        onChangeVerboseErrorMode: function() {
 
         },
 
-        onPressApplyLanguage: function(){
-            if(!this._uiLanguageDropdown){
+        onPressApplyLanguage: function() {
+            if(!this._uiLanguageDropdown) {
                 return;
             }
 

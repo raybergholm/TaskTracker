@@ -243,7 +243,7 @@ sap.ui.define([
             this._dataLoadPostProcessing(); // needs to be manually triggered when the data is explicitly set
         },
 
-        clearData: function(){
+        clearData: function() {
             this._initializeWorkingArea();
 
             this._oDataModel.setProperty("/Tasks", []);

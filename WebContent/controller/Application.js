@@ -102,7 +102,7 @@ sap.ui.define([
                         width: "100%",
                         rows: 10,
                         editable: false,
-                        focus: function(oEvent){
+                        focus: function(oEvent) {
                             console.log("does this blend?");
                         }
                     }),
@@ -219,7 +219,7 @@ sap.ui.define([
             var success;
 
             success = this._oPersistenceManager.clear();
-            if(!success){
+            if(!success) {
                 return success; // couldn't clear data from the persistence layer, let's not clear the working memory.
             }
 

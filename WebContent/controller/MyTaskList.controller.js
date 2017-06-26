@@ -46,7 +46,7 @@ sap.ui.define([
             }
         },
 
-        onPressTask: function(oEvent){
+        onPressTask: function(oEvent) {
             var router = this.getOwnerComponent().getRouter();
             if(router) {
                 router.navTo("Tasks");
@@ -106,7 +106,7 @@ sap.ui.define([
                 }
             }
 
-            if(items.length > 0 && !oEvent.getSource().getSelectedItem()){
+            if(items.length > 0 && !oEvent.getSource().getSelectedItem()) {
                 oEvent.getSource().setSelectedItem(items[0]);
                 oEvent.getSource().fireSelectionChange({
                     listItem: items[0]
@@ -114,7 +114,7 @@ sap.ui.define([
             }
         },
 
-        onLiveChangeTaskSearch: function(oEvent){
+        onLiveChangeTaskSearch: function(oEvent) {
             var searchTerm = oEvent.getParameter("newValue");
             var filters = [];
 
