@@ -13,6 +13,7 @@ sap.ui.define([
 
     return BaseSapObject.extend("com.tasky.controller.Application", {
         _oComponent: null,
+        _oStandardApplication: null,
         _oLocalisationModel: null,
 
         getModel: function(sModelId) {
