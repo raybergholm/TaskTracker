@@ -20,11 +20,18 @@
             }
         },
         "resources": {
-            "js": [{
+            "js": [
+                {
                     "uri": "plugins/moment.min.js"
                 },
                 {
                     "uri": "plugins/js-utils.js"
+                },
+                {
+                    "uri": "plugins/localfilereader.min.js"
+                },
+                {
+                    "uri": "plugins/filesaver.min.js"
                 }
             ]
         },
