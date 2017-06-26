@@ -46,7 +46,7 @@ sap.ui.define([
             var viewMap = {};
             this._mViews.root = this._oComponent.getRootControl();
 
-            pages = this._oComponent._oStandardApplication.getMasterPages();
+            pages = this._oStandardApplication.getMasterPages();
             for(i = 0; i < pages.length; i++) {
                 prop = pages[i].getId();
                 prop = prop.split("--");
@@ -55,7 +55,7 @@ sap.ui.define([
                 this._mViews[prop] = pages[i];
             }
 
-            pages = this._oComponent._oStandardApplication.getDetailPages();
+            pages = this._oStandardApplication.getDetailPages();
             for(i = 0; i < pages.length; i++) {
                 prop = pages[i].getId();
                 prop = prop.split("--");
@@ -143,10 +143,11 @@ sap.ui.define([
 
         },
 
-        initialize: function(oParentComponent) {
+        initialize: function(oParentComponent, oStandardApplication) {
             console.log("Application init started");
 
             this._oComponent = oParentComponent;
+            this._oStandardApplication = oStandardApplication;
 
             this._oLocalisationModel = this._oComponent.getModel("i18n");
 

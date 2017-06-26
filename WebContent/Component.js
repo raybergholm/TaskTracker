@@ -8,8 +8,6 @@ sap.ui.define([
     "use strict";
 
     return BaseUIComponent.extend("com.tasky.Component", {
-        _oStandardApplication: null,
-
         _oTaskyApplication: null,
         getApplication: function() {
             return this._oTaskyApplication;
@@ -40,12 +38,10 @@ sap.ui.define([
                 }
             }
 
-            this._oStandardApplication = this.getRootControl().byId("TaskyApp");
-
-            // TODO: actually, pretty much everything past this point could be considered application code
+            var standardApplication = this.getRootControl().byId("TaskyApp");
 
             this._oTaskyApplication = new TaskyApplication();
-            this._oTaskyApplication.initialize(this);
+            this._oTaskyApplication.initialize(this, standardApplication);
 
             console.log("Component init OK");
         }
