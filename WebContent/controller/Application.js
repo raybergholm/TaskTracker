@@ -98,18 +98,36 @@ sap.ui.define([
                         text: this._oLocalisationModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_MESSAGE")
                     }),
                     new TextArea({
+                        value: eErrorEvent.error.stack,
                         width: "100%",
                         rows: 10,
-                        enabled: false,
-                        value: eErrorEvent.error.stack
+                        editable: false,
+                        focus: function(oEvent){
+                            console.log("does this blend?");
+                        }
+                    }),
+                    new Text({
+                        text: this._oLocalisationModel.getProperty("NOTIFICATIONS.BUG_REPORT_INSTRUCTIONS")
                     })
                 ],
-                beginButton: new Button({
-                    text: this._oLocalisationModel.getProperty("ACTIONS.OK"),
-                    press: function() {
-                        errorDialog.close();
-                    }
-                }),
+                buttons: [
+                    new Button({
+                        icon: "sap-icon://copy",
+                        tooltip: this._oLocalisationModel.getProperty("ACTIONS.COPY_STACK_TRACE"),
+                        press: function(oEvent) {
+                            var textArea = oEvent.getSource().getParent().getContent()[1];
+                            textArea.focus();
+                            textArea.selectText(0, textArea.getValue().length - 1);
+                            document.execCommand("copy");
+                        }
+                    }),
+                    new Button({
+                        text: this._oLocalisationModel.getProperty("ACTIONS.OK"),
+                        press: function() {
+                            errorDialog.close();
+                        }
+                    })
+                ],
                 afterClose: function() {
                     errorDialog.destroy();
                 }

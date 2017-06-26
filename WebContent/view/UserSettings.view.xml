@@ -58,48 +58,19 @@
 				<Panel
 					expandable="true"
 					expanded="false"
-					headerText="{i18n>SETTINGS.DATA_ACTIONS}">
+					headerText="{i18n>SETTINGS.ADVANCED_ACTIONS}">
 					<content>
-						<HBox
-							alignItems="Start"
-				            justifyContent="Start">
-							<items>
-								<Button
-									width="100%"
-									type="Reject"
-									icon="sap-icon://delete"
-									text="{i18n>SETTINGS.CLEAR_ALL}"
-									press="onPressClearAll">
-									<layoutData>
-										<FlexItemData growFactor="1" />
-									</layoutData>
-								</Button>
-							</items>
-						</HBox>
-						<HBox
-							alignItems="Start"
-				            justifyContent="Start">
-							<items>
-								<Button
-									width="100%"
-									icon="sap-icon://synchronize"
-									text="{i18n>SETTINGS.FORCE_SYNC}"
-									press="onPressForceSync">
-									<layoutData>
-										<FlexItemData growFactor="1" />
-									</layoutData>
-								</Button>
-							</items>
-						</HBox>
-					</content>
-				</Panel>
-
-				<core:Title />
-				<Panel
-					expandable="true"
-					expanded="false"
-					headerText="{i18n>SETTINGS.FILE_ACTIONS}">
-					<content>
+						<Button
+							width="100%"
+							type="Reject"
+							icon="sap-icon://delete"
+							text="{i18n>SETTINGS.CLEAR_ALL}"
+							press="onPressClearAll" />
+						<Button
+							width="100%"
+							icon="sap-icon://synchronize"
+							text="{i18n>SETTINGS.FORCE_SYNC}"
+							press="onPressForceSync" />
 						<unified:FileUploader id="fileUploader"
 							width="100%"
 							value=""
