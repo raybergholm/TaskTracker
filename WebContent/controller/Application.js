@@ -212,12 +212,34 @@ sap.ui.define([
 
         exportData: function(){
             var exportableData = this._createExportableData();
+            if(exportableData){
+                exportableData = JSON.stringify(exportableData);
+            }
             var timestamp = new moment();
-            var filename = this._oLocalisationModel.getProperty("GENERAL.EXPORT_FILENAME") + timestamp.format("_YYYYMMDD_HHmm");
+            var filename = this._oLocalisationModel.getProperty("GENERAL.EXPORT_FILENAME") + timestamp.format("_YYYYMMDD_HHmm") + ".txt";
+
+            var file = new File([exportableData], filename, {type: "text/plain;charset=utf-8"});
+            saveAs(file);
         },
 
         importData: function(oFile){
-            
+            localFileReader = new LocalFileReader({
+                callbacks: {
+                    readComplete: function(aFiles){
+                        if(!aFiles || aFiles.length === 0 || !aFiles[0].content){
+                            console.error("File read error");
+                            return;
+                        }
+
+                        var data = JSON.parse(aFiles[0].content);
+                        if(!data){
+                            console.error("JSON parse error");
+                            return;
+                        }
+                        this._oAppDataManager.setData(data);
+                    }
+                }
+            });
         },
 
         changeLanguages: function(sLanguageCode){

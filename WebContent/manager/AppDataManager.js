@@ -357,6 +357,7 @@ sap.ui.define([
             return this._getNextId(this._oDataModel.getProperty("/Todos"));
         },
 
+        // Returns a copy of the data currently found in the model in JSON format. Cross-entity links are flattened to IDs, and temp vars are stripped from this copy.
         createExportableData: function() {
             return this._flattenDataReferences();
         },
