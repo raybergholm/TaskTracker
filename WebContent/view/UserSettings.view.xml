@@ -49,6 +49,9 @@
 					items="{lang>/Languages}">
 					<core:Item key="{lang>key}" text="{lang>name}" />
 				</Select>
+				<Button
+					text="{i18n>ACTIONS.APPLY}"
+					press="onPressApplyLanguage" />
 				<Label text="{i18n>SETTINGS.VERBOSE_ERROR_MODE}" design="Bold" />
 				<Switch
 					state="true"

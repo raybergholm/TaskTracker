@@ -7,6 +7,7 @@ sap.ui.define([
 
     return BaseController.extend("com.tasky.controller.UserSettings", {
         _uiFileUploader: null,
+        _uiLanguageDropdown: null,
 
         _setCurrentUser: function(dataModel) {
             if(dataModel) {
@@ -34,6 +35,7 @@ sap.ui.define([
             }
 
             this._uiFileUploader = this.byId("fileUploader");
+            this._uiLanguageDropdown = this.byId("languageDropdown");
         },
 
         onPressClearAll: function(oEvent) {
@@ -114,6 +116,15 @@ sap.ui.define([
 
         onChangeVerboseErrorMode: function(){
 
+        },
+
+        onPressApplyLanguage: function(){
+            if(!this._uiLanguageDropdown){
+                return;
+            }
+
+            var selectedLanguage = this._uiLanguageDropdown.getSelectedKey();
+            this.getApplication().changeLanguage(selectedLanguage);
         },
 
         onPressDebugCreateError: function() {

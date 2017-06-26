@@ -262,12 +262,12 @@ sap.ui.define([
             localFileReader.readFiles([oFile], LocalFileReader.ReadMode.Text);
         },
 
-        changeLanguages: function(sLanguageCode) {
+        changeLanguage: function(sLanguageCode) {
             if(!sLanguageCode) {
                 sLanguageCode = "en"; // default to English if the input is invalid
             }
 
-
+            sap.ui.getCore().getConfiguration().setLanguage(sLanguageCode);
         },
 
         clearCurrentlySelectedTask: function() {
