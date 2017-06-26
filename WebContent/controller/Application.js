@@ -16,6 +16,8 @@ sap.ui.define([
         _oStandardApplication: null,
         _oLocalisationModel: null,
 
+        _uiErrorDialog: null,
+
         getModel: function(sModelId) {
             return this._oComponent.getModel(sModelId);
         },
@@ -90,19 +92,15 @@ sap.ui.define([
                 title: this._oLocalisationModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE"),
                 type: "Message",
                 state: "Error",
+                contentWidth: "50%",
                 content: [
                     new Text({
                         text: this._oLocalisationModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_MESSAGE")
                     }),
-                    new Text({
-                        text: eErrorEvent.message
-                    }),
-                    new Text({
-                        text: eErrorEvent.filename + ":" + eErrorEvent.lineno + "," + eErrorEvent.colno
-                    }),
                     new TextArea({
                         width: "100%",
                         rows: 10,
+                        enabled: false,
                         value: eErrorEvent.error.stack
                     })
                 ],
@@ -210,29 +208,32 @@ sap.ui.define([
             }
         },
 
-        exportData: function(){
+        exportData: function() {
             var exportableData = this._createExportableData();
-            if(exportableData){
+            if(exportableData) {
                 exportableData = JSON.stringify(exportableData);
             }
             var timestamp = new moment();
-            var filename = this._oLocalisationModel.getProperty("GENERAL.EXPORT_FILENAME") + timestamp.format("_YYYYMMDD_HHmm") + ".txt";
+            var filetype = ".json";
+            var filename = this._oLocalisationModel.getProperty("GENERAL.EXPORT_FILENAME") + timestamp.format("_YYYYMMDD_HHmm") + filetype;
 
-            var file = new File([exportableData], filename, {type: "text/plain;charset=utf-8"});
+            var file = new File([exportableData], filename, {
+                type: "text/plain;charset=utf-8"
+            });
             saveAs(file);
         },
 
-        importData: function(oFile){
+        importData: function(oFile) {
             localFileReader = new LocalFileReader({
                 callbacks: {
-                    readComplete: function(aFiles){
-                        if(!aFiles || aFiles.length === 0 || !aFiles[0].content){
+                    readComplete: function(aFiles) {
+                        if(!aFiles || aFiles.length === 0 || !aFiles[0].content) {
                             console.error("File read error");
                             return;
                         }
 
                         var data = JSON.parse(aFiles[0].content);
-                        if(!data){
+                        if(!data) {
                             console.error("JSON parse error");
                             return;
                         }
@@ -242,39 +243,39 @@ sap.ui.define([
             });
         },
 
-        changeLanguages: function(sLanguageCode){
-            if(!sLanguageCode){
+        changeLanguages: function(sLanguageCode) {
+            if(!sLanguageCode) {
                 sLanguageCode = "en"; // default to English if the input is invalid
             }
 
 
         },
 
-        clearCurrentlySelectedTask: function(){
+        clearCurrentlySelectedTask: function() {
             this._oAppDataManager.clearSelectedTask();
         },
 
-        createTask: function(){
+        createTask: function() {
             this._oAppDataManager.createTask();
         },
 
-        deleteTask: function(sBindingPath){
+        deleteTask: function(sBindingPath) {
             this._oAppDataManager.deleteTask(sBindingPath);
         },
 
-        addComment: function(sText){
+        addComment: function(sText) {
             this._oAppDataManager.addComment(sText);
         },
 
-        addTodo: function(sText){
+        addTodo: function(sText) {
             this._oAppDataManager.addTodo(sText);
         },
 
-        attachGlobalErrorDialog: function(){
+        attachGlobalErrorDialog: function() {
             window.addEventListener("error", this._globalErrorCallback.bind(this));
         },
 
-        detachGlobalErrorDialog: function(){
+        detachGlobalErrorDialog: function() {
             window.removeEventListener("error", this._globalErrorCallback);
         }
     });
