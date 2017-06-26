@@ -6,17 +6,17 @@ sap.ui.define([
     "use strict";
 
     return BaseController.extend("com.tasky.controller.TaskDetail", {
-        _oViewElementIds: {
-            taskForm: "taskForm",
-            titleInput: "titleField",
-            taskStatusDropdown: "taskStatusDropdown",
-            ownerDisplay: "ownerDisplay",
-            dateCreatedDisplay: "dateCreatedField",
-            dateLastUpdatedDisplay: "dateLastUpdatedField",
-            descriptionInput: "descriptionField",
-            commentsList: "commentsList",
-            todoChecklist: "todoChecklist"
-        },
+        // _oViewElementIds: {
+        //     taskForm: "taskForm",
+        //     titleInput: "titleField",
+        //     taskStatusDropdown: "taskStatusDropdown",
+        //     ownerDisplay: "ownerDisplay",
+        //     dateCreatedDisplay: "dateCreatedField",
+        //     dateLastUpdatedDisplay: "dateLastUpdatedField",
+        //     descriptionInput: "descriptionField",
+        //     commentsList: "commentsList",
+        //     todoChecklist: "todoChecklist"
+        // },
 
         _oFormatter: Formatter,
 

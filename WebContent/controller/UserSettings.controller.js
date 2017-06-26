@@ -6,6 +6,7 @@ sap.ui.define([
     "use strict";
 
     return BaseController.extend("com.tasky.controller.UserSettings", {
+        _uiFileUploader: null,
 
         _setCurrentUser: function(dataModel) {
             if(dataModel) {
@@ -26,23 +27,13 @@ sap.ui.define([
             }
         },
 
-        _importData: function(jsonData) {
-            // TODO: import functionality
-
-            MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.IMPORT_COMPLETE"));
-        },
-
-        _exportData: function(destination) {
-            // TODO: export functionality
-
-            MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.EXPORT_COMPLETE"));
-        },
-
         onInit: function() {
             var selfNavButton = this.byId("settingsNavButton");
             if(selfNavButton) {
                 selfNavButton.setType(sap.m.ButtonType.Emphasized);
             }
+
+            this._uiFileUploader = this.byId("fileUploader");
         },
 
         onPressClearAll: function(oEvent) {
@@ -64,28 +55,42 @@ sap.ui.define([
 
         onChangeFile: function(oEvent) {
             console.log(oEvent);
-        },
+            if(!oEvent.getParameter("files") || oEvent.getParameter("files").length === 0){
+                return;
+            }
 
-        onUploadComplete: function(oEvent) {
-            console.log(oEvent);
+            var file = oEvent.getParameter("files")[0];
+            var i18nModel = this.getModel("i18n");
+            MessageBox.confirm(i18nModel.getProperty("NOTIFICATIONS.CONFIRM_IMPORT"), {
+                title: i18nModel.getProperty("NOTIFICATIONS.CONFIRMATION"),
+                onClose: function(oFile, sAction) {
+                    if(sAction === MessageBox.Action.OK) {
+                        this.getApplication().importData(oFile);
+                    }
+                }.bind(this, file)
+            });
         },
 
         onPressExport: function(oEvent) {
             this.getApplication().exportData();
         },
 
-        onPressImport: function(oEvent) {
-            var i18nModel = this.getView().getModel("i18n");
+        // onPressImport: function(oEvent) {
+        //     console.log(this._uiFileUploader);
+        //     return;
+        //
+        //     var i18nModel = this.getView().getModel("i18n");
+        //
+        //     MessageBox.confirm(i18nModel.getProperty("NOTIFICATIONS.CONFIRM_IMPORT"), {
+        //         title: i18nModel.getProperty("NOTIFICATIONS.CONFIRMATION"),
+        //         onClose: function(sAction) {
+        //             if(sAction === MessageBox.Action.OK) {
+        //                 this.getApplication().importData();
+        //             }
+        //         }.bind(this)
+        //     });
+        // },
 
-            MessageBox.confirm(i18nModel.getProperty("NOTIFICATIONS.CONFIRM_IMPORT"), {
-                title: i18nModel.getProperty("NOTIFICATIONS.CONFIRMATION"),
-                onClose: function(sAction) {
-                    if(sAction === MessageBox.Action.OK) {
-                        this.getApplication().importData();
-                    }
-                }.bind(this)
-            });
-        },
         onPressForceSync: function(oEvent) {
             // while we're working locally, that just means trigger a full save action so that the local storage is definitely saved.
             this.getApplication().saveData();

@@ -224,7 +224,7 @@ sap.ui.define([
         },
 
         importData: function(oFile) {
-            localFileReader = new LocalFileReader({
+            var localFileReader = new LocalFileReader({
                 callbacks: {
                     readComplete: function(aFiles) {
                         if(!aFiles || aFiles.length === 0 || !aFiles[0].content) {
@@ -238,9 +238,10 @@ sap.ui.define([
                             return;
                         }
                         this._oAppDataManager.setData(data);
-                    }
+                    }.bind(this)
                 }
             });
+            localFileReader.readFiles([oFile], LocalFileReader.ReadMode.Text);
         },
 
         changeLanguages: function(sLanguageCode) {

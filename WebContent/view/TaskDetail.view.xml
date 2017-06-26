@@ -13,9 +13,12 @@
 			<core:Fragment fragmentName="com.tasky.fragment.DetailNavigationButtons" type="XML" />
 		</semantic:customHeaderContent>
 
+		<!-- // TODO: disabling this for now. Not sure if I should use this since it shifts all the button placements
 		<semantic:pagingAction>
 			<PagingButton count="{/Tasks/Count}" positionChange="onChangeTask" />
 		</semantic:pagingAction>
+		-->
+
 		<semantic:saveAction>
 			<semantic:SaveAction icon="sap-icon://save" text="{i18n>ACTIONS.SAVE}" press="onPressSave" />
 		</semantic:saveAction>

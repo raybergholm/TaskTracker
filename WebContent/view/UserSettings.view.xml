@@ -76,7 +76,6 @@
 								</Button>
 							</items>
 						</HBox>
-
 						<HBox
 							alignItems="Start"
 				            justifyContent="Start">
@@ -101,43 +100,21 @@
 					expanded="false"
 					headerText="{i18n>SETTINGS.FILE_ACTIONS}">
 					<content>
-						<HBox
-							alignItems="Start"
-				            justifyContent="Start">
-							<items>
-								<unified:FileUploader id="fileUploader"
-									width="100%"
-									value="{file>/Filepath}"
-									fileType="json"
-									change="onChangeFile"
-									typeMissmatch="onTypeMismatch"
-									uploadComplete="onUploadComplete" />
-							</items>
-						</HBox>
-						<HBox
-							alignItems="Start"
-				            justifyContent="Start">
-							<items>
-								<Button
-									width="100%"
-									icon="sap-icon://inbox"
-									text="{i18n>SETTINGS.IMPORT}"
-									press="onPressImport">
-									<layoutData>
-										<FlexItemData growFactor="1" />
-									</layoutData>
-								</Button>
-								<Button
-									width="100%"
-									icon="sap-icon://outbox"
-									text="{i18n>SETTINGS.EXPORT}"
-									press="onPressExport">
-									<layoutData>
-										<FlexItemData growFactor="1" />
-									</layoutData>
-								</Button>
-							</items>
-						</HBox>
+						<unified:FileUploader id="fileUploader"
+							width="100%"
+							value=""
+							fileType="json"
+							buttonOnly="true"
+							buttonText="{i18n>SETTINGS.IMPORT}"
+							icon="sap-icon://inbox"
+							change="onChangeFile"
+							typeMissmatch="onTypeMismatch"
+							uploadComplete="onUploadComplete" />
+						<Button
+							width="100%"
+							icon="sap-icon://outbox"
+							text="{i18n>SETTINGS.EXPORT}"
+							press="onPressExport" />
 					</content>
 				</Panel>
 			</form:content>

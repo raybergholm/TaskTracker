@@ -11,16 +11,16 @@ sap.ui.define([
     return BaseController.extend("com.tasky.controller.MyTaskList", {
         _oFormatter: Formatter,
 
-        _oTaskList: null,
-        _oSearchSegmentedButton: null,
+        _uiTaskList: null,
+        _uiSearchSegmentedButton: null,
 
         _deleteTaskCallback: function(bindingPath) {
             this.getApplication().deleteTask(bindingPath);
 
             var detailView = this.getApplication().getView("TaskDetail");
             if(detailView) {
-                if(this.__oTaskList && _oTaskList.getSelectedItem() !== null) {
-                    var newBinding = _oTaskList.getSelectedItem().getBindingContextPath();
+                if(this.__uiTaskList && _uiTaskList.getSelectedItem() !== null) {
+                    var newBinding = _uiTaskList.getSelectedItem().getBindingContextPath();
                     detailView.getController().bindTaskForm(newBinding);
                 } else {
                     detailView.getController().clearForm();
@@ -29,12 +29,12 @@ sap.ui.define([
         },
 
         onInit: function() {
-            this._oTaskList = this.byId("taskList");
-            if(this._oTaskList) {
-                this._oTaskList.setSelectedItem(this._oTaskList.getItems()[0]);
+            this._uiTaskList = this.byId("taskList");
+            if(this._uiTaskList) {
+                this._uiTaskList.setSelectedItem(this._uiTaskList.getItems()[0]);
             }
 
-            this._oSearchSegmentedButton = this.byId("searchSegmentedButton");
+            this._uiSearchSegmentedButton = this.byId("searchSegmentedButton");
         },
 
         onChangeTask: function(oEvent) {
@@ -116,7 +116,7 @@ sap.ui.define([
             var searchTerm = oEvent.getParameter("newValue");
             var filters = [];
 
-            var filterField = this._oSearchSegmentedButton.getSelectedKey();
+            var filterField = this._uiSearchSegmentedButton.getSelectedKey();
 
             // If the value in the search field is not empty, create a new filter array
             if(searchTerm && searchTerm.length > 0) {
@@ -124,15 +124,15 @@ sap.ui.define([
             }
 
             // Filter the list based on the search term. If the search term is empty, the list is reset by filtering on an empty array (which will return the entire list)
-            this._oTaskList.getBinding("items").filter(filters, filterField);
+            this._uiTaskList.getBinding("items").filter(filters, filterField);
         },
 
         onPressNewTask: function(oEvent) {
             this.getApplication().createTask();
 
-            var newTaskInList = this._oTaskList.getItems()[this._oTaskList.getItems().length - 1];
-            this._oTaskList.setSelectedItem(newTaskInList);
-            this._oTaskList.fireSelectionChange({
+            var newTaskInList = this._uiTaskList.getItems()[this._uiTaskList.getItems().length - 1];
+            this._uiTaskList.setSelectedItem(newTaskInList);
+            this._uiTaskList.fireSelectionChange({
                 listItem: newTaskInList
             });
         },
@@ -140,11 +140,11 @@ sap.ui.define([
         onPressDeleteTask: function(oEvent) {
             var i18nModel = this.getView().getModel("i18n");
 
-            if(this._oTaskList.getSelectedItem() === null) {
+            if(this._uiTaskList.getSelectedItem() === null) {
                 MessageToast.show(i18nModel.getProperty("NOTIFICATIONS.SELECT_A_TASK"));
             }
 
-            var bindingPath = this._oTaskList.getSelectedItem().getBindingContextPath();
+            var bindingPath = this._uiTaskList.getSelectedItem().getBindingContextPath();
             var taskTitle = this.getModel().getProperty(bindingPath).title;
             MessageBox.confirm(i18nModel.getResourceBundle().getText("NOTIFICATIONS.CONFIRM_DELETE_TASK", [taskTitle]), {
                 title: i18nModel.getProperty("NOTIFICATIONS.CONFIRMATION"),
