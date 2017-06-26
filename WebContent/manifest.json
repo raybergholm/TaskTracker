@@ -67,15 +67,15 @@
             "targets": {
                 "Tasks": {
                     "viewName": "TaskDetail",
-                    "transition": "flip"
+                    "transition": "show"
                 },
                 "Overview": {
                     "viewName": "StatusOverview",
-                    "transition": "flip"
+                    "transition": "show"
                 },
                 "UserSettings": {
                     "viewName": "UserSettings",
-                    "transition": "flip"
+                    "transition": "show"
                 }
             }
         }
