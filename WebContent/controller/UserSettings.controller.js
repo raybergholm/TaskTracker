@@ -112,8 +112,29 @@ sap.ui.define([
             MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.SETTINGS_SAVED"));
         },
 
+        onChangeVerboseErrorMode: function(){
+
+        },
+
         onPressDebugCreateError: function() {
-            undeclaredVar = 1;
+            var index = Math.round(Math.random() * 3);
+
+            switch(index){
+                case 0:
+                    undeclaredVar = 1;
+                    break;
+                case 1:
+                    var obj = {};
+                    obj.thisPropertyDoesntExist = 101;
+                    break;
+                case 2:
+                    callingUndefinedFunction();
+                    break;
+                case 3:
+                    throw new Error("Explicitly threw an error");
+                    break;
+            }
+
         },
 
         onPressTaskDetail: function(oEvent) {

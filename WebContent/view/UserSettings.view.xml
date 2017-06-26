@@ -52,8 +52,8 @@
 				<Label text="{i18n>SETTINGS.VERBOSE_ERROR_MODE}" design="Bold" />
 				<Switch
 					state="true"
-					tooltip="{i18n>SETTINGS.VERBOSE_ERROR_MODE_DESCRIPTION}" />
-
+					tooltip="{i18n>SETTINGS.VERBOSE_ERROR_MODE_DESCRIPTION}"
+					change="onChangeVerboseErrorMode" />
 				<core:Title />
 				<Panel
 					expandable="true"
