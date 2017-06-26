@@ -216,7 +216,14 @@ sap.ui.define([
                 return false;
             }
 
-            var success = this._oPersistenceManager.clear();
+            var success;
+
+            success = this._oPersistenceManager.clear();
+            if(!success){
+                return success; // couldn't clear data from the persistence layer, let's not clear the working memory.
+            }
+
+            success = this._oAppDataManager.clearData();
             if(success) {
                 MessageToast.show(this._oLocalisationModel.getProperty("NOTIFICATIONS.DELETE_COMPLETE"));
             } else {

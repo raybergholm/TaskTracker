@@ -54,7 +54,7 @@
 					press="onPressApplyLanguage" />
 				<Label text="{i18n>SETTINGS.VERBOSE_ERROR_MODE}" design="Bold" />
 				<Switch
-					state="true"
+					state="{/Temp/CurrentUser/verboseErrorMode}"
 					tooltip="{i18n>SETTINGS.VERBOSE_ERROR_MODE_DESCRIPTION}"
 					change="onChangeVerboseErrorMode" />
 				<core:Title />

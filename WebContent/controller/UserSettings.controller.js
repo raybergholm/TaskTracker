@@ -18,14 +18,7 @@ sap.ui.define([
 
         _deleteLocalDataCallback: function() {
             var i18nModel = this.getView().getModel("i18n");
-            var success = this.getOwnerComponent().clearData();
-            if(success) {
-                MessageToast.show(i18nModel.getProperty("NOTIFICATIONS.DELETE_COMPLETE"));
-            } else {
-                MessageBox.error(i18nModel.getProperty("NOTIFICATIONS.DELETE_FAILED"), {
-                    title: i18nModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE")
-                });
-            }
+            var success = this.getApplication().clearData();
         },
 
         onInit: function() {

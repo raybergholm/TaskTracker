@@ -33,6 +33,17 @@ sap.ui.define([], function() {
                 isDone: false,
                 valueState: "None"
             };
+        },
+
+        User: function(){
+            return {
+    	        id: null,
+    	        icon: "sap-icon://person-placeholder",
+    	        username: "",
+                language: "en",
+                verboseErrorMode: "true",
+    	        lastOnline: new Date()
+            };
         }
     }
 });

@@ -243,6 +243,22 @@ sap.ui.define([
             this._dataLoadPostProcessing(); // needs to be manually triggered when the data is explicitly set
         },
 
+        clearData: function(){
+            this._initializeWorkingArea();
+
+            this._oDataModel.setProperty("/Tasks", []);
+            this._oDataModel.setProperty("/Comments", []);
+            this._oDataModel.setProperty("/Todos", []);
+
+            // Special case: we always need at least one entry in /Users so create a default profile to replace the existing one
+            var defaultUser = this._oTemplater.User();
+            defaultUser.id = 0;
+            this._oDataModel.setProperty("/Users", [defaultUser]);
+            this.setCurrentUser(defaultUser);
+
+            return true;
+        },
+
         setMockData: function() {
             if(!this._oDataModel) {
                 this._handleNoModelException();
