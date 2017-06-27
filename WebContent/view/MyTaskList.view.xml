@@ -6,6 +6,14 @@
 	xmlns:semantic="sap.m.semantic">
 	<semantic:MasterPage
 		title="{i18n>TASKLIST.TITLE}">
+
+		<semantic:customHeaderContent>
+			<Button
+				icon="sap-icon://sys-help"
+				tooltip="{i18n>TOOLTIP.HELP}"
+				press="onPressHelp" />
+		</semantic:customHeaderContent>
+
 		<semantic:subHeader>
 			<Bar>
 				<contentMiddle>

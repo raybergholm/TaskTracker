@@ -55,7 +55,7 @@
 				<Label text="{i18n>SETTINGS.VERBOSE_ERROR_MODE}" design="Bold" />
 				<Switch
 					state="{/Temp/CurrentUser/verboseErrorMode}"
-					tooltip="{i18n>SETTINGS.VERBOSE_ERROR_MODE_DESCRIPTION}"
+					tooltip="{i18n>TOOLTIP.VERBOSE_ERROR_MODE}"
 					change="onChangeVerboseErrorMode" />
 				<core:Title />
 				<Panel
@@ -65,14 +65,9 @@
 					<content>
 						<Button
 							width="100%"
-							type="Reject"
-							icon="sap-icon://delete"
-							text="{i18n>SETTINGS.CLEAR_ALL}"
-							press="onPressClearAll" />
-						<Button
-							width="100%"
 							icon="sap-icon://synchronize"
 							text="{i18n>SETTINGS.FORCE_SYNC}"
+							tooltip="{i18n>TOOLTIP.FORCE_SYNC}"
 							press="onPressForceSync" />
 						<unified:FileUploader id="fileUploader"
 							width="100%"
@@ -80,6 +75,7 @@
 							fileType="json"
 							buttonOnly="true"
 							buttonText="{i18n>SETTINGS.IMPORT}"
+							tooltip="{i18n>TOOLTIP.IMPORT}"
 							icon="sap-icon://inbox"
 							change="onChangeFile"
 							typeMissmatch="onTypeMismatch"
@@ -88,7 +84,21 @@
 							width="100%"
 							icon="sap-icon://outbox"
 							text="{i18n>SETTINGS.EXPORT}"
+							tooltip="{i18n>TOOLTIP.EXPORT}"
 							press="onPressExport" />
+						<Button
+							width="100%"
+							icon="sap-icon://hello-world"
+							text="{i18n>SETTINGS.LOAD_MOCK_DATA}"
+							tooltip="{i18n>TOOLTIP.LOAD_MOCK_DATA}"
+							press="onPressLoadMockData" />
+						<Button
+							width="100%"
+							type="Reject"
+							icon="sap-icon://delete"
+							text="{i18n>SETTINGS.CLEAR_ALL}"
+							tooltip="{i18n>TOOLTIP.CLEAR_ALL}"
+							press="onPressClearAll" />
 					</content>
 				</Panel>
 			</form:content>

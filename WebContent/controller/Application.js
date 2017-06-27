@@ -277,6 +277,10 @@ sap.ui.define([
             localFileReader.readFiles([oFile], LocalFileReader.ReadMode.Text);
         },
 
+        loadMockData: function() {
+            this._oAppDataManager.setMockData();
+        },
+
         changeLanguage: function(sLanguageCode) {
             if(!sLanguageCode) {
                 sLanguageCode = "en"; // default to English if the input is invalid

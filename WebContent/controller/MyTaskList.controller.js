@@ -160,6 +160,10 @@ sap.ui.define([
                     }
                 }.bind(this, bindingPath)
             });
+        },
+
+        onPressHelp: function(oEvent){
+            
         }
     });
 });

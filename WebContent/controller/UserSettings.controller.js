@@ -56,7 +56,7 @@ sap.ui.define([
 
             var file = oEvent.getParameter("files")[0];
             var i18nModel = this.getModel("i18n");
-            MessageBox.confirm(i18nModel.getProperty("NOTIFICATIONS.CONFIRM_IMPORT"), {
+            MessageBox.confirm(i18nModel.getProperty("NOTIFICATIONS.CONFIRM_OVERWRITE"), {
                 title: i18nModel.getProperty("NOTIFICATIONS.CONFIRMATION"),
                 onClose: function(oFile, sAction) {
                     if(sAction === MessageBox.Action.OK) {
@@ -70,21 +70,17 @@ sap.ui.define([
             this.getApplication().exportData();
         },
 
-        // onPressImport: function(oEvent) {
-        //     console.log(this._uiFileUploader);
-        //     return;
-        //
-        //     var i18nModel = this.getView().getModel("i18n");
-        //
-        //     MessageBox.confirm(i18nModel.getProperty("NOTIFICATIONS.CONFIRM_IMPORT"), {
-        //         title: i18nModel.getProperty("NOTIFICATIONS.CONFIRMATION"),
-        //         onClose: function(sAction) {
-        //             if(sAction === MessageBox.Action.OK) {
-        //                 this.getApplication().importData();
-        //             }
-        //         }.bind(this)
-        //     });
-        // },
+        onPressLoadMockData: function(oEvent) {
+            var i18nModel = this.getModel("i18n");
+            MessageBox.confirm(i18nModel.getProperty("NOTIFICATIONS.CONFIRM_OVERWRITE"), {
+                title: i18nModel.getProperty("NOTIFICATIONS.CONFIRMATION"),
+                onClose: function(sAction) {
+                    if(sAction === MessageBox.Action.OK) {
+                        this.getApplication().loadMockData();
+                    }
+                }.bind(this)
+            });
+        },
 
         onPressForceSync: function(oEvent) {
             // while we're working locally, that just means trigger a full save action so that the local storage is definitely saved.
