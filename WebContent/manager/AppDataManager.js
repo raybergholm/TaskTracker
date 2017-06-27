@@ -11,6 +11,23 @@ sap.ui.define([
         _oLanguageModel: null,
         _oTemplater: Templater,
 
+        _mCurrentUser: null,
+        getCurrentUser: function(){
+            return this._mCurrentUser;
+        },
+        setCurrentUser: function(mUser) {
+            if(!this._oDataModel) {
+                this._handleNoModelException();
+            }
+
+            this._mCurrentUser = mUser;
+
+            // also assign the current user to the work area
+            var workarea = this._oDataModel.getProperty("/Temp");
+            workarea.CurrentUser = mUser;
+            this._oDataModel.setProperty("/Temp", workarea);
+        },
+
         _initializeWorkingArea: function() { // stuff gets cloned here so that things can be changed without affecting the main model data.
             if(!this._oDataModel) {
                 this._handleNoModelException();
@@ -265,16 +282,6 @@ sap.ui.define([
             }
 
             this._oDataModel.loadData(jQuery.sap.getModulePath("com.tasky.model", "/mockData.json"));
-        },
-
-        setCurrentUser: function(user) {
-            if(!this._oDataModel) {
-                this._handleNoModelException();
-            }
-
-            var workarea = this._oDataModel.getProperty("/Temp");
-            workarea.CurrentUser = user;
-            this._oDataModel.setProperty("/Temp", workarea);
         },
 
         clearSelectedTask: function() {

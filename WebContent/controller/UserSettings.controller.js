@@ -109,8 +109,12 @@ sap.ui.define([
             MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.SETTINGS_SAVED"));
         },
 
-        onChangeVerboseErrorMode: function() {
-
+        onChangeVerboseErrorMode: function(oEvent) {
+            if(oEvent.getParameter("state")){
+                this.getApplication().attachGlobalErrorDialog();
+            }else{
+                this.getApplication().detachGlobalErrorDialog();
+            }
         },
 
         onPressApplyLanguage: function() {

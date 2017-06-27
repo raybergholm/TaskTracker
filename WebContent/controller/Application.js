@@ -16,6 +16,8 @@ sap.ui.define([
         _oStandardApplication: null,
         _oLocalisationModel: null,
 
+        _fnGlobalEventCallback: null, // this is needed since we need .bind(this), but this act creates a new function ref. So we need to store the ref when we want to remove the old event listener.
+
         _uiErrorDialog: null,
 
         getModel: function(sModelId) {
@@ -83,8 +85,13 @@ sap.ui.define([
             }
         },
 
-        _initializeGlobalErrorDialog: function() {
-            this.attachGlobalErrorDialog();
+        _applyUserSettings: function(){
+            var currentUser = this._oAppDataManager.getCurrentUser();
+            if(currentUser.verboseErrorMode){
+                this.attachGlobalErrorDialog();
+            }
+
+            this.changeLanguage(currentUser.language);
         },
 
         _globalErrorCallback: function(eErrorEvent) {
@@ -171,8 +178,9 @@ sap.ui.define([
             this._initializeMemberObjects();
             this._initializeViewMap();
             this._initializeAppKeybindings();
-            this._initializeGlobalErrorDialog();
             this.loadData();
+
+            this._applyUserSettings();
 
             console.log("Application init OK");
         },
@@ -298,11 +306,16 @@ sap.ui.define([
         },
 
         attachGlobalErrorDialog: function() {
-            window.addEventListener("error", this._globalErrorCallback.bind(this));
+            this.detachGlobalErrorDialog(); // let's be absolutely certain we don't double-register the event listener
+            this._fnGlobalEventCallback = this._globalErrorCallback.bind(this);
+            window.addEventListener("error", this._fnGlobalEventCallback);
         },
 
         detachGlobalErrorDialog: function() {
-            window.removeEventListener("error", this._globalErrorCallback);
+            if(this._fnGlobalEventCallback !== null){
+                window.removeEventListener("error", this._fnGlobalEventCallback);
+            }
+            this._fnGlobalEventCallback = null;
         }
     });
 });
