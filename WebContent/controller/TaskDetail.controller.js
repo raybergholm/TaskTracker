@@ -72,7 +72,7 @@ sap.ui.define([
             this.getApplication().clearCurrentlySelectedTask();
         },
 
-        onPressSave: function(oEvent) {
+        onPressSave: function() {
             var dataModel = this.getModel();
             if(!dataModel) {
                 return;
@@ -90,9 +90,7 @@ sap.ui.define([
             MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.TASK_SAVED"));
         },
 
-        onSelectTodoCheckBox: function(oEvent) {
-            console.log(oEvent);
-
+        onSelectTodoCheckBox: function() {
             // TODO: any way to make a pretty strikethrough/faded text when checked?
         },
 
@@ -119,9 +117,9 @@ sap.ui.define([
             }
         },
 
-        onPressTaskDetail: function(oEvent) {},
+        onPressTaskDetail: function() {},
 
-        onPressStatusOverview: function(oEvent) {
+        onPressStatusOverview: function() {
             var router = this.getOwnerComponent().getRouter();
             if(router) {
                 router.navTo("Overview");
@@ -130,7 +128,7 @@ sap.ui.define([
             }
         },
 
-        onPressSettings: function(oEvent) {
+        onPressSettings: function() {
             var router = this.getOwnerComponent().getRouter();
             if(router) {
                 router.navTo("UserSettings");

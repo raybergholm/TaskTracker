@@ -96,7 +96,7 @@
 							}" /> -->
 					</items>
 				</List>
-				<Label text="" design="Bold" />
+				<Label />
 				<FeedInput
 					icon="sap-icon://comment"
 					placeholder="{i18n>GENERAL.APP.COMMENT_PLACEHOLDER}"
@@ -115,7 +115,7 @@
 						</CustomListItem>
 					</items>
 				</List>
-				<Label text="" design="Bold" />
+				<Label />
 				<FeedInput
 					icon="sap-icon://notes"
 					placeholder="{i18n>GENERAL.APP.TODO_PLACEHOLDER}"

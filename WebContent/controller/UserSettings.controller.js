@@ -31,7 +31,7 @@ sap.ui.define([
             this._uiLanguageDropdown = this.byId("languageDropdown");
         },
 
-        onPressClearAll: function(oEvent) {
+        onPressClearAll: function() {
             var i18nModel = this.getView().getModel("i18n");
 
             MessageBox.confirm(i18nModel.getProperty("NOTIFICATIONS.CONFIRM_DELETE_ALL"), {
@@ -44,12 +44,11 @@ sap.ui.define([
             });
         },
 
-        onTypeMismatch: function(oEvent) {
+        onTypeMismatch: function() {
             MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.ONLY_JSON_ALLOWED"));
         },
 
         onChangeFile: function(oEvent) {
-            console.log(oEvent);
             if(!oEvent.getParameter("files") || oEvent.getParameter("files").length === 0) {
                 return;
             }
@@ -66,11 +65,11 @@ sap.ui.define([
             });
         },
 
-        onPressExport: function(oEvent) {
+        onPressExport: function() {
             this.getApplication().exportData();
         },
 
-        onPressLoadMockData: function(oEvent) {
+        onPressLoadMockData: function() {
             var i18nModel = this.getModel("i18n");
             MessageBox.confirm(i18nModel.getProperty("NOTIFICATIONS.CONFIRM_OVERWRITE"), {
                 title: i18nModel.getProperty("NOTIFICATIONS.CONFIRMATION"),
@@ -82,12 +81,12 @@ sap.ui.define([
             });
         },
 
-        onPressForceSync: function(oEvent) {
+        onPressForceSync: function() {
             // while we're working locally, that just means trigger a full save action so that the local storage is definitely saved.
             this.getApplication().saveData();
         },
 
-        onPressSave: function(oEvent) {
+        onPressSave: function() {
             var dataModel = this.getModel();
             if(!dataModel) {
                 return;
@@ -126,7 +125,7 @@ sap.ui.define([
             throw new Error("Ce n'est pas une erreur");
         },
 
-        onPressTaskDetail: function(oEvent) {
+        onPressTaskDetail: function() {
             var router = this.getOwnerComponent().getRouter();
             if(router) {
                 router.navTo("Tasks");
@@ -135,7 +134,7 @@ sap.ui.define([
             }
         },
 
-        onPressStatusOverview: function(oEvent) {
+        onPressStatusOverview: function() {
             var router = this.getOwnerComponent().getRouter();
             if(router) {
                 router.navTo("Overview");
@@ -144,6 +143,6 @@ sap.ui.define([
             }
         },
 
-        onPressSettings: function(oEvent) {}
+        onPressSettings: function() {}
     });
 });

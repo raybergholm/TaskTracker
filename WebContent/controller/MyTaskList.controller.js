@@ -48,7 +48,7 @@ sap.ui.define([
             }
         },
 
-        onPressTask: function(oEvent) {
+        onPressTask: function() {
             var router = this.getOwnerComponent().getRouter();
             if(router) {
                 router.navTo("Tasks");
@@ -133,7 +133,7 @@ sap.ui.define([
             this._uiTaskList.getBinding("items").filter(filters, filterField);
         },
 
-        onPressNewTask: function(oEvent) {
+        onPressNewTask: function() {
             this.getApplication().createTask();
 
             var newTaskInList = this._uiTaskList.getItems()[this._uiTaskList.getItems().length - 1];
@@ -145,7 +145,7 @@ sap.ui.define([
             this.getApplication().saveData();
         },
 
-        onPressDeleteTask: function(oEvent) {
+        onPressDeleteTask: function() {
             var i18nModel = this.getView().getModel("i18n");
 
             if(this._uiTaskList.getSelectedItem() === null) {
@@ -164,7 +164,7 @@ sap.ui.define([
             });
         },
 
-        onPressHelp: function(oEvent){
+        onPressHelp: function(){
 
         }
     });
