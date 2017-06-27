@@ -85,9 +85,9 @@ sap.ui.define([
             }
         },
 
-        _applyUserSettings: function(){
+        _applyUserSettings: function() {
             var currentUser = this._oAppDataManager.getCurrentUser();
-            if(currentUser.verboseErrorMode){
+            if(currentUser.verboseErrorMode) {
                 this.attachGlobalErrorDialog();
             }
 
@@ -316,7 +316,7 @@ sap.ui.define([
         },
 
         detachGlobalErrorDialog: function() {
-            if(this._fnGlobalEventCallback !== null){
+            if(this._fnGlobalEventCallback !== null) {
                 window.removeEventListener("error", this._fnGlobalEventCallback);
                 this._fnGlobalEventCallback = null;
             }

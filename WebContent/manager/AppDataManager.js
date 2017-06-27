@@ -12,7 +12,7 @@ sap.ui.define([
         _oTemplater: Templater,
 
         _mCurrentUser: null,
-        getCurrentUser: function(){
+        getCurrentUser: function() {
             return this._mCurrentUser;
         },
         setCurrentUser: function(mUser) {

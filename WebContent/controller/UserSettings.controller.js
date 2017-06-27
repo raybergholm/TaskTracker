@@ -105,9 +105,9 @@ sap.ui.define([
         },
 
         onChangeVerboseErrorMode: function(oEvent) {
-            if(oEvent.getParameter("state")){
+            if(oEvent.getParameter("state")) {
                 this.getApplication().attachGlobalErrorDialog();
-            }else{
+            } else {
                 this.getApplication().detachGlobalErrorDialog();
             }
         },
