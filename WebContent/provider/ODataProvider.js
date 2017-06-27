@@ -4,9 +4,9 @@
 sap.ui.define([], function() {
     "use strict";
 
-    throw new Error("ODataInterface not implemented");
+    throw new Error("ODataProvider not implemented");
 
-    // var oDataInterface = {
+    // return {
     // 	init: function() {
     //
     // 	},
@@ -23,6 +23,4 @@ sap.ui.define([], function() {
     // 		return this._storage.remove(key);
     // 	}
     // };
-    //
-    // return oDataInterface;
 });

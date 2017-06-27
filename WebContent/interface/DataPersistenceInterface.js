@@ -3,12 +3,12 @@
 // Just assert that anything going into this.dataStorage implements saveData() and fetchData() and everything will work fine.
 
 sap.ui.define([
-    "./LocalStorageInterface"
-], function(DataStorageInterface) {
+    "../provider/LocalStorageProvider"
+], function(DataStorageProvider) {
     "use strict";
 
     return {
-        _oDataStorage: DataStorageInterface,
+        _oDataStorage: DataStorageProvider,
 
         initialize: function() {
             this._oDataStorage.initialize();
