@@ -126,7 +126,7 @@ sap.ui.define([
         },
 
         onPressTaskDetail: function() {
-            var router = this.getOwnerComponent().getRouter();
+            var router = this.getRouter();
             if(router) {
                 router.navTo("Tasks");
             } else {
@@ -135,7 +135,7 @@ sap.ui.define([
         },
 
         onPressStatusOverview: function() {
-            var router = this.getOwnerComponent().getRouter();
+            var router = this.getRouter();
             if(router) {
                 router.navTo("Overview");
             } else {

@@ -13,7 +13,7 @@ sap.ui.define([
         },
 
         onPressTaskDetail: function() {
-            var router = this.getOwnerComponent().getRouter();
+            var router = this.getRouter();
             if(router) {
                 router.navTo("Tasks");
             } else {
@@ -24,7 +24,7 @@ sap.ui.define([
         onPressStatusOverview: function() {},
 
         onPressSettings: function() {
-            var router = this.getOwnerComponent().getRouter();
+            var router = this.getRouter();
             if(router) {
                 router.navTo("UserSettings");
             } else {
