@@ -79,6 +79,7 @@ sap.ui.define([
                 objectStatus = items[i].getFirstStatus();
                 switch(data.status) {
                     case "completed":
+                    case "cancelled":
                         state = sap.ui.core.ValueState.Success;
                         break;
                     case "inprogress":
@@ -86,6 +87,7 @@ sap.ui.define([
                         state = sap.ui.core.ValueState.Warning;
                         break;
                     case "none":
+                    case "blocked":
                         state = sap.ui.core.ValueState.Error;
                         break;
                     default:
@@ -163,7 +165,7 @@ sap.ui.define([
         },
 
         onPressHelp: function(oEvent){
-            
+
         }
     });
 });

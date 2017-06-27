@@ -19,6 +19,14 @@
         {
             "key" : "completed",
             "value" : "TASKSTATUS.COMPLETED"
+        },
+        {
+            "key" : "cancelled",
+            "value" : "TASKSTATUS.CANCELLED"
+        },
+        {
+            "key" : "blocked",
+            "value" : "TASKSTATUS.BLOCKED"
         }
     ]
 }
