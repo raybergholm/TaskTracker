@@ -382,6 +382,7 @@ sap.ui.define([
 
         // Returns a copy of the data currently found in the model in JSON format. Cross-entity links are flattened to IDs, and temp vars are stripped from this copy.
         createExportableData: function() {
+            // TODO: Currently this doesn't modify any of the data. But it would make sense to prune old comments and todos which are no longer referenced, reassign IDs, etc
             return this._flattenDataReferences();
         },
     });
