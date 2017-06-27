@@ -1,77 +1,77 @@
 {
     "Tasks" : [
 		{
-	        "id" : "0",
+	        "id" : 0,
 	        "status" : "completed",
 	        "icon" : "sap-icon://accept",
 	        "title" : "Dummy task",
 	        "description" : "Lorem ipsum",
 	        "dateCreated" : "2017-05-16T12:00+02:00",
 	        "dateLastUpdated" : "2017-05-16T14:10+02:00",
-	        "owner" : "0",
-	        "comments" : ["0", "2"],
-            "todos" : ["0", "1"]
+	        "owner" : 0,
+	        "comments" : [0, 2],
+            "todos" : [0, 1]
 	    },
         {
-	        "id" : "1",
+	        "id" : 1,
 	        "status" : "inprogress",
 	        "icon" : "sap-icon://accept",
 	        "title" : "Dummy task 2",
 	        "description" : "Lorem ipsum",
 	        "dateCreated" : "2017-05-16T12:00+02:00",
 	        "dateLastUpdated" : "2017-05-16T14:10+02:00",
-	        "owner" : "0",
+	        "owner" : 0,
 	        "comments" : [],
-            "todos" : ["1"]
+            "todos" : [1]
 	    }
 	],
 
     "Users" : [
 		{
-	        "id" : "0",
+	        "id" : 0,
 	        "icon" : "sap-icon://person-placeholder",
 	        "username" : "Bob Builder",
             "language" : "en",
-            "verboseErrorMode" : "true",
+            "verboseErrorMode" : true,
 	        "lastOnline" : "2017-05-16T14:10+02:00"
 	    }
 	],
 
     "Comments" : [
 		{
-            "id" : "0",
+            "id" : 0,
             "dateCreated" : "2017-05-16T12:00+02:00",
             "dateLastUpdated" : "2017-05-16T12:00+02:00",
-            "owner" : "0",
+            "owner" : 0,
             "text" : "this is a comment look at meee"
         },
         {
-            "id" : "1",
+            "id" : 1,
             "dateCreated" : "2017-05-16T12:03+02:00",
             "dateLastUpdated" : "2017-05-16T12:03+02:00",
-            "owner" : "0",
+            "owner" : 0,
             "text" : "this should not be shown"
         },
         {
-            "id" : "2",
+            "id" : 2,
             "dateCreated" : "2017-05-16T14:03+02:00",
             "dateLastUpdated" : "2017-05-16T14:10+02:00",
-            "owner" : "0",
+            "owner" : 0,
             "text" : "this was edited"
         }
     ],
 
     "Todos" : [
         {
-            "id" : "0",
+            "id" : 0,
             "text" : "Click this box",
-            "isDone" : "false",
+            "isDone" : false,
             "valueState" : "None"
         },
         {
-            "id" : "1",
+            "id" : 1,
             "text" : "I should already be checked by default",
-            "isDone" : "true",
+            "isDone" : true,
             "valueState" : "None"
         }
     ]

@@ -195,7 +195,7 @@ sap.ui.define([
             if(data) {
                 this._oAppDataManager.setData(data);
             } else {
-                this._oAppDataManager.setMockData();
+                this._oAppDataManager.initializeData();
             }
         },
 
@@ -231,7 +231,7 @@ sap.ui.define([
                 return success; // couldn't clear data from the persistence layer, let's not clear the working memory.
             }
 
-            success = this._oAppDataManager.clearData();
+            success = this._oAppDataManager.initializeData();
             if(success) {
                 MessageToast.show(this._oLocalisationModel.getProperty("NOTIFICATIONS.DELETE_COMPLETE"));
             } else {

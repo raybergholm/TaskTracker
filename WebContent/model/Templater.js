@@ -41,7 +41,7 @@ sap.ui.define([], function() {
     	        icon: "sap-icon://person-placeholder",
     	        username: "",
                 language: "en",
-                verboseErrorMode: "true",
+                verboseErrorMode: true,
     	        lastOnline: new Date()
             };
         }
