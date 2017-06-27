@@ -50,6 +50,16 @@
 				<Text id="ownerDisplay"
 					text="{/Temp/SelectedTask/owner/username}" design="Bold" />
 				-->
+				<Label text="{i18n>TASK.PRIORITY}" design="Bold" />
+				<SegmentedButton
+					width="15rem"
+					selectedKey="{/Temp/SelectedTask/priority}">
+					<items>
+						<SegmentedButtonItem key="low" icon="sap-icon://arrow-bottom" tooltip="{i18n>TASK.LOW_PRIORITY}" />
+						<SegmentedButtonItem key="normal" icon="sap-icon://circle-task" tooltip="{i18n>TASK.NORMAL_PRIORITY}" />
+						<SegmentedButtonItem key="high" icon="sap-icon://warning2" tooltip="{i18n>TASK.HIGH_PRIORITY}" />
+					</items>
+				</SegmentedButton>
 				<Label text="{i18n>GENERAL.DATE_CREATED}" design="Bold" />
 				<DateTimePicker id="dateCreatedField"
 					dateValue="{/Temp/SelectedTask/dateCreated}"

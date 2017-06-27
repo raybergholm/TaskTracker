@@ -8,6 +8,7 @@ sap.ui.define([], function() {
                 status: "none",
                 icon: "",
                 title: "",
+                priority: "normal",
                 description: "",
                 dateCreated: new Date(),
                 dateLastUpdated: new Date(),
