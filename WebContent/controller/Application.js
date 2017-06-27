@@ -314,8 +314,8 @@ sap.ui.define([
         detachGlobalErrorDialog: function() {
             if(this._fnGlobalEventCallback !== null){
                 window.removeEventListener("error", this._fnGlobalEventCallback);
+                this._fnGlobalEventCallback = null;
             }
-            this._fnGlobalEventCallback = null;
         }
     });
 });
