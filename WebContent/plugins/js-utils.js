@@ -65,11 +65,11 @@ function JsUtils(){
         //  format("Hi there", ["Hello", "world"]) -> "Hi there"    - no match tokens: array doesn't matter then. String stays the same
         //
         // Results when you deliberately pass in wrong formats:
-        //  format("{0} {1}", {}) -> "{0} {1}"                      - empty object
-        //  format("{0} {1}", 123) -> "{0} {1}"                     - integer
-        //  format("{0}", [123]) -> "123"                           - array with integer
-        //  format("{0}", [{}]) -> "[object Object]"                - array with object object.toString() called
-        //  format({replace: function(){return "hi"}}, ["hello"])   - ... ok, that's just evil. Don't do this
+        //  format("{0} {1}", {}) -> "{0} {1}"                              - empty object
+        //  format("{0} {1}", 123) -> "{0} {1}"                             - integer
+        //  format("{0}", [123]) -> "123"                                   - array with integer
+        //  format("{0}", [{}]) -> "[object Object]"                        - array with object object.toString() called
+        //  format({replace: function(){return "hi"}}, ["hello"]) -> "hi"   - ... ok, that's just evil. Don't do this
         //
         // Stuff that throws an error:
         //  format()                        - undefined string (and array)
