@@ -56,7 +56,7 @@ function JsUtils() {
         //
         // Weirder use cases:
         //  format("{0} {1}", {0: "Hello", "1": "world"}) -> "Hello world"      - works because of how JS treats arrays, maps and objects
-        //  format("{0}{1}{4}{5}", "hello") -> "heo{5}"                         - I suppose it's legal to pass in a string and match chars by index. Maybe a bit weird though.
+        //  format("{0}{1}{4}{5}", "hello") -> "heo{5}"                         - works because [] is a legal operator on a string
         //
         // Use cases with mismatches:
         //  format("{0} {1}", ["gibberish"]) -> "gibberish {1}"     - {0} ok but {1} not matched
@@ -64,7 +64,7 @@ function JsUtils() {
         //  format("{0}", []) -> "{0}"                              - empty array, nothing will get matched
         //  format("Hi there", ["Hello", "world"]) -> "Hi there"    - no match tokens: array doesn't matter then. String stays the same
         //
-        // Results when you deliberately pass in wrong formats:
+        // Results when you pass in wrong formats:
         //  format("{0} {1}", {}) -> "{0} {1}"                              - empty object
         //  format("{0} {1}", 123) -> "{0} {1}"                             - integer
         //  format("{0}", [123]) -> "123"                                   - array with integer
