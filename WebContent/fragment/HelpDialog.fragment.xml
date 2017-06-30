@@ -1,0 +1,10 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+    <Dialog>
+        <content>
+            <Text
+                text="Handy keybinding: ctrl+S (or command+S) saves your work.">
+        </content>
+    </Dialog>
+</core:FragmentDefinition>
