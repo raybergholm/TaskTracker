@@ -19,10 +19,9 @@ sap.ui.define([
 
             var detailView = this.getApplication().getView("TaskDetail");
             if(detailView) {
-                if(this.__uiTaskList && _uiTaskList.getSelectedItem() !== null) {
+                if(this._uiTaskList && _uiTaskList.getSelectedItem() !== null) {
                     var newBinding = _uiTaskList.getSelectedItem().getBindingContextPath();
-                    detailView.getController().bindTaskForm(newBinding);
-
+                    this.getApplication().changeSelectedTask(newBinding);
                     this.getApplication().saveData();
                 } else {
                     detailView.getController().clearForm();
@@ -41,11 +40,7 @@ sap.ui.define([
 
         onChangeTask: function(oEvent) {
             var bindingPath = oEvent.getSource().getSelectedItem().getBindingContextPath();
-
-            var detailView = this.getApplication().getView("TaskDetail");
-            if(detailView) {
-                detailView.getController().bindTaskForm(bindingPath);
-            }
+            this.getApplication().changeSelectedTask(bindingPath);
         },
 
         onPressTask: function() {

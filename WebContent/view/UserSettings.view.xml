@@ -32,20 +32,20 @@
 				<core:Title text="{i18n>USER.INFO}" />
 				<Label text="{i18n>USER.USERNAME}" design="Bold" />
 				<Input id="usernameField"
-					value="{/Temp/CurrentUser/username}" />
+					value="{workarea>/CurrentUser/username}" />
 				<!-- TODO: personalised icons probably don't matter while we're only using a local single-user model
 				<Label text="{i18n>USER.ICON}" design="Bold" />
 				<core:Icon
-					src="{/Temp/CurrentUser/icon}" />
+					src="{workarea>/CurrentUser/icon}" />
 				<Label text="{i18n>USER.ICON}" design="Bold" />
 				<Text id="ownerDisplay"
-					text="{/Temp/CurrentUser/icon}" design="Bold" />
+					text="{workarea>/CurrentUser/icon}" design="Bold" />
 				-->
 				<core:Title text="{i18n>SETTINGS.GENERAL_SETTINGS}" />
 				<Label text="{i18n>GENERAL.LANGUAGE}" design="Bold" />
 				<Select id="languageDropdown"
 					forceSelection="false"
-					selectedKey="{/Temp/CurrentUser/language}"
+					selectedKey="{workarea>/CurrentUser/language}"
 					items="{lang>/Languages}">
 					<core:Item key="{lang>key}" text="{lang>name}" />
 				</Select>
@@ -54,7 +54,7 @@
 					press="onPressApplyLanguage" />
 				<Label text="{i18n>SETTINGS.VERBOSE_ERROR_MODE}" design="Bold" />
 				<Switch
-					state="{/Temp/CurrentUser/verboseErrorMode}"
+					state="{workarea>/CurrentUser/verboseErrorMode}"
 					tooltip="{i18n>TOOLTIP.VERBOSE_ERROR_MODE}"
 					change="onChangeVerboseErrorMode" />
 				<core:Title />

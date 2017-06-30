@@ -41,7 +41,8 @@ sap.ui.define([
                 main: this.getModel(),
                 taskMetadata: this.getModel("taskMetadata"),
                 languages: this.getModel("lang"),
-                i18n: this._oLocalisationModel
+                i18n: this._oLocalisationModel,
+                workarea: this.getModel("workarea")
             });
         },
 
@@ -289,6 +290,16 @@ sap.ui.define([
             sap.ui.getCore().getConfiguration().setLanguage(sLanguageCode);
         },
 
+        changeSelectedTask: function(sPath) {
+            this._oAppDataManager.changeSelectedTask(sPath);
+        },
+
+        updateSelectedTask: function() {
+            this._oAppDataManager.updateSelectedTask();
+
+            this.saveData();
+        },
+
         clearCurrentlySelectedTask: function() {
             this._oAppDataManager.clearSelectedTask();
         },
@@ -307,6 +318,11 @@ sap.ui.define([
 
         addTodo: function(sText) {
             this._oAppDataManager.addTodo(sText);
+        },
+
+        updateUserSettings: function() {
+            this._oAppDataManager.updateUserSettings();
+            this.saveData();
         },
 
         attachGlobalErrorDialog: function() {

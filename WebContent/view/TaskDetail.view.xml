@@ -34,26 +34,26 @@
 				<core:Title />
 				<Label text="{i18n>TASK.TITLE}" design="Bold" />
 				<Input id="titleField"
-					value="{/Temp/SelectedTask/title}"
+					value="{workarea>/SelectedTask/title}"
 					maxLength="100" />
 				<Label text="{i18n>TASK.CODE}" design="Bold" />
 				<Input id="projectCodeField"
-					value="{/Temp/SelectedTask/code}" />
+					value="{workarea>/SelectedTask/code}" />
 				<Select id="taskStatusDropdown"
 					forceSelection="false"
-					selectedKey="{/Temp/SelectedTask/status}"
+					selectedKey="{workarea>/SelectedTask/status}"
 					items="{taskMetadata>/TaskStatuses}"
 					change="onChangeTaskStatus">
 					<core:Item key="{taskMetadata>key}" text="{taskMetadata>value}" />
 				</Select>
 				<!-- // TBH, we don't really need to display this while this is local-only
 				<Text id="ownerDisplay"
-					text="{/Temp/SelectedTask/owner/username}" design="Bold" />
+					text="{workarea>/SelectedTask/owner/username}" design="Bold" />
 				-->
 				<Label text="{i18n>TASK.PRIORITY}" design="Bold" />
 				<SegmentedButton
 					width="15rem"
-					selectedKey="{/Temp/SelectedTask/priority}">
+					selectedKey="{workarea>/SelectedTask/priority}">
 					<items>
 						<SegmentedButtonItem key="low" icon="sap-icon://arrow-bottom" tooltip="{i18n>TASK.LOW_PRIORITY}" />
 						<SegmentedButtonItem key="normal" icon="sap-icon://circle-task" tooltip="{i18n>TASK.NORMAL_PRIORITY}" />
@@ -62,34 +62,34 @@
 				</SegmentedButton>
 				<Label text="{i18n>GENERAL.DATE_CREATED}" design="Bold" />
 				<DateTimePicker id="dateCreatedField"
-					dateValue="{/Temp/SelectedTask/dateCreated}"
+					dateValue="{workarea>/SelectedTask/dateCreated}"
 					editable="false" />
 				<Label text="{i18n>GENERAL.DATE_LAST_UPDATED}" design="Bold" />
 				<DateTimePicker id="dateLastUpdatedField"
-					dateValue="{/Temp/SelectedTask/dateLastUpdated}"
+					dateValue="{workarea>/SelectedTask/dateLastUpdated}"
 					editable="false" />
 				<Label text="{i18n>TASK.DESCRIPTION}" design="Bold" />
 				<TextArea id="descriptionField"
 					rows="10"
-					value="{/Temp/SelectedTask/description}" />
+					value="{workarea>/SelectedTask/description}" />
 				<Label text="{i18n>TASK.COMMENTS}" design="Bold" />
 				<List id="commentsList"
-					items="{/Temp/SelectedTask/comments}"
+					items="{workarea>/SelectedTask/comments}"
 					showSeparators="Inner"
 					noDataText="{i18n>GENERAL.APP.NO_COMMENTS}"
 					updateFinished="onUpdateFinishedComments">
 					<items>
 						<FeedListItem
-							sender="{owner/username}"
+							sender="{workarea>owner/username}"
 							icon="sap-icon://person-placeholder"
 							senderPress="onPressCommentOwner"
 							iconPress="onPressCommentIcon"
-							info="{type}"
-							text="{text}"
+							info="{workarea>type}"
+							text="{workarea>text}"
 							timestamp="" />
 							<!--
-							// TODO: It seems if you follow the exact steps in the walkthrough, it doesn't work. None of these complex bindings work at all in any format in real life.
-							// So, good job SAP! Leaving this here in case this ever works.
+							// TODO: It seems if you follow the exact steps found in the walkthrough, it doesn't work. None of these compound bindings work at all in any format in real life.
+							// Why? It's not explained anywhere, it just works on the demo site but nowhere else. Leaving this here in case this ever works.
 							timestamp="{
 								path: 'dateCreated',
 								formatter: '._oFormatter.userFriendlyTimestamp'
@@ -103,15 +103,15 @@
 					post="onPostComment" />
 				<Label text="{i18n>TASK.TODOS}" design="Bold" />
 				<List id="todoChecklist"
-					items="{/Temp/SelectedTask/todos}"
+					items="{workarea>/SelectedTask/todos}"
 					showSeparators="Inner"
 					noDataText="{i18n>GENERAL.APP.NO_TODOS}">
 					<items>
 						<CustomListItem>
 							<CheckBox
-								text="{text}"
-								selected="{isDone}"
-								valueState="{state}" />
+								text="{workarea>text}"
+								selected="{workarea>isDone}"
+								valueState="{workarea>state}" />
 						</CustomListItem>
 					</items>
 				</List>

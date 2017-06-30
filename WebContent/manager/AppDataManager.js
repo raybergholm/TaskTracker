@@ -9,6 +9,7 @@ sap.ui.define([
         _oDataModel: null,
         _oTaskMetadataModel: null,
         _oLanguageModel: null,
+        _oWorkareaModel: null, // stores temp copies
         _oTemplater: Templater,
 
         _mCurrentUser: null,
@@ -23,17 +24,11 @@ sap.ui.define([
             this._mCurrentUser = mUser;
 
             // also assign the current user to the work area
-            var workarea = this._oDataModel.getProperty("/Temp");
-            workarea.CurrentUser = mUser;
-            this._oDataModel.setProperty("/Temp", workarea);
+            this._oWorkareaModel.setProperty("/CurrentUser", mUser);
         },
 
         _initializeWorkingArea: function() { // stuff gets cloned here so that things can be changed without affecting the main model data.
-            if(!this._oDataModel) {
-                this._handleNoModelException();
-            }
-
-            this._oDataModel.setProperty("/Temp", {
+            this._oWorkareaModel.setData({
                 SelectedTask: null,
                 SelectedTaskPath: "",
                 CurrentUser: null
@@ -240,6 +235,9 @@ sap.ui.define([
                         case "i18n":
                             this._oLocalisationModel = models[prop];
                             break;
+                        case "workarea":
+                            this._oWorkareaModel = models[prop];
+                            break;
                     }
                 }
             }
@@ -284,15 +282,30 @@ sap.ui.define([
             this._oDataModel.loadData(jQuery.sap.getModulePath("com.tasky.model", "/mockData.json"));
         },
 
-        clearSelectedTask: function() {
+        changeSelectedTask: function(sPath) {
             if(!this._oDataModel) {
                 this._handleNoModelException();
             }
 
-            var workarea = this._oDataModel.getProperty("/Temp");
-            workarea.SelectedTask = {};
-            workarea.SelectedTaskPath = "";
-            this._oDataModel.setProperty("/Temp", workarea);
+            var workingCopy = jsUtils.Object.clone(this._oDataModel.getProperty(sPath));
+
+            this._oWorkareaModel.setProperty("/SelectedTask", workingCopy);
+            this._oWorkareaModel.setProperty("/SelectedTaskPath", sPath);
+        },
+
+        updateSelectedTask: function() {
+            var selectedTask = this._oWorkareaModel.getProperty("/SelectedTask");
+            var selectedTaskPath = this._oWorkareaModel.getProperty("/SelectedTaskPath");
+            selectedTask.dateLastUpdated = new Date();
+
+            this._oDataModel.setProperty(selectedTaskPath, selectedTask);
+
+            this.changeSelectedTask(selectedTaskPath);
+        },
+
+        clearSelectedTask: function() {
+            this._oWorkareaModel.setProperty("/SelectedTask", null);
+            this._oWorkareaModel.setProperty("/SelectedTaskPath", "");
         },
 
         createTask: function() {
@@ -306,7 +319,7 @@ sap.ui.define([
             newTask.title = "New Task";
             newTask.dateCreated = new Date();
             newTask.dateLastUpdated = new Date();
-            newTask.owner = this._oDataModel.getProperty("/Temp/CurrentUser");
+            newTask.owner = this._oWorkareaModel.getProperty("/CurrentUser");
 
             var tasks = this._oDataModel.getProperty("/Tasks");
             tasks.push(newTask);
@@ -337,15 +350,15 @@ sap.ui.define([
             newComment.id = this.getNextCommentId();
             newComment.dateCreated = new Date();
             newComment.dateLastUpdated = new Date();
-            newComment.owner = this._oDataModel.getProperty("/Temp/CurrentUser");
+            newComment.owner = this._oWorkareaModel.getProperty("/CurrentUser");
             newComment.text = text;
 
             comments.push(newComment);
             this._oDataModel.setProperty("/Comments", comments);
 
-            var workingarea = this._oDataModel.getProperty("/Temp");
-            workingarea.SelectedTask.comments.push(newComment);
-            this._oDataModel.setProperty("/Temp", workingarea);
+            var selectedTask = this._oWorkareaModel.getProperty("/SelectedTask");
+            selectedTask.comments.push(newComment);
+            this._oWorkareaModel.setProperty("/SelectedTask", selectedTask);
         },
 
         addTodo: function(text) {
@@ -362,10 +375,16 @@ sap.ui.define([
             todos.push(newTodo);
             this._oDataModel.setProperty("/Todos", todos);
 
-            var workingarea = this._oDataModel.getProperty("/Temp");
-            workingarea.SelectedTask.todos.push(newTodo);
-            this._oDataModel.setProperty("/Temp", workingarea);
+            var selectedTask = this._oWorkareaModel.getProperty("/SelectedTask");
+            selectedTask.todos.push(newTodo);
+            this._oWorkareaModel.setProperty("/SelectedTask", selectedTask);
+        },
 
+        updateUserSettings: function(){
+            this._oDataModel.setProperty("/Users/0", this._mCurrentUser); // NOTE: If this ever gets upgraded to support multiple users, this part clearly needs changing
+
+            var clonedUser = jsUtils.Object.clone(this._mCurrentUser);
+            this.setCurrentUser(clonedUser); // disconnect the references again
         },
 
         getNextTaskId: function() {

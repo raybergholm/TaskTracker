@@ -9,13 +9,6 @@ sap.ui.define([
         _uiFileUploader: null,
         _uiLanguageDropdown: null,
 
-        _setCurrentUser: function(dataModel) {
-            if(dataModel) {
-                var user = dataModel.getProperty("/Users")[0]; // TODO: as long as this is strictly a local task tracker, no need to handle multiple users
-                dataModel.setProperty("/Temp/CurrentUser", jsUtils.Object.clone(user));
-            }
-        },
-
         _deleteLocalDataCallback: function() {
             var i18nModel = this.getView().getModel("i18n");
             var success = this.getApplication().clearData();
@@ -92,14 +85,7 @@ sap.ui.define([
                 return;
             }
 
-            var workarea = dataModel.getProperty("/Temp");
-            workarea.CurrentUser;
-
-            dataModel.setProperty("/Users/0", workarea.CurrentUser); // NOTE: If this ever gets upgraded to support multiple users, this part clearly needs changing
-
-            this._setCurrentUser(dataModel); // disconnect the references again
-
-            this.getApplication().saveData();
+            this.getApplication().updateUserSettings();
 
             MessageToast.show(this.getView().getModel("i18n").getProperty("NOTIFICATIONS.SETTINGS_SAVED"));
         },

@@ -14,6 +14,10 @@
                 "type": "sap.ui.model.json.JSONModel",
                 "uri": "model/taskMetadata.json"
             },
+            "workarea": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": ""
+            },
             "": {
                 "type": "sap.ui.model.json.JSONModel",
                 "uri": ""
