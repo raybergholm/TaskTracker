@@ -36,7 +36,7 @@ sap.ui.define([], function() {
             };
         },
 
-        User: function(){
+        User: function() {
             return {
     	        id: null,
     	        icon: "sap-icon://person-placeholder",
@@ -45,6 +45,20 @@ sap.ui.define([], function() {
                 verboseErrorMode: true,
     	        lastOnline: new Date()
             };
+        },
+
+        Category: function() {
+            return {
+                name: "",
+                items: []
+            };
+        },
+
+        CategoryItem: function() {
+            return {
+                task: null,
+                originalPath: ""
+            }
         }
     }
 });

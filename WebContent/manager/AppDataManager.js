@@ -399,6 +399,38 @@ sap.ui.define([
             return this._getNextId(this._oDataModel.getProperty("/Todos"));
         },
 
+        setCategoryGroupings: function(key){
+            var tasks = this._oDataModel.getProperty("/Tasks");
+            var categories = [];
+
+            var comparatorFunction = function(needle, haystack){
+                for(var i = 0; i < haystack.length; i++){
+                    if(haystack[i].hasOwnProperty(key) && needle.hasOwnProperty(key) && haystack[i][key] === needle[key]){
+                        return true;
+                    }
+                }
+                return false;
+            };
+
+            for(var task in tasks){
+                // TODO: hmm need to iterate over this and get a unique count
+            }
+
+            if(!jsUtils.Array.matchOne(categories, tasks, comparatorFunction)){
+
+            }
+
+
+
+            this._oTemplater.Category();
+            this._oTemplater.CategoryItem();
+
+            this._oWorkareaModel.setProperty("/Categories", categories);
+
+            console.log(tasks);
+            console.log(key);
+        },
+
         // Returns a copy of the data currently found in the model in JSON format. Cross-entity links are flattened to IDs, and temp vars are stripped from this copy.
         createExportableData: function() {
             // TODO: Currently this doesn't modify any of the data. But it would make sense to prune old comments and todos which are no longer referenced, reassign IDs, etc

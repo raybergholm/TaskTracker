@@ -1,0 +1,12 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+    <Panel
+        expandable="true"
+        expanded="false"
+        headerText="hi">
+        <content>
+            <Text text="hi there" />
+        </content>
+    </Panel>
+</core:FragmentDefinition>

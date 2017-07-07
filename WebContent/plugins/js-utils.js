@@ -1,7 +1,15 @@
-var jsUtils = new JsUtils();;
+var jsUtils = new JsUtils();
 
 function JsUtils() {
     "use strict";
+
+    this.Array = {
+        matchOne: function(needles, haystack, comparator){
+            return needles.some(function(needle) {
+                return comparator ? comparator(needle, haystack) : haystack.indexOf(needle) >= 0;
+            });
+        }
+    };
 
     this.Object = {
         clone: function(source) {

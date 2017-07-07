@@ -8,13 +8,52 @@
 		<headerContent>
 			<core:Fragment fragmentName="com.tasky.fragment.DetailNavigationButtons" type="XML" />
 		</headerContent>
-		<VBox
-			height="100%"
-			alignItems="Center"
-			justifyContent="Center">
-			<core:Icon src="sap-icon://wrench" size="10rem" color="#E69A17" />
-			<Text text="In development. Though, I'm pretty sure this will still be done before the Länsimetro." />
-		</VBox>
+		<subHeader>
+			<Bar>
+				<contentMiddle>
+					<SegmentedButton id="categorySegmentedButton"
+						select="onSelectCategory">
+						<items>
+							<SegmentedButtonItem key="status" text="{i18n>CATEGORY.STATUS}" />
+							<SegmentedButtonItem key="projectCode" text="{i18n>CATEGORY.PROJECT_CODE}" />
+							<SegmentedButtonItem key="priority" text="{i18n>CATEGORY.PRIORITY}" />
+							<SegmentedButtonItem key="lastUpdated" text="{i18n>CATEGORY.LAST_UPDATED}" />
+						</items>
+					</SegmentedButton>
+				</contentMiddle>
+			</Bar>
+		</subHeader>
+
+		<List id="CategoryList"
+			items="{workarea>/Categories}"
+			mode="SingleSelectMaster"
+			includeItemInSelection="true"
+			noDataText="{i18n>GENERAL.OVERVIEW.NO_CATEGORY}"
+			updatedStarted="onUpdateStarted"
+			updateFinished="onUpdateFinishedTaskList">
+			<items>
+				<CustomListItem>
+					<core:Fragment fragmentName="com.tasky.fragment.OverviewCategoryTemplate" type="XML" />
+				</CustomListItem>
+			</items>
+		</List>
+
+		<!--
+		<IconTabBar id="iconTabBar"
+			expandable="false">
+			<items>
+				<IconTabFilter id=""
+					text="{i18n>AddPalletTabTitle}">
+					<core:Fragment fragmentName="com.tasky.fragment.OverviewKanban" type="XML" />
+				</IconTabFilter>
+				<IconTabFilter id=""
+					text="{i18n>AddPalletTabTitle}">
+					<core:Fragment fragmentName="com.tasky.fragment.OverviewKanban" type="XML" />
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+		-->
+
         <footer>
 			<Bar>
                 <contentRight>

@@ -320,6 +320,10 @@ sap.ui.define([
             this._oAppDataManager.addTodo(sText);
         },
 
+        setCategoryGroupings: function(key) {
+            this._oAppDataManager.setCategoryGroupings(key);
+        },
+
         updateUserSettings: function() {
             this._oAppDataManager.updateUserSettings();
             this.saveData();
