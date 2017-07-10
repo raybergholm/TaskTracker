@@ -266,8 +266,9 @@ sap.ui.define([
             this._oDataModel.setProperty("/Todos", []);
 
             // Special case: we always need at least one entry in /Users so create a default profile to replace the existing one
-            var defaultUser = this._oTemplater.User();
-            defaultUser.id = 0;
+            var defaultUser = this._oTemplater.User({
+                id: 0
+            });
             this._oDataModel.setProperty("/Users", [defaultUser]);
             this.setCurrentUser(defaultUser);
 
@@ -313,13 +314,11 @@ sap.ui.define([
                 this._handleNoModelException();
             }
 
-            var newTask = this._oTemplater.Task();
-
-            newTask.id = this.getNextTaskId();
-            newTask.title = "New Task";
-            newTask.dateCreated = new Date();
-            newTask.dateLastUpdated = new Date();
-            newTask.owner = this._oWorkareaModel.getProperty("/CurrentUser");
+            var newTask = this._oTemplater.Task({
+                id: this.getNextTaskId(),
+                title: "New Task",
+                owner: this._oWorkareaModel.getProperty("/CurrentUser")
+            });
 
             var tasks = this._oDataModel.getProperty("/Tasks");
             tasks.push(newTask);
@@ -346,12 +345,11 @@ sap.ui.define([
 
             var comments = this._oDataModel.getProperty("/Comments");
 
-            var newComment = this._oTemplater.Comment();
-            newComment.id = this.getNextCommentId();
-            newComment.dateCreated = new Date();
-            newComment.dateLastUpdated = new Date();
-            newComment.owner = this._oWorkareaModel.getProperty("/CurrentUser");
-            newComment.text = text;
+            var newComment = this._oTemplater.Comment({
+                id: this.getNextCommentId(),
+                owner: this._oWorkareaModel.getProperty("/CurrentUser"),
+                text: text
+            });
 
             comments.push(newComment);
             this._oDataModel.setProperty("/Comments", comments);
@@ -368,9 +366,10 @@ sap.ui.define([
 
             var todos = this._oDataModel.getProperty("/Todos");
 
-            var newTodo = this._oTemplater.Todo();
-            newTodo.id = this.getNextTodoId();
-            newTodo.text = text;
+            var newTodo = this._oTemplater.Todo({
+                id: this.getNextTodoId(),
+                text: text
+            });
 
             todos.push(newTodo);
             this._oDataModel.setProperty("/Todos", todos);
