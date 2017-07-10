@@ -23,8 +23,8 @@ sap.ui.define([], function() {
                 id: params && params.hasOwnProperty("id") ? params.id : null,
                 dateCreated: new Date(),
                 dateLastUpdated: new Date(),
-                owner: params && params.hasOwnProperty("owner") ? params.id : "",
-                text: params && params.hasOwnProperty("text") ? params.id : ""
+                owner: params && params.hasOwnProperty("owner") ? params.owner : "",
+                text: params && params.hasOwnProperty("text") ? params.text : ""
             };
         },
 
