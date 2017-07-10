@@ -19,8 +19,8 @@ sap.ui.define([
 
             var detailView = this.getApplication().getView("TaskDetail");
             if(detailView) {
-                if(this._uiTaskList && _uiTaskList.getSelectedItem() !== null) {
-                    var newBinding = _uiTaskList.getSelectedItem().getBindingContextPath();
+                if(this._uiTaskList && this._uiTaskList.getSelectedItem() !== null) {
+                    var newBinding = this._uiTaskList.getSelectedItem().getBindingContextPath();
                     this.getApplication().changeSelectedTask(newBinding);
                     this.getApplication().saveData();
                 } else {
