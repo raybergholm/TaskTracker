@@ -1,0 +1,26 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog title="{i18n>NOTIFICATIONS.CRITICAL_ERROR_TITLE}" contentWidth="70%">
+        <content>
+            <Text
+                text="{i18n>NOTIFICATIONS.CRITICAL_ERROR_MESSAGE}" />
+            <TextArea id="stackTraceDisplay"
+                width="100%"
+                rows="10"
+                editable="false" />
+            <Text
+                text="{i18n>NOTIFICATIONS.BUG_REPORT_INSTRUCTIONS}" />
+        </content>
+        <buttons>
+            <Button
+                icon="sap-icon://copy"
+                tooltip="{i18n>ACTIONS.COPY_STACK_TRACE}"
+                press="onPressButtonCopyStackTrace" />
+            <Button
+                type="Emphasized"
+                text="{i18n>ACTIONS.CLOSE}"
+                press="onPressButtonCloseErrorDialog" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

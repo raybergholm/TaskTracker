@@ -95,53 +95,8 @@ sap.ui.define([
             this.changeLanguage(currentUser.language);
         },
 
-        _globalErrorCallback: function(eErrorEvent) {
-            var errorDialog = new Dialog({
-                title: this._oLocalisationModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_TITLE"),
-                type: "Message",
-                state: "Error",
-                contentWidth: "50%",
-                content: [
-                    new Text({
-                        text: this._oLocalisationModel.getProperty("NOTIFICATIONS.CRITICAL_ERROR_MESSAGE")
-                    }),
-                    new TextArea({
-                        value: eErrorEvent.error.stack,
-                        width: "100%",
-                        rows: 10,
-                        editable: false,
-                        focus: function(oEvent) {
-                            console.log("does this blend?");
-                        }
-                    }),
-                    new Text({
-                        text: this._oLocalisationModel.getProperty("NOTIFICATIONS.BUG_REPORT_INSTRUCTIONS")
-                    })
-                ],
-                buttons: [
-                    new Button({
-                        icon: "sap-icon://copy",
-                        tooltip: this._oLocalisationModel.getProperty("ACTIONS.COPY_STACK_TRACE"),
-                        press: function(oEvent) {
-                            var textArea = oEvent.getSource().getParent().getContent()[1];
-                            textArea.focus();
-                            textArea.selectText(0, textArea.getValue().length - 1);
-                            document.execCommand("copy");
-                        }
-                    }),
-                    new Button({
-                        text: this._oLocalisationModel.getProperty("ACTIONS.OK"),
-                        press: function() {
-                            errorDialog.close();
-                        }
-                    })
-                ],
-                afterClose: function() {
-                    errorDialog.destroy();
-                }
-            });
-
-            errorDialog.open();
+        _globalErrorCallback: function(oEvent) {
+            this._oComponent.getRootControl().getController().showGlobalErrorDialog(oEvent);
         },
 
         _createExportableData: function() { // clone data, format dates and flatten refs down to IDs
