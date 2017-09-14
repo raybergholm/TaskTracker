@@ -15,6 +15,8 @@ sap.ui.define([
         },
 
         onInit: function() {
+            BaseController.prototype.onInit.apply(this, arguments);
+
             var selfNavButton = this.byId("settingsNavButton");
             if(selfNavButton) {
                 selfNavButton.setType(sap.m.ButtonType.Emphasized);

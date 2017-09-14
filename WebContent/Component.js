@@ -1,21 +1,32 @@
-// TODO: This class bloated out a fair bit. Maybe abstract out the data format and file handling some more?
-
 sap.ui.define([
     "jquery.sap.global",
     "sap/ui/core/UIComponent",
-    "./controller/Application"
-], function(jQuery, BaseUIComponent, TaskyApplication) {
+    "./Application"
+], function(jQuery, BaseUIComponent, Application) {
     "use strict";
 
     return BaseUIComponent.extend("com.tasky.Component", {
-        _oTaskyApplication: null,
+        _sContentDensityClassCozy: "sapUiSizeCozy",
+        _sContentDensityClassCompact: "sapUiSizeCompact",
+
+        this._sContentDensityClass: null,
+
+        _oApplication: null,
         getApplication: function() {
-            return this._oTaskyApplication;
+            return this._oApplication;
         },
 
         metadata: {
             manifest: "json",
         },
+
+        getContentDensityClass : function() {
+            if (!this._sContentDensityClass) {
+                this._sContentDensityClass = sap.ui.Device.support.touch ? this._sContentDensityClassCozy : this._sContentDensityClassCompact;
+            }
+            return this._sContentDensityClass;
+        },
+
         createContent: function() {
             return sap.ui.view({
                 id: "Tasky",
@@ -40,8 +51,8 @@ sap.ui.define([
 
             var standardApplication = this.getRootControl().byId("TaskyApp");
 
-            this._oTaskyApplication = new TaskyApplication();
-            this._oTaskyApplication.initialize(this, standardApplication);
+            this._oApplication = new Application();
+            this._oApplication.initialize(this, standardApplication);
 
             console.log("Component init OK");
         }

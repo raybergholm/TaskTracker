@@ -5,6 +5,10 @@ sap.ui.define([
 
     // Pretty much every method here are convenience methods for commonly encountered use cases
     return BaseStandardController.extend("com.tasky.controller.BaseController", {
+        onInit: function(){
+            this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
+        },
+        
         getApplication: function() {
             return this.getOwnerComponent().getApplication();
         },

@@ -30,6 +30,8 @@ sap.ui.define([
         },
 
         onInit: function() {
+            BaseController.prototype.onInit.apply(this, arguments);
+
             this._uiTaskList = this.byId("taskList");
             if(this._uiTaskList) {
                 this._uiTaskList.setSelectedItem(this._uiTaskList.getItems()[0]);

@@ -9,6 +9,8 @@ sap.ui.define([
         _oFormatter: Formatter,
 
         onInit: function() {
+            BaseController.prototype.onInit.apply(this, arguments);
+
             var selfNavButton = this.byId("taskDetailNavButton");
             if(selfNavButton) {
                 selfNavButton.setType(sap.m.ButtonType.Emphasized);
