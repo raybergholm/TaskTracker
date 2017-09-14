@@ -2,13 +2,9 @@ sap.ui.define([
     "sap/ui/base/Object",
     "sap/m/MessageToast",
     "sap/m/MessageBox",
-    "sap/m/Dialog",
-    "sap/m/Button",
-    "sap/m/Text",
-    "sap/m/TextArea",
     "../manager/AppDataManager",
     "../manager/PersistenceManager"
-], function(BaseSapObject, MessageToast, MessageBox, Dialog, Button, Text, TextArea, AppDataManager, PersistenceManager) {
+], function(BaseSapObject, MessageToast, MessageBox, AppDataManager, PersistenceManager) {
     "use strict";
 
     return BaseSapObject.extend("com.tasky.controller.Application", {
