@@ -93,9 +93,11 @@ sap.ui.define([
                 }
 
                 objectStatus.setText(i18nModel.getProperty(data.status)); // fallback: show the status identifier if for some reason it couldn't find the proper label
-                for(var j = 0; j < taskStatuses.length; j++) {
-                    if(data.status === taskStatuses[j].key) {
-                        objectStatus.setText(i18nModel.getProperty(taskStatuses[j].value));
+                if(taskStatuses) {
+                    for(var j = 0; j < taskStatuses.length; j++) {
+                        if(data.status === taskStatuses[j].key) {
+                            objectStatus.setText(i18nModel.getProperty(taskStatuses[j].value));
+                        }
                     }
                 }
                 objectStatus.setState(state);

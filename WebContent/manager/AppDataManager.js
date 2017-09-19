@@ -280,7 +280,7 @@ sap.ui.define([
                 this._handleNoModelException();
             }
 
-            this._oDataModel.loadData(jQuery.sap.getModulePath("com.tasky.model", "/mockData.json"));
+            this._oDataModel.loadData(jQuery.sap.getModulePath("com.tasky.model.data", "/mockData.json"));
         },
 
         changeSelectedTask: function(sPath) {

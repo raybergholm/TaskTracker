@@ -4,7 +4,7 @@
     <Dialog>
         <content>
             <Text
-                text="Handy keybinding: ctrl+S (or command+S) saves your work.">
+                text="Handy keybinding: ctrl+S (or command+S) saves your work." />
         </content>
     </Dialog>
 </core:FragmentDefinition>

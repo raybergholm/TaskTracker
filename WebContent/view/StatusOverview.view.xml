@@ -37,33 +37,5 @@
 				</CustomListItem>
 			</items>
 		</List>
-
-		<!--
-		<IconTabBar id="iconTabBar"
-			expandable="false">
-			<items>
-				<IconTabFilter id=""
-					text="{i18n>AddPalletTabTitle}">
-					<core:Fragment fragmentName="com.tasky.fragment.OverviewKanban" type="XML" />
-				</IconTabFilter>
-				<IconTabFilter id=""
-					text="{i18n>AddPalletTabTitle}">
-					<core:Fragment fragmentName="com.tasky.fragment.OverviewKanban" type="XML" />
-				</IconTabFilter>
-			</items>
-		</IconTabBar>
-		-->
-
-        <footer>
-			<Bar>
-                <contentRight>
-    				<Button id="saveButton"
-                        icon="sap-icon://save"
-                        text="{i18n>ACTIONS.SAVE}"
-                        type="Accept"
-                        press="onPressSave" />
-    			</contentRight>
-            </Bar>
-		</footer>
 	</Page>
 </mvc:View>

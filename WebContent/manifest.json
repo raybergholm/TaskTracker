@@ -8,11 +8,11 @@
             },
             "lang": {
                 "type": "sap.ui.model.json.JSONModel",
-                "uri": "model/languages.json"
+                "uri": "model/data/languages.json"
             },
             "taskMetadata": {
                 "type": "sap.ui.model.json.JSONModel",
-                "uri": "model/taskMetadata.json"
+                "uri": "model/data/taskMetadata.json"
             },
             "workarea": {
                 "type": "sap.ui.model.json.JSONModel",

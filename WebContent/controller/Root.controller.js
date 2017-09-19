@@ -26,7 +26,7 @@ sap.ui.define([
 
         showGlobalErrorDialog: function(oEvent){
             if(!this._uiGlobalErrorDialog){
-                this._uiGlobalErrorDialog = sap.ui.xmlfragment("com.template.dialog.GlobalErrorDialog", this);
+                this._uiGlobalErrorDialog = sap.ui.xmlfragment("com.tasky.dialog.GlobalErrorDialog", this);
                 this.getView().addDependent(this._uiGlobalErrorDialog);
             }
 
