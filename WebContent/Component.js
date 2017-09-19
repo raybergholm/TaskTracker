@@ -9,7 +9,7 @@ sap.ui.define([
         _sContentDensityClassCozy: "sapUiSizeCozy",
         _sContentDensityClassCompact: "sapUiSizeCompact",
 
-        this._sContentDensityClass: null,
+        _sContentDensityClass: null,
 
         _oApplication: null,
         getApplication: function() {

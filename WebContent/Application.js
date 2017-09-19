@@ -2,8 +2,8 @@ sap.ui.define([
     "sap/ui/base/Object",
     "sap/m/MessageToast",
     "sap/m/MessageBox",
-    "../manager/AppDataManager",
-    "../manager/PersistenceManager"
+    "./manager/AppDataManager",
+    "./manager/PersistenceManager"
 ], function(BaseSapObject, MessageToast, MessageBox, AppDataManager, PersistenceManager) {
     "use strict";
 
